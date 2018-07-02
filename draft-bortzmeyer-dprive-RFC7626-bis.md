@@ -1,7 +1,7 @@
 %%%
     Title = "DNS Privacy Considerations"
     abbrev = "DNS Privacy Considerations"
-    category = "std"
+    category = "info"
     docName= "draft-bortzmeyer-RFC7626-bis-00"
     ipr = "trust200902"
     area = "Internet Area"
@@ -51,9 +51,9 @@
 #  Introduction
 
    This document is an analysis of the DNS privacy issues, in the spirit
-   of Section 8 of [RFC6973].
+   of Section 8 of [@!RFC6973].
 
-   The Domain Name System is specified in [RFC1034], [RFC1035], and many
+   The Domain Name System is specified in [@!RFC1034], [@!RFC1035], and many
    later RFCs, which have never been consolidated.  It is one of the
    most important infrastructure components of the Internet and often
    ignored or misunderstood by Internet users (and even by many
@@ -61,29 +61,28 @@
    DNS query (and often several).  Its use has many privacy implications
    and this is an attempt at a comprehensive and accurate list.
 
-   Let us begin with a simplified reminder of how the DNS works.  (See
-   also [DNS-TERMS].)  A client, the stub resolver, issues a DNS query
-   to a server, called the recursive resolver (also called caching
-   resolver or full resolver or recursive name server).  Let's use the
-   query "What are the AAAA records for www.example.com?" as an example.
-   AAAA is the QTYPE (Query Type), and www.example.com is the QNAME
-   (Query Name).  (The description that follows assumes a cold cache,
-   for instance, because the server just started.)  The recursive
-   resolver will first query the root name servers.  In most cases, the
-   root name servers will send a referral.  In this example, the
-   referral will be to the .com name servers.  The resolver repeats the
-   query to one of the .com name servers.  The .com name servers, in
-   turn, will refer to the example.com name servers.  The example.com
-   name server will then return the answer.  The root name servers, the
-   name servers of .com, and the name servers of example.com are called
-   authoritative name servers.  It is important, when analyzing the
-   privacy issues, to remember that the question asked to all these name
-   servers is always the original question, not a derived question.  The
-   question sent to the root name servers is "What are the AAAA records
-   for www.example.com?", not "What are the name servers of .com?".  By
-   repeating the full question, instead of just the relevant part of the
-   question to the next in line, the DNS provides more information than
+   Let us begin with a simplified reminder of how the DNS works. (See also
+   [@?I-D.ietf-dnsop-terminology-bis]) A client, the stub resolver, issues a
+   DNS query to a server, called the recursive resolver (also called caching
+   resolver or full resolver or recursive name server). Let's use the query
+   "What are the AAAA records for www.example.com?" as an example. AAAA is the
+   QTYPE (Query Type), and www.example.com is the QNAME (Query Name). (The
+   description that follows assumes a cold cache, for instance, because the
+   server just started.) The recursive resolver will first query the root name
+   servers. In most cases, the root name servers will send a referral. In this
+   example, the referral will be to the .com name servers. The resolver repeats
+   the query to one of the .com name servers. The .com name servers, in turn,
+   will refer to the example.com name servers. The example.com name server will
+   then return the answer. The root name servers, the name servers of .com, and
+   the name servers of example.com are called authoritative name servers. It is
+   important, when analyzing the privacy issues, to remember that the question
+   asked to all these name servers is always the original question, not a
+   derived question. The question sent to the root name servers is "What are
+   the AAAA records for www.example.com?", not "What are the name servers of
+   .com?". By repeating the full question, instead of just the relevant part of
+   the question to the next in line, the DNS provides more information than
    necessary to the name server.
+
 
    Because DNS relies on caching heavily, the algorithm described just
    above is actually a bit more complicated, and not all questions are
@@ -107,12 +106,12 @@
    caching in the first resolver).
 
    Almost all this DNS traffic is currently sent in clear (unencrypted). At the
-   time of writing there is increasing deployment of DNS-over-TLS {{RFC7858}}
-   and work underway on DoH {{}}. There are a few cases where there is some
-   alternative channel encryption, for instance, in an IPsec VPN, at least
-   between the stub resolver and the resolver.
+   time of writing there is increasing deployment of DNS-over-TLS [@RFC7858]
+   and work underway on DoH [@I-D.ietf-doh-dns-over-https]. There are a few
+   cases where there is some alternative channel encryption, for instance, in
+   an IPsec VPN, at least between the stub resolver and the resolver.
 
-   Today, almost all DNS queries are sent over UDP [thomas-ditl-tcp].
+   Today, almost all DNS queries are sent over UDP [@thomas-ditl-tcp].
    This has practical consequences when considering encryption of the
    traffic as a possible privacy technique.  Some encryption solutions
    are only designed for TCP, not UDP.
@@ -153,16 +152,16 @@
    selecting the hyperlinks, may trigger DNS requests.
 
    For privacy-related terms, we will use the terminology from
-   [RFC6973].
+   [@!RFC6973].
 
 #   Risks
 
    This document focuses mostly on the study of privacy risks for the
    end user (the one performing DNS requests).  We consider the risks of
-   pervasive surveillance [RFC7258] as well as risks coming from a more
+   pervasive surveillance [@!RFC7258] as well as risks coming from a more
    focused surveillance.  Privacy risks for the holder of a zone (the
-   risk that someone gets the data) are discussed in [RFC5936] and
-   [RFC5155].  Non-privacy risks (such as cache poisoning) are out of
+   risk that someone gets the data) are discussed in [@RFC5936] and
+   [@RFC5155].  Non-privacy risks (such as cache poisoning) are out of
    scope.
 
 ##  The Alleged Public Nature of DNS Data
@@ -178,7 +177,7 @@
    lack of search capabilities, only a given QNAME will reveal the
    resource records associated with that name (or that name's non-
    existence).  In other words: one needs to know what to ask for, in
-   order to receive a response.  The zone transfer QTYPE [RFC5936] is
+   order to receive a response.  The zone transfer QTYPE [@RFC5936] is
    often blocked or restricted to authenticated/authorized access to
    enforce this difference (and maybe for other reasons).
 
@@ -200,7 +199,7 @@
    "source IP address + maybe source port", because the port is also in
    the request and can be used to differentiate between several users
    sharing an IP address (behind a Carrier-Grade NAT (CGN), for instance
-   [RFC6269]).
+   [@RFC6269]).
 
    The QNAME is the full name sent by the user.  It gives information
    about what the user does ("What are the MX records of example.net?"
@@ -223,7 +222,7 @@
    potentially sensitive or personally identifiable data in the DNS.  At
    the moment, your DNS traffic might reveal that you are doing email
    but not with whom.  If your Mail User Agent (MUA) starts looking up
-   Pretty Good Privacy (PGP) keys in the DNS [DANE-OPENPGPKEY], then
+   Pretty Good Privacy (PGP) keys in the DNS [@RFC7929], then
    privacy becomes a lot more important.  And email is just an example;
    there would be other really interesting uses for a more privacy-
    friendly DNS.
@@ -236,9 +235,9 @@
   same status as the source address in an HTTP connection. It is now the IP
   address of the recursive resolver that, in a way, "hides" the real user.
   However, hiding does not always work. Sometimes EDNS(0) Client subnet
-  [RFC7871] is used (see its privacy analysis in [denis-edns-client-subnet]).
+  [@RFC7871] is used (see its privacy analysis in [@denis-edns-client-subnet]).
   Sometimes the end user has a personal recursive resolver on her machine. In
-  both cases, the IP address is as sensitive as it is for HTTP [sidn-entrada].
+  both cases, the IP address is as sensitive as it is for HTTP [@sidn-entrada].
 
    A note about IP addresses: there is currently no IETF document that
    describes in detail all the privacy issues around IP addressing.  In
@@ -256,21 +255,22 @@
 ### Data in the DNS payload
 
 At the time of writing there are no standardized client identifiers contained in
-the DNS payload itself (ECS [RFC7871] while widely used is only of Category
+the DNS payload itself (ECS [@RFC7871] while widely used is only of Category
 Informational). 
 
-DNS Cookies [RFC7873] are a lightweight DNS transaction security mechanism that
+DNS Cookies [@RFC7873] are a lightweight DNS transaction security mechanism that
 provides limited protection against a variety of increasingly common
 denial-of-service and amplification/forgery or cache poisoning attacks by
 off-path attackers. It is noted, however, that they are designed to just verify
 IP addresses (and should change once a client's IP address changes), they are
 not designed to actively track users (like HTTP cookies).
 
-There are anecdotal accounts of MAC addresses and even user names being
-inserted in non-standard EDNS(0) options for stub to resolver communications
-[need reference] to support proprietary functionality implemented at the
-resolver (e.g. parental filtering).
-
+There are anecdotal accounts of [MAC
+addresses]
+(https://lists.dns-oarc.net/pipermail/dns-operations/2016-January/014141.html) 
+and even user names being inserted in non-standard EDNS(0) options
+for stub to resolver communications to support proprietary functionality
+implemented at the resolver (e.g. parental filtering).
 
 ##  Cache Snooping
 
@@ -278,7 +278,7 @@ resolver (e.g. parental filtering).
    clients using it (the privacy risks depend on the number of clients).
    This information can sometimes be examined by sending DNS queries
    with RD=0 to inspect cache content, particularly looking at the DNS
-   TTLs [grangeia.snooping].  Since this also is a reconnaissance
+   TTLs [@grangeia.snooping].  Since this also is a reconnaissance
    technique for subsequent cache poisoning attacks, some counter
    measures have already been developed and deployed.
 
@@ -287,14 +287,16 @@ resolver (e.g. parental filtering).
 ### Unencrypted Transports
 
    For unencrypted transports, DNS traffic can be seen by an eavesdropper like
-   any other traffic. (DNSSEC, specified in [RFC4033], explicitly excludes
+   any other traffic. (DNSSEC, specified in [@RFC4033], explicitly excludes
    confidentiality from its goals.) So, if an initiator starts an HTTPS
-   communication with a recipient, while the HTTP traffic will be encrypted, the
-   DNS exchange prior to it will not be. When other protocols will become more
-   and more privacy-aware and secured against surveillance (e.g. [TLS13, QUIC]),
-   the use of unencrypted transports for DNS may become "the weakest link" in
-   privacy. It is noted that there is on-going work attempting to encrypt the
-   SNI in the TLS handshake but that this is a non-trivial problem [need reference].
+   communication with a recipient, while the HTTP traffic will be encrypted,
+   the DNS exchange prior to it will not be. When other protocols will become
+   more and more privacy-aware and secured against surveillance (e.g.
+   [I-D.draft-ietf-tls-tls130, [I-D.draft-ietf-quic-transport]), the use of
+   unencrypted transports for DNS may become "the weakest link" in privacy. It
+   is noted that there is on-going work attempting to encrypt the SNI in the
+   TLS handshake but that this is a non-trivial problem
+   [I-D.ietf-tls-sni-encryption].
 
    An important specificity of the DNS traffic is that it may take a
    different path than the communication between the initiator and the
@@ -357,10 +359,13 @@ features. These issues are not specific to DNS, but DNS traffic is susceptible
 to these attacks when using specific transports.
 
 There are some general examples, for example, certain studies have highlighted
-that IP TTL/Hoplimit values can be used to fingerprint client OS's [need reference].
+that IP TTL or TCP Window sizes [os-fingerprint](http://netres.ec/?b=11B99BD)
+ values can be used to fingerprint client OS's
+ or that various techniques can be used to de-NAT DNS queries
+[dns-de-nat](https://www.researchgate.net/publication/320322146_DNS-DNS_DNS-based_De-NAT_Scheme).
 
 The use of clear text transport options to decrease latency may also identify a
-user e.g. using TCP Fast Open [need reference].
+user e.g. using TCP Fast Open [@RFC7413].
 
 More specifically, (since the deployment of encrypted transports is not
 widespread at the time of writing) users wishing to use encrypted transports for
@@ -371,52 +376,53 @@ actually serve to identify the user as one that desires privacy and can provide
 an added mechanism to track them as they move across network environments.
 
 Users of encrypted transports are also highly likely to re-use sessions for
-multiple DNS queries to optimise performance (e.g. via DNS pipelining or HTTPS
+multiple DNS queries to optimize performance (e.g. via DNS pipelining or HTTPS
 multiplexing). Certain configuration options for encrypted transports could
 also in principle fingerprint a user, for example session resumption, the
 maximum number of messages to send or a maximum connection time before
 closing a connections and re-opening.
 
 Whilst there are known attacks on older versions of TLS the most recent
-recommendations [RFC7525] and developments [TLS1.3] in this area largely
-mitigate those.
+recommendations [@RFC7525] and developments [I-D.draft-ietf-tls-tls13] in this
+area largely mitigate those.
 
-Traffic analysis of unpadded encrypted traffic is also possible [Pitfalls of DNS
-Encryption](https://www.ietf.org/mail-archive/web/dns-privacy/current/pdfWqAIUmEl47.pdf)
-because the sizes and timing of encrypted DNS requests and responses can be
-correlated to unencrypted DNS requests upstream of a recursive resolver.
+Traffic analysis of unpadded encrypted traffic is also possible
+[@pitfalls-of-dns-encrption] because the sizes and timing of encrypted DNS
+requests and responses can be correlated to unencrypted DNS requests upstream
+of a recursive resolver.
+
 
 
 ##  In the Servers
 
-   Using the terminology of [RFC6973], the DNS servers (recursive
+   Using the terminology of [@!RFC6973], the DNS servers (recursive
    resolvers and authoritative servers) are enablers: they facilitate
    communication between an initiator and a recipient without being
    directly in the communications path.  As a result, they are often
-   forgotten in risk analysis.  But, to quote again [RFC6973], "Although
+   forgotten in risk analysis.  But, to quote again [@!RFC6973], "Although
    [...] enablers may not generally be considered as attackers, they may
    all pose privacy threats (depending on the context) because they are
    able to observe, collect, process, and transfer privacy-relevant
-   data."  In [RFC6973] parlance, enablers become observers when they
+   data."  In [@!RFC6973] parlance, enablers become observers when they
    start collecting data.
 
    Many programs exist to collect and analyze DNS data at the servers -- from
    the "query log" of some programs like BIND to tcpdump and more sophisticated
-   programs like PacketQ [packetq] [packetq-list] and DNSmezzo [dnsmezzo]. The
+   programs like PacketQ [@packetq] [@packetq-list] and DNSmezzo [@dnsmezzo]. The
    organization managing the DNS server can use this data itself, or it can be
-   part of a surveillance program like PRISM [prism] and pass data to an
+   part of a surveillance program like PRISM [@prism] and pass data to an
    outside observer.
 
 
 
    Sometimes, this data is kept for a long time and/or distributed to
-   third parties for research purposes [ditl] [day-at-root], security
+   third parties for research purposes [@ditl] [@day-at-root], security
    analysis, or surveillance tasks.  These uses are sometimes under some
    sort of contract, with various limitations, for instance, on
    redistribution, given the sensitive nature of the data.  Also, there
    are observation points in the network that gather DNS data and then
    make it accessible to third parties for research or security purposes
-   ("passive DNS" [passive-dns]).
+   ("passive DNS" [@passive-dns]).
 
 ###  In the Recursive Resolvers
 
@@ -439,19 +445,20 @@ the underlying transport.
 
 #### DoH vs DNS-over-TLS
 
-The proposed specification for DoH [] includes a Privacy Considerations section
-which highlights some of the differences between HTTP and DNS. As a
-deliberate design choice DoH inherits the privacy properties of the HTTPS stack
-and as a consequence introduces new privacy concerns when compared with DNS over
-UDP, TCP or TLS (RFC7858). The rationale for this decision is that retaining the
-ability to leverage the full functionality of the HTTP ecosystem is more
-important than placing specific constraints on this new protocol based on privacy
-considerations (modulo limiting the use of HTTP cookies).
+The proposed specification for DoH [@I-D.ietf-doh-dns-over-https] includes a
+Privacy Considerations section which highlights some of the differences between
+HTTP and DNS. As a deliberate design choice DoH inherits the privacy properties
+of the HTTPS stack and as a consequence introduces new privacy concerns when
+compared with DNS over UDP, TCP or TLS [@RFC7858]. The rationale for this
+decision is that retaining the ability to leverage the full functionality of
+the HTTP ecosystem is more important than placing specific constraints on this
+new protocol based on privacy considerations (modulo limiting the use of HTTP
+cookies).
 
-In analysing the new issues introduced by DoH it is helpful to recognise that
+In analyzing the new issues introduced by DoH it is helpful to recognize that
 there exists a natural tension between
 
-* the wide practice in HTTP to use various headers to optimise HTTP
+* the wide practice in HTTP to use various headers to optimize HTTP
   connections, functionality and behaviour (which can facilitate user
   identification and tracking)
 
@@ -485,7 +492,7 @@ where the low-level origin of the DNS query is easily identifiable.
 
 Privacy focussed users should be aware of the potential for additional client
 identifiers in DoH compared to DNS-over-TLS and may want to only use DoH
-implementations that provide clear guidence on what identifiers they add.
+implementations that provide clear guidance on what identifiers they add.
 
 
 ###  In the Authoritative Name Servers
@@ -513,7 +520,7 @@ implementations that provide clear guidence on what identifiers they add.
    recursive resolver shared by many users.
 
    This "protection", when using a large resolver with many clients, is
-   no longer present if [CLIENT-SUBNET] is used because, in this case,
+   no longer present if ECS [@RFC7871] is used because, in this case,
    the authoritative name server sees the original IP address (or
    prefix, depending on the setup).
 
@@ -534,7 +541,7 @@ implementations that provide clear guidence on what identifiers they add.
    outside of the ccTLD's country.  End users may not anticipate that,
    when doing a security analysis.
 
-   Also, it seems (see the survey described in [aeris-dns]) that there
+   Also, it seems (see the survey described in [@aeris-dns]) that there
    is a strong concentration of authoritative name servers among
    "popular" domains (such as the Alexa Top N list).  For instance,
    among the Alexa Top 100K, one DNS provider hosts today 10% of the
@@ -566,10 +573,10 @@ implementations that provide clear guidence on what identifiers they add.
    long period of time, thereby foregoing detection.  This may be done
    for what could be claimed to be good reasons, such as optimization or
    caching, but it leads to a reduction of privacy compared to if there
-   was no attacker present.  Also, malware like DNSchanger [dnschanger]
+   was no attacker present.  Also, malware like DNSchanger [@dnschanger]
    can change the recursive resolver in the machine's configuration, or
    the routing itself can be subverted (for instance,
-   [ripe-atlas-turkey]).
+   [@ripe-atlas-turkey]).
 
 ### Authentication of servers
 
@@ -600,7 +607,7 @@ channels are also possible, but out of the scope of this document.
    a period, then that same adversary may be able to re-identify the
    user solely based on their pattern of DNS queries later on regardless
    of the location from which the user makes those queries.  For
-   example, one study [herrmann-reidentification] found that such re-
+   example, one study [@herrmann-reidentification] found that such re-
    identification is possible so that "73.1% of all day-to-day links
    were correctly established, i.e. user u was either re-identified
    unambiguously (1) or the classifier correctly reported that u was not
@@ -616,15 +623,15 @@ channels are also possible, but out of the scope of this document.
    could weaken some privacy solutions.
 
    The IAB privacy and security program also have a work in progress
-   [RFC7624] that considers such inference-based attacks in a more
+   [@RFC7624] that considers such inference-based attacks in a more
    general framework.
 
 ##  More Information
 
-   Useful background information can also be found in [tor-leak](tor_ref) (about
+   Useful background information can also be found in [@tor-leak] (about
    the risk of privacy leak through DNS) and in a few academic papers:
-   [yanbin-tsudik], [castillo-garcia], [fangming-hori-sakurai], and
-   [federrath-fuchs-herrmann-piosecny].
+   [@yanbin-tsudik], [@castillo-garcia], [@fangming-hori-sakurai], and
+   [@federrath-fuchs-herrmann-piosecny].
 
 #  Actual "Attacks"
 
@@ -640,10 +647,10 @@ channels are also possible, but out of the scope of this document.
    detect "abnormal" behavior that can be traced back to the activity of
    malware on infected machines.  Yes, this research was done for the
    good, but technically it is a privacy attack and it demonstrates the
-   power of the observation of DNS traffic.  See [dns-footprint],
-   [dagon-malware], and [darkreading-dns].
+   power of the observation of DNS traffic.  See [@dns-footprint],
+   [@dagon-malware], and [@darkreading-dns].
 
-   Passive DNS systems [passive-dns] allow reconstruction of the data of
+   Passive DNS systems [@passive-dns] allow reconstruction of the data of
    sometimes an entire zone.  They are used for many reasons -- some
    good, some bad.  Well-known passive DNS systems keep only the DNS
    responses, and not the source IP address of the client, precisely for
@@ -652,7 +659,7 @@ channels are also possible, but out of the scope of this document.
 
    The revelations (from the Edward Snowden documents, which were leaked
    from the National Security Agency (NSA)) of the MORECOWBELL
-   surveillance program [morecowbell], which uses the DNS, both
+   surveillance program [@morecowbell], which uses the DNS, both
    passively and actively, to surreptitiously gather information about
    the users, is another good example showing that the lack of privacy
    protections in the DNS is actively exploited.
@@ -660,11 +667,13 @@ channels are also possible, but out of the scope of this document.
 
 #  Legalities
 
-   To our knowledge, there are no specific privacy laws for DNS data, in
-   any country.  Interpreting general privacy laws like
-   [data-protection-directive] or [GDPR] applicable in the European Union in the context of DNS
-   traffic data is not an easy task, and we do not know a court
-   precedent here.  See an interesting analysis in [sidn-entrada].
+   To our knowledge, there are no specific privacy laws for DNS data, in any
+   country. Interpreting general privacy laws like [@data-protection-directive]
+   or [GDPR](https://www.eugdpr.org/the-regulation.html) applicable in the
+   European Union in the context of DNS traffic data is not an easy task, and
+   we do not know a court precedent here. See an interesting analysis in
+   [@sidn-entrada].
+
 
 #  Security Considerations
 
@@ -673,7 +682,9 @@ channels are also possible, but out of the scope of this document.
    and compromises they imply), much less define solutions. Possible solutions
    to the issues described here are discussed in other documents (currently too
    many to all be mentioned); see, for instance, 'Recommendations for DNS
-   Privacy Operators' [I-D.draft-dickinson-dprive-bcp-op].
+   Privacy Operators' [@I-D.dickinson-bcp-op].
+
+TODO: ***** update this last reference when the latest draft is submitted!
 
 
 
@@ -689,5 +700,321 @@ channels are also possible, but out of the scope of this document.
    Finch, Stephen Farrell, Peter Koch, Simon Josefsson, and Frank Denis
    for good written contributions.  And thanks to the IESG members for
    the last remarks.
+   
+
+<reference anchor="os-fingerprint" target="http://www.netresec.com/?page=Blog&month=2011-11&post=Passive-OS-Fingerprinting">
+<front>
+<title>Passive OS Fingerprinting</title>
+<author fullname="netresec" surname="netresec"/>
+<date/>
+</front>
+</reference>
+
+<reference anchor="pitfalls-of-dns-encrption" target="https://www.ietf.org/mail-archive/web/dns-privacy/current/pdfWqAIUmEl47.pdf">
+<front>
+<title>Pretty Bad Privacy:Pitfalls of DNS Encryption</title>
+<author fullname="Haya Shulman" surname="Shulman" initials="H"/>
+<date/>
+</front>
+</reference>
+
+<reference anchor="denis-edns-client-subnet" target="https://00f.net/2013/08/07/edns-client-subnet/">
+<front>
+<title>Security and privacy issues of edns-client-subnet</title>
+<author fullname="Frank Denis" surname="Denis" initials="F"/>
+<date month="August" year="2013"/>
+</front>
+</reference>
+
+<reference anchor="dagon-malware" target="https://www.dns-oarc.net/files/workshop-2007/Dagon-Resolution-corruption.pdf">
+<front>
+<title>Corrupted DNS Resolution Paths: The Rise of a Malicious
+Resolution Authority</title>
+<author surname="Dagon" initials="D." fullname="David Dagon"/>
+<date year="2007"/>
+<abstract>
+<t>Presented at the DNS-OARC meeting in Atlanta.</t>
+</abstract>
+</front>
+</reference>
+
+<reference anchor="dns-footprint" target="https://www.dns-oarc.net/files/workshop-201010/OARC-ers-20101012.pdf">
+<front>
+<title>DNS footprint of malware</title>
+<author fullname="Ed Stoner" surname="Stoner" initials="E."/>
+<date day="13" month="October" year="2010"/>
+<abstract>
+<t>Finding Malicious Activity Using Network Flow Data. Presented at the DNS-OARC meeting in Denver.</t>
+</abstract>
+</front>
+</reference>
+
+<reference anchor="morecowbell"
+	   target="https://gnunet.org/morecowbell">
+<front>
+<title>NSA's MORECOWBELL: Knell for DNS</title>
+<author fullname="Christian Grothoff" surname="Grothoff" initials="C."/>
+<author fullname="Matthias Wachs" surname="Wachs" initials="M."/>
+<author fullname="Monika Ermert" surname="Ermert" initials="M."/>
+<author fullname="Jacob Appelbaum" surname="Appelbaum" initials="J."/>
+<date day="24" month="January" year="2015"/>
+<abstract>
+<t>Detailed technical analysis of the MORECOWBELL program, followed by
+opinions about the future of the DNS and the needs for alternate
+systems. Stable GNUnet identifier <eref target="gnunet://fs/chk/RSVKSQXNKSHYAD518W1CQ79S2FGRYAR7CM7MMEBFTXJ677DVJQN8HR3TR0K544Y050THXM6KZ0ZV6BP3NM31P90ZDGXYTX21MNV50W8.1XBPZ4MVFQCDY914S1HB7S8VSYDPCXB0XEY50D6ZK0V30C7N39QFKX2AXW8EW9M8HCCPR6EEEN89D9G6Y8NS7DJMV1TPQXW22E9QWHR.968272"/></t>
+</abstract>
+</front>
+</reference>
+
+<reference anchor="darkreading-dns" target="http://www.darkreading.com/monitoring/got-malware-three-signs-revealed-in-dns/240154181">
+<front>
+<title>Got Malware? Three Signs Revealed In DNS Traffic</title>
+<author fullname="Robert Lemos" surname="Lemos" initials="R."/>
+<date month="May" year="2013" day="3"/>
+<abstract>
+<t>Monitoring your network's requests for domain lookups can reveal
+network problems and potential malware infections.</t>
+</abstract>
+</front>
+</reference>
+
+<reference anchor="dnschanger" target="http://en.wikipedia.org/wiki/DNSChanger">
+<front>
+<title>DNSchanger</title>
+<author fullname="Wikipedia" surname="Wikipedia"/>
+<date month="November" year="2011"/>
+</front>
+</reference>
+
+<reference anchor="packetq" target="https://github.com/dotse/packetq/wiki">
+<front>
+<title>PacketQ, a simple tool to make SQL-queries against PCAP-files</title>
+<author fullname="Dot SE" surname="Dot SE"/>
+<date year="2011"/>
+<abstract><t>A tool that provides a basic SQL-frontend to
+PCAP-files. Outputs JSON, CSV and XML and includes a build-in
+webserver with JSON-api and a nice looking AJAX GUI.</t></abstract>
+</front>
+</reference>
+
+<reference anchor="packetq-list" target="http://lists.iis.se/mailman/listinfo/packetq">
+<front>
+<title>"PacketQ Mailing List"</title>
+<author fullname="PacketQ" surname="PacketQ"/>
+<date/>
+</front>
+</reference>
+
+<reference anchor="dnsmezzo" target="http://www.dnsmezzo.net/">
+<front>
+<title>DNSmezzo</title>
+<author fullname="Stéphane Bortzmeyer" surname="Bortzmeyer" initials="S."/>
+<date year="2009"/>
+<abstract><t>DNSmezzo is a framework for the capture and analysis of DNS packets. It allows the manager of a DNS name server to get information such as the top N domains requests, the percentage of IPv6 queries, the most talkative clients, etc. It is part of the broader program DNSwitness.</t></abstract>
+</front>
+</reference>
+
+<reference anchor="prism" target="http://en.wikipedia.org/wiki/PRISM_%28surveillance_program%29">
+<front>
+<title>PRISM</title>
+<author fullname="National Security Agency" surname="NSA"/>
+<date year="2007"/>
+</front>
+</reference>
+
+<!-- https://github.com/bortzmeyer/my-IETF-work/issues/10 -->
+<reference anchor="grangeia.snooping"
+	   target="http://www.msit2005.mut.ac.th/msit_media/1_2551/nete4630/materials/20080718130017Hc.pdf">
+  <front>
+    <title>DNS Cache Snooping or Snooping the Cache for Fun and
+    Profit</title>
+    <author fullname="Luis Grangeia" surname="Grangeia"
+	    initials="L."/>
+    <date year="2004"/>
+  </front>
+</reference>
+  
+<reference anchor="ditl" target="http://www.caida.org/projects/ditl/">
+<front>
+<title>A Day in the Life of the Internet (DITL)</title>
+<author fullname="CAIDA" surname="CAIDA"/>
+<date year="2002"/>
+<abstract>
+<t>CAIDA, ISC, DNS-OARC, and many partnering root nameserver operators
+and other organizations to coordinate and conduct large-scale,
+simultaneous traffic data collection events with the goal of capturing
+datasets of strategic interest to researchers. Over the last several
+years, we have come to refer to this project and related activities as
+"A Day in the Life of the Internet" (DITL).</t>
+</abstract>
+</front>
+</reference>
+
+<reference anchor="day-at-root"
+	   target="http://www.sigcomm.org/sites/default/files/ccr/papers/2008/October/1452335-1452341.pdf">
+<front>
+<title>A Day at the Root of the Internet</title>
+<author fullname="Sebastian Castro" initials="S." surname="Castro"/>
+<author fullname="Duane Wessels" initials="D." surname="Wessels"/>
+<author fullname="Marina Fomenkov" initials="M." surname="Fomenkov"/>
+<author fullname="Kimberly Claffy" initials="K." surname="Claffy"/>
+<date year="2008"/>
+</front>
+</reference>
+
+<reference anchor="ripe-atlas-turkey" target="https://labs.ripe.net/Members/emileaben/
+              a-ripe-atlas-view-of-internet-meddling-in-turkey">
+<front>
+<title>A RIPE Atlas View of Internet Meddling in Turkey</title>
+<author fullname="E. Aben" initials="E." surname="Aben"/>
+<date month="March" year="2014"/>
+</front>
+</reference>
+
+<reference anchor="data-protection-directive" target="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:31995L0046:EN:HTML">
+<front>
+<title>European directive 95/46/EC on the protection of individuals
+with regard to the processing of personal data and on the free
+movement of such data</title>
+<author fullname="European Parliament" surname="Europe"/>
+<date day="23" month="November" year="1995"/>
+</front>
+</reference>
+
+<reference anchor="passive-dns" target="http://www.enyo.de/fw/software/dnslogger/#2">
+<front>
+<title>Passive DNS Replication</title>
+<author fullname="Florian Weimer" initials="F." surname="Weimer"/>
+<date month="April"  year="2005"/>
+<abstract>
+<t>FIRST 17</t>
+</abstract>
+</front>
+</reference>
+
+<reference anchor="tor-leak" target="https://trac.torproject.org/projects/tor/wiki/doc/TorFAQ#IkeepseeingthesewarningsaboutSOCKSandDNSandinformationleaks.ShouldIworry">
+<front>
+<title>DNS leaks in Tor</title>
+<author fullname="Tor Project" surname="Tor"/>
+<date year="2013"/>
+</front>
+</reference>
+
+<reference anchor="yanbin-tsudik" target="http://arxiv.org/abs/0910.2472">
+<front>
+<title>Towards Plugging Privacy Leaks in the Domain Name System</title>
+<author fullname="Yanbin Lu" surname="Yanbin" initials="L."/>
+<author fullname="Gene Tsudik" surname="Tsudik" initials="G."/>
+<date year="2009"/>
+<abstract>
+<t>Peer-to-peer computing (p2p), 2010 IEEE tenth
+international conference on, IEEE, Piscataway, NJ, USA, 25 August 2010
+(2010-08-25), pages 1-10, XP031752227, ISBN: 978-1-4244-7140-9</t>
+<t>Actually, it is not about the DNS but about a complete replacement, using DHTs for resolution.</t>
+</abstract></front>
+</reference>
+
+<reference anchor="castillo-garcia" target="http://deic.uab.es/~joaquin/papers/is08.pdf">
+<front>
+<title>Anonymous Resolution of DNS Queries</title>
+<author initials="S." surname="Castillo-Perez" fullname="S. Castillo-Perez"/>
+<author initials="J." surname="Garcia-Alfaro" fullname="J.Garcia-Alfaro"/>
+<date year="2008"/>
+<abstract>
+<t>OTM 2008 Confederated International Conferences, CoopIS, DOA, GADA, IS, and ODBASE 2008, Monterrey, Mexico, November 9-14, 2008, Proceedings</t>
+<t>Focus on ENUM privacy risks. A suggested solution is to add gratuitous queries, in order to hide the real ones.</t>
+</abstract>
+</front>
+</reference>
+
+<reference anchor="fangming-hori-sakurai" target="http://dl.acm.org/citation.cfm?id=1262690.1262986">
+<front>
+<title>Analysis of Privacy Disclosure in DNS Query</title>
+<author fullname="Fangming Zhao" surname="Fangming"/>
+<author fullname="Yoshiaki Hori" surname="Hori" initials="Y."/>
+<author fullname="Kouichi Sakurai" surname="Sakurai" initials="K."/>
+<date year="2007"/>
+<abstract>
+<t>DOI: 10.1109/MUE.2007.84 Conference: 2007 International Conference on Multimedia and Ubiquitous Engineering (MUE 2007), 26-28 April 2007, Seoul, Korea</t>
+<t>Not available online.</t>
+</abstract>
+</front>
+</reference>
+
+<reference anchor="thomas-ditl-tcp"
+	   target="https://indico.dns-oarc.net/event/20/session/2/contribution/15/material/slides/1.pdf">
+<front>
+<title>An Analysis of TCP Traffic in Root Server DITL Data"</title>
+<author fullname="Matt Thomas" surname="Thomas" initials="M."/>
+<author fullname="Duane Wessels" surname="Wessels" initials="D."/>
+<date year="2014"/>
+</front>
+</reference>
+
+<reference anchor="federrath-fuchs-herrmann-piosecny" target="https://svs.informatik.uni-hamburg.de/publications/2011/2011-09-14_FFHP_PrivacyPreservingDNS_ESORICS2011.pdf">
+<front>
+<title>Privacy-Preserving DNS: Analysis of Broadcast, Range Queries and Mix-Based Protection Methods</title>
+<author fullname="Hannes Federrath" surname="Federrath" initials="H."/>
+<author fullname="Karl-Peter Fuchs" surname="Fuchs" initials="K.-P."/>
+<author fullname="Dominik Herrmann" surname="Herrmann" initials="D."/>
+<author fullname="Christopher Piosecny" surname="Piosecny" initials="C."/>
+<date year="2011"/>
+<abstract>
+<t>COMPUTER SECURITY ESORICS 2011, SPRINGER BERLIN HEIDELBERG, BERLIN, HEIDELBERG, PAGE(S) 665 - 683, XP019164096, ISBN: 978-3-642-23821-5</t>
+<t>Privacy is improved by broadcasting of the most common names plus mixes (a Tor-like routing system).</t>
+</abstract>
+</front>
+</reference>
+
+<reference anchor="aeris-dns" target="https://blog.imirhil.fr/vie-privee-et-le-dns-alors.html">
+<front>
+<title>Vie privée : et le DNS alors? (In French)</title>
+<author fullname="Nicolas Vinot" surname="Vinot" initials="N."/>
+<date year="2015"/>
+<abstract>
+<t>A survey of the DNS privacy issues, specifically from the point of
+view of the concentration in DNS providers. With data drawn from a DNS
+harvest of Alexa Top N's authoritative name servers.
+</t>
+</abstract>
+</front>
+</reference>
+
+<reference anchor="herrmann-reidentification"
+	   target="http://epub.uni-regensburg.de/21103/1/Paper_PUL_nordsec_published.pdf">
+  <front>
+    <title>Analyzing characteristic host access patterns for re-identification of
+    web user sessions</title>
+    <author fullname="Dominik Herrmann" surname="Herrmann" initials="D."/>
+    <author fullname="Christoph Gerber" surname="Gerber" initials="C."/>
+    <author fullname="Christian Banse" surname="Banse" initials="C."/>
+    <author fullname="Hannes Federrath" surname="Federrath" initials="H."/>
+    <date year="2012"/>
+    <abstract>
+      <t>Abstract. An attacker, who is able to observe a web user over a long
+period of time, learns a lot about his interests. It may be difficult to
+track users with regularly changing IP addresses, though. We show how
+patterns mined from web traffic can be used to re-identify a majority
+of users, i. e. link multiple sessions of them. </t>
+    </abstract>
+  </front>
+</reference>
+
+<reference anchor="sidn-entrada"
+	   target="https://www.sidnlabs.nl/uploads/tx_sidnpublications/SIDN_Labs_Privacyraamwerk_Position_Paper_V1.4_ENG.pdf">
+<front>
+<title>A privacy framework for 'DNS big data' applications</title>
+<author fullname="Cristian Hesselman" surname="Hesselman" initials="C."/>
+<author fullname="Jelte Jansen" surname="Jansen" initials="J."/>
+<author fullname="Maarten Wullink" surname="Wullink" initials="M."/>
+<author fullname="Karin Vink" surname="Vink" initials="K."/>
+<author fullname="Maarten Simon" surname="Simon" initials="M."/>
+<date year="2014"/>
+  <abstract><t>A good analysis of DNS privacy, with quantitative
+  measurements showing that, "for the great majority of resolvers, therefore,
+the associated IP address is personal data", and a privacy policy for
+big data analysis.</t></abstract>
+</front>
+</reference>
 
 {backmatter}
