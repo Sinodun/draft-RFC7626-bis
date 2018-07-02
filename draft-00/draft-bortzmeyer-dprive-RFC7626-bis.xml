@@ -757,7 +757,7 @@ channels are also possible, but out of the scope of this document.
 <?rfc include="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7929.xml"?>
 <reference anchor="aeris-dns" target="https://blog.imirhil.fr/vie-privee-et-le-dns-alors.html">
 <front>
-<title>Vie privée : et le DNS alors? (In French)</title>
+<title>Vie privee: et le DNS alors?</title>
 <author fullname="Nicolas Vinot" surname="Vinot" initials="N."/>
 <date year="2015"/>
 <abstract>
@@ -767,6 +767,7 @@ harvest of Alexa Top N's authoritative name servers.
 </t>
 </abstract>
 </front>
+<seriesInfo name="(In" value="French)"/>
 </reference>
 <reference anchor="castillo-garcia" target="http://deic.uab.es/~joaquin/papers/is08.pdf">
 <front>
@@ -786,30 +787,30 @@ harvest of Alexa Top N's authoritative name servers.
 Resolution Authority</title>
 <author surname="Dagon" initials="D." fullname="David Dagon"/>
 <date year="2007"/>
-<abstract>
-<t>Presented at the DNS-OARC meeting in Atlanta.</t>
-</abstract>
 </front>
+<seriesInfo name="ISC/OARC" value="Workshop"/>
 </reference>
-<reference anchor="darkreading-dns" target="http://www.darkreading.com/monitoring/got-malware-three-signs-revealed-in-dns/240154181">
+<reference anchor="darkreading-dns" target="http://www.darkreading.com/analytics/security-monitoring/got-malware-three-signs-revealed-in-dns-traffic/d/d-id/1139680">
 <front>
 <title>Got Malware? Three Signs Revealed In DNS Traffic</title>
 <author fullname="Robert Lemos" surname="Lemos" initials="R."/>
-<date month="May" year="2013" day="3"/>
+<date month="May" year="2013"/>
 <abstract>
 <t>Monitoring your network's requests for domain lookups can reveal
 network problems and potential malware infections.</t>
 </abstract>
 </front>
+<seriesInfo name="InformationWeek" value="Dark Reading"/>
 </reference>
 <reference anchor="data-protection-directive" target="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:31995L0046:EN:HTML">
 <front>
-<title>European directive 95/46/EC on the protection of individuals
+<title>Directive 95/46/EC of the European Pariament and of the council on the protection of individuals
 with regard to the processing of personal data and on the free
 movement of such data</title>
-<author fullname="European Parliament" surname="Europe"/>
-<date day="23" month="November" year="1995"/>
+<author><organization>European Parliament</organization></author>
+<date month="November" year="1995"/>
 </front>
+<seriesInfo name='Official Journal L 281,' value='pp. 0031 - 0050' />
 </reference>
 <reference anchor="day-at-root"
        target="http://www.sigcomm.org/sites/default/files/ccr/papers/2008/October/1452335-1452341.pdf">
@@ -819,8 +820,10 @@ movement of such data</title>
 <author fullname="Duane Wessels" initials="D." surname="Wessels"/>
 <author fullname="Marina Fomenkov" initials="M." surname="Fomenkov"/>
 <author fullname="Kimberly Claffy" initials="K." surname="Claffy"/>
-<date year="2008"/>
+<date month="October" year="2008"/>
 </front>
+<seriesInfo name='ACM SIGCOMM Computer Communication Review,' value='Vol. 38, Number 5'/>
+<seriesInfo name="DOI" value="10.1145/1452335.1452341"/>
 </reference>
 <reference anchor="denis-edns-client-subnet" target="https://00f.net/2013/08/07/edns-client-subnet/">
 <front>
@@ -832,7 +835,7 @@ movement of such data</title>
 <reference anchor="ditl" target="http://www.caida.org/projects/ditl/">
 <front>
 <title>A Day in the Life of the Internet (DITL)</title>
-<author fullname="CAIDA" surname="CAIDA"/>
+<author><organization>CAIDA</organization></author>
 <date year="2002"/>
 <abstract>
 <t>CAIDA, ISC, DNS-OARC, and many partnering root nameserver operators
@@ -846,55 +849,60 @@ years, we have come to refer to this project and related activities as
 </reference>
 <reference anchor="dns-footprint" target="https://www.dns-oarc.net/files/workshop-201010/OARC-ers-20101012.pdf">
 <front>
-<title>DNS footprint of malware</title>
+<title>DNS Footprint of Malware</title>
 <author fullname="Ed Stoner" surname="Stoner" initials="E."/>
-<date day="13" month="October" year="2010"/>
-<abstract>
-<t>Finding Malicious Activity Using Network Flow Data. Presented at the DNS-OARC meeting in Denver.</t>
-</abstract>
+<date month="October" year="2010"/>
 </front>
+<seriesInfo name="OARC" value="Workshop"/>
 </reference>
-<reference anchor="dnschanger" target="http://en.wikipedia.org/wiki/DNSChanger">
+<reference anchor="dnschanger" target="https://en.wikipedia.org/w/index.php?title=DNSChanger&amp;oldid=578749672">
 <front>
-<title>DNSchanger</title>
-<author fullname="Wikipedia" surname="Wikipedia"/>
-<date month="November" year="2011"/>
+<title>DNSChanger</title>
+<author><organization>Wikipedia</organization></author>
+<date month="October" year="2013"/>
 </front>
 </reference>
 <reference anchor="dnsmezzo" target="http://www.dnsmezzo.net/">
 <front>
 <title>DNSmezzo</title>
-<author fullname="Stéphane Bortzmeyer" surname="Bortzmeyer" initials="S."/>
+<author fullname="Stephane Bortzmeyer" surname="Bortzmeyer" initials="S."/>
 <date year="2009"/>
 <abstract><t>DNSmezzo is a framework for the capture and analysis of DNS packets. It allows the manager of a DNS name server to get information such as the top N domains requests, the percentage of IPv6 queries, the most talkative clients, etc. It is part of the broader program DNSwitness.</t></abstract>
 </front>
 </reference>
-<reference anchor="fangming-hori-sakurai" target="http://dl.acm.org/citation.cfm?id=1262690.1262986">
+<reference anchor="fangming-hori-sakurai"
+       target="http://dl.acm.org/citation.cfm?id=1262690.1262986">
 <front>
 <title>Analysis of Privacy Disclosure in DNS Query</title>
-<author fullname="Fangming Zhao" surname="Fangming"/>
+<author fullname="Fangming Zhao" surname="Fangming" initials="Z."/>
 <author fullname="Yoshiaki Hori" surname="Hori" initials="Y."/>
 <author fullname="Kouichi Sakurai" surname="Sakurai" initials="K."/>
-<date year="2007"/>
+<date month="April" year="2007"/>
 <abstract>
-<t>DOI: 10.1109/MUE.2007.84 Conference: 2007 International Conference on Multimedia and Ubiquitous Engineering (MUE 2007), 26-28 April 2007, Seoul, Korea</t>
 <t>Not available online.</t>
 </abstract>
 </front>
+<seriesInfo name="2007 International Conference on Multimedia and Ubiquitous Engineering (MUE 2007)," value="Seoul, Korea"/>
+<seriesInfo name='ISBN: 0-7695-2777-9,' value='pp. 952-957' />
+<seriesInfo name="DOI" value="10.1109/MUE.2007.84"/>
 </reference>
 <reference anchor="federrath-fuchs-herrmann-piosecny" target="https://svs.informatik.uni-hamburg.de/publications/2011/2011-09-14_FFHP_PrivacyPreservingDNS_ESORICS2011.pdf">
 <front>
-<title>Privacy-Preserving DNS: Analysis of Broadcast, Range Queries and Mix-Based Protection Methods</title>
+<title>Privacy-Preserving DNS: Analysis of Broadcast, Range Queries and Mix-based Protection Methods</title>
 <author fullname="Hannes Federrath" surname="Federrath" initials="H."/>
 <author fullname="Karl-Peter Fuchs" surname="Fuchs" initials="K.-P."/>
 <author fullname="Dominik Herrmann" surname="Herrmann" initials="D."/>
 <author fullname="Christopher Piosecny" surname="Piosecny" initials="C."/>
 <date year="2011"/>
 <abstract>
-<t>COMPUTER SECURITY ESORICS 2011, SPRINGER BERLIN HEIDELBERG, BERLIN, HEIDELBERG, PAGE(S) 665 - 683, XP019164096, ISBN: 978-3-642-23821-5</t>
 <t>Privacy is improved by broadcasting of the most common names plus mixes (a Tor-like routing system).</t>
 </abstract>
 </front>
+
+<seriesInfo name="Computer Security ESORICS 2011," value="Springer"/>
+<seriesInfo name="page(s)" value="665-683"/>
+<seriesInfo name="ISBN" value="978-3-642-23821-5"/>
+
 </reference>
 <reference anchor="grangeia.snooping"
        target="http://www.msit2005.mut.ac.th/msit_media/1_2551/nete4630/materials/20080718130017Hc.pdf">
@@ -903,15 +911,15 @@ years, we have come to refer to this project and related activities as
     Profit</title>
     <author fullname="Luis Grangeia" surname="Grangeia"
         initials="L."/>
-    <date year="2004"/>
+    <date month="February" year="2004"/>
   </front>
 </reference>
   
 <reference anchor="herrmann-reidentification"
        target="http://epub.uni-regensburg.de/21103/1/Paper_PUL_nordsec_published.pdf">
   <front>
-    <title>Analyzing characteristic host access patterns for re-identification of
-    web user sessions</title>
+    <title>Analyzing Characteristic Host Access Patterns for Re-Identification of
+    Web User Sessions</title>
     <author fullname="Dominik Herrmann" surname="Herrmann" initials="D."/>
     <author fullname="Christoph Gerber" surname="Gerber" initials="C."/>
     <author fullname="Christian Banse" surname="Banse" initials="C."/>
@@ -925,6 +933,7 @@ patterns mined from web traffic can be used to re-identify a majority
 of users, i. e. link multiple sessions of them. </t>
     </abstract>
   </front>
+<seriesInfo name="DOI" value="10.1007/978-3-642-27937-9_10"/>
 </reference>
 <reference anchor="morecowbell"
        target="https://gnunet.org/morecowbell">
@@ -934,18 +943,19 @@ of users, i. e. link multiple sessions of them. </t>
 <author fullname="Matthias Wachs" surname="Wachs" initials="M."/>
 <author fullname="Monika Ermert" surname="Ermert" initials="M."/>
 <author fullname="Jacob Appelbaum" surname="Appelbaum" initials="J."/>
-<date day="24" month="January" year="2015"/>
+<date month="January" year="2015"/>
 <abstract>
 <t>Detailed technical analysis of the MORECOWBELL program, followed by
 opinions about the future of the DNS and the needs for alternate
 systems. Stable GNUnet identifier <eref target="gnunet://fs/chk/RSVKSQXNKSHYAD518W1CQ79S2FGRYAR7CM7MMEBFTXJ677DVJQN8HR3TR0K544Y050THXM6KZ0ZV6BP3NM31P90ZDGXYTX21MNV50W8.1XBPZ4MVFQCDY914S1HB7S8VSYDPCXB0XEY50D6ZK0V30C7N39QFKX2AXW8EW9M8HCCPR6EEEN89D9G6Y8NS7DJMV1TPQXW22E9QWHR.968272"/></t>
 </abstract>
 </front>
+<seriesInfo name="GNUnet" value="e.V."/>
 </reference>
 <reference anchor="packetq" target="https://github.com/dotse/packetq/wiki">
 <front>
 <title>PacketQ, a simple tool to make SQL-queries against PCAP-files</title>
-<author fullname="Dot SE" surname="Dot SE"/>
+<author><organization>Dot SE</organization></author>
 <date year="2011"/>
 <abstract><t>A tool that provides a basic SQL-frontend to
 PCAP-files. Outputs JSON, CSV and XML and includes a build-in
@@ -954,8 +964,8 @@ webserver with JSON-api and a nice looking AJAX GUI.</t></abstract>
 </reference>
 <reference anchor="packetq-list" target="http://lists.iis.se/mailman/listinfo/packetq">
 <front>
-<title>"PacketQ Mailing List"</title>
-<author fullname="PacketQ" surname="PacketQ"/>
+<title>PacketQ Mailing List</title>
+<author><organization>PacketQ</organization></author>
 <date/>
 </front>
 </reference>
@@ -963,7 +973,7 @@ webserver with JSON-api and a nice looking AJAX GUI.</t></abstract>
 <front>
 <title>Passive DNS Replication</title>
 <author fullname="Florian Weimer" initials="F." surname="Weimer"/>
-<date month="April"  year="2005"/>
+<date month="April" year="2005"/>
 <abstract>
 <t>FIRST 17</t>
 </abstract>
@@ -976,23 +986,21 @@ webserver with JSON-api and a nice looking AJAX GUI.</t></abstract>
 <date/>
 </front>
 </reference>
-<reference anchor="prism" target="http://en.wikipedia.org/wiki/PRISM_%28surveillance_program%29">
+<reference anchor="prism" target="https://en.wikipedia.org/w/index.php?title=PRISM_(surveillance_program)&amp;oldid=673789455">
 <front>
-<title>PRISM</title>
-<author fullname="National Security Agency" surname="NSA"/>
-<date year="2007"/>
+<title>PRISM (surveillance program)</title>
+<author><organization>Wikipedia</organization></author>
+<date month="July" year="2015"/>
 </front>
 </reference>
-<reference anchor="ripe-atlas-turkey" target="https://labs.ripe.net/Members/emileaben/
-              a-ripe-atlas-view-of-internet-meddling-in-turkey">
+<reference anchor="ripe-atlas-turkey" target="https://labs.ripe.net/Members/emileaben/a-ripe-atlas-view-of-internet-meddling-in-turkey">
 <front>
 <title>A RIPE Atlas View of Internet Meddling in Turkey</title>
-<author fullname="E. Aben" initials="E." surname="Aben"/>
+<author fullname="Emile Aben" initials="E." surname="Aben"><organization>RIPE NCC</organization></author>
 <date month="March" year="2014"/>
 </front>
 </reference>
-<reference anchor="sidn-entrada"
-       target="https://www.sidnlabs.nl/uploads/tx_sidnpublications/SIDN_Labs_Privacyraamwerk_Position_Paper_V1.4_ENG.pdf">
+<reference anchor="sidn-entrada" target="https://www.sidnlabs.nl/uploads/tx_sidnpublications/SIDN_Labs_Privacyraamwerk_Position_Paper_V1.4_ENG.pdf">
 <front>
 <title>A privacy framework for 'DNS big data' applications</title>
 <author fullname="Cristian Hesselman" surname="Hesselman" initials="C."/>
@@ -1000,7 +1008,7 @@ webserver with JSON-api and a nice looking AJAX GUI.</t></abstract>
 <author fullname="Maarten Wullink" surname="Wullink" initials="M."/>
 <author fullname="Karin Vink" surname="Vink" initials="K."/>
 <author fullname="Maarten Simon" surname="Simon" initials="M."/>
-<date year="2014"/>
+<date month="November" year="2014"/>
   <abstract><t>A good analysis of DNS privacy, with quantitative
   measurements showing that, "for the great majority of resolvers, therefore,
 the associated IP address is personal data", and a privacy policy for
@@ -1010,16 +1018,17 @@ big data analysis.</t></abstract>
 <reference anchor="thomas-ditl-tcp"
        target="https://indico.dns-oarc.net/event/20/session/2/contribution/15/material/slides/1.pdf">
 <front>
-<title>An Analysis of TCP Traffic in Root Server DITL Data"</title>
+<title>An Analysis of TCP Traffic in Root Server DITL Data</title>
 <author fullname="Matt Thomas" surname="Thomas" initials="M."/>
 <author fullname="Duane Wessels" surname="Wessels" initials="D."/>
-<date year="2014"/>
+<date month="October" year="2014"/>
 </front>
+<seriesInfo name="DNS-OARC" value="2014 Fall Workshop"/>
 </reference>
-<reference anchor="tor-leak" target="https://trac.torproject.org/projects/tor/wiki/doc/TorFAQ#IkeepseeingthesewarningsaboutSOCKSandDNSandinformationleaks.ShouldIworry">
+<reference anchor="tor-leak" target="https://www.torproject.org/docs/faq.html.en#WarningsAboutSOCKSandDNSInformationLeaks">
 <front>
 <title>DNS leaks in Tor</title>
-<author fullname="Tor Project" surname="Tor"/>
+<author><organization>Tor</organization></author>
 <date year="2013"/>
 </front>
 </reference>
@@ -1028,7 +1037,7 @@ big data analysis.</t></abstract>
 <title>Towards Plugging Privacy Leaks in the Domain Name System</title>
 <author fullname="Yanbin Lu" surname="Yanbin" initials="L."/>
 <author fullname="Gene Tsudik" surname="Tsudik" initials="G."/>
-<date year="2009"/>
+<date month="October" year="2009"/>
 <abstract>
 <t>Peer-to-peer computing (p2p), 2010 IEEE tenth
 international conference on, IEEE, Piscataway, NJ, USA, 25 August 2010

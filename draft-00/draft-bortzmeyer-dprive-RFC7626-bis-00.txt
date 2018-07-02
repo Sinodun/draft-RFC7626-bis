@@ -85,7 +85,7 @@ Table of Contents
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  16
      7.2.  Informative References  . . . . . . . . . . . . . . . . .  17
      7.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  21
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  22
 
 1.  Introduction
 
@@ -901,7 +901,7 @@ Internet-Draft         DNS Privacy Considerations              July 2018
 7.2.  Informative References
 
    [aeris-dns]
-              Vinot, N., "Vie privee : et le DNS alors? (In French)",
+              Vinot, N., "Vie privee: et le DNS alors?", (In French),
               2015,
               <https://blog.imirhil.fr/vie-privee-et-le-dns-alors.html>.
 
@@ -912,26 +912,31 @@ Internet-Draft         DNS Privacy Considerations              July 2018
 
    [dagon-malware]
               Dagon, D., "Corrupted DNS Resolution Paths: The Rise of a
-              Malicious Resolution Authority", 2007, <https://www.dns-
-              oarc.net/files/workshop-2007/
+              Malicious Resolution Authority", ISC/OARC Workshop, 2007,
+              <https://www.dns-oarc.net/files/workshop-2007/
               Dagon-Resolution-corruption.pdf>.
 
    [darkreading-dns]
               Lemos, R., "Got Malware? Three Signs Revealed In DNS
-              Traffic", May 2013,
-              <http://www.darkreading.com/monitoring/
-              got-malware-three-signs-revealed-in-dns/240154181>.
+              Traffic", InformationWeek Dark Reading, May 2013,
+              <http://www.darkreading.com/analytics/security-monitoring/
+              got-malware-three-signs-revealed-in-dns-traffic/d/
+              d-id/1139680>.
 
    [data-protection-directive]
-              Europe, "European directive 95/46/EC on the protection of
+              European Parliament, "Directive 95/46/EC of the European
+              Pariament and of the council on the protection of
               individuals with regard to the processing of personal data
-              and on the free movement of such data", November 1995,
-              <http://eur-lex.europa.eu/LexUriServ/
+              and on the free movement of such data", Official Journal L
+              281, pp. 0031 - 0050, November 1995, <http://eur-
+              lex.europa.eu/LexUriServ/
               LexUriServ.do?uri=CELEX:31995L0046:EN:HTML>.
 
    [day-at-root]
               Castro, S., Wessels, D., Fomenkov, M., and K. Claffy, "A
-              Day at the Root of the Internet", 2008,
+              Day at the Root of the Internet", ACM SIGCOMM Computer
+              Communication Review, Vol. 38, Number 5,
+              DOI 10.1145/1452335.1452341, October 2008,
               <http://www.sigcomm.org/sites/default/files/ccr/
               papers/2008/October/1452335-1452341.pdf>.
 
@@ -939,11 +944,6 @@ Internet-Draft         DNS Privacy Considerations              July 2018
               Denis, F., "Security and privacy issues of edns-client-
               subnet", August 2013,
               <https://00f.net/2013/08/07/edns-client-subnet/>.
-
-   [ditl]     CAIDA, "A Day in the Life of the Internet (DITL)", 2002,
-              <http://www.caida.org/projects/ditl/>.
-
-
 
 
 
@@ -954,43 +954,61 @@ Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 17]
 Internet-Draft         DNS Privacy Considerations              July 2018
 
 
+   [ditl]     CAIDA, "A Day in the Life of the Internet (DITL)", 2002,
+              <http://www.caida.org/projects/ditl/>.
+
    [dns-footprint]
-              Stoner, E., "DNS footprint of malware", October 2010,
-              <https://www.dns-oarc.net/files/workshop-201010/
-              OARC-ers-20101012.pdf>.
+              Stoner, E., "DNS Footprint of Malware", OARC Workshop,
+              October 2010, <https://www.dns-oarc.net/files/workshop-
+              201010/OARC-ers-20101012.pdf>.
 
    [dnschanger]
-              Wikipedia, "DNSchanger", November 2011,
-              <http://en.wikipedia.org/wiki/DNSChanger>.
+              Wikipedia, "DNSChanger", October 2013,
+              <https://en.wikipedia.org/w/
+              index.php?title=DNSChanger&oldid=578749672>.
 
    [dnsmezzo]
               Bortzmeyer, S., "DNSmezzo", 2009,
               <http://www.dnsmezzo.net/>.
 
    [fangming-hori-sakurai]
-              Fangming, Hori, Y., and K. Sakurai, "Analysis of Privacy
-              Disclosure in DNS Query", 2007,
+              Fangming, Z., Hori, Y., and K. Sakurai, "Analysis of
+              Privacy Disclosure in DNS Query", 2007 International
+              Conference on Multimedia and Ubiquitous Engineering (MUE
+              2007), Seoul, Korea, ISBN: 0-7695-2777-9, pp. 952-957,
+              DOI 10.1109/MUE.2007.84, April 2007,
               <http://dl.acm.org/citation.cfm?id=1262690.1262986>.
 
    [federrath-fuchs-herrmann-piosecny]
               Federrath, H., Fuchs, K., Herrmann, D., and C. Piosecny,
               "Privacy-Preserving DNS: Analysis of Broadcast, Range
-              Queries and Mix-Based Protection Methods", 2011,
-              <https://svs.informatik.uni-hamburg.de/publications/2011/2
-              011-09-14_FFHP_PrivacyPreservingDNS_ESORICS2011.pdf>.
+              Queries and Mix-based Protection Methods", Computer
+              Security ESORICS 2011, Springer, page(s) 665-683,
+              ISBN 978-3-642-23821-5, 2011, <https://svs.informatik.uni-
+              hamburg.de/publications/2011/2011-09-14_FFHP_PrivacyPreser
+              vingDNS_ESORICS2011.pdf>.
 
    [grangeia.snooping]
               Grangeia, L., "DNS Cache Snooping or Snooping the Cache
-              for Fun and Profit", 2004,
+              for Fun and Profit", February 2004,
               <http://www.msit2005.mut.ac.th/msit_media/1_2551/nete4630/
               materials/20080718130017Hc.pdf>.
 
    [herrmann-reidentification]
               Herrmann, D., Gerber, C., Banse, C., and H. Federrath,
-              "Analyzing characteristic host access patterns for re-
-              identification of web user sessions", 2012,
-              <http://epub.uni-regensburg.de/21103/1/
-              Paper_PUL_nordsec_published.pdf>.
+              "Analyzing Characteristic Host Access Patterns for Re-
+              Identification of Web User Sessions",
+              DOI 10.1007/978-3-642-27937-9_10, 2012, <http://epub.uni-
+              regensburg.de/21103/1/Paper_PUL_nordsec_published.pdf>.
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 18]
+
+Internet-Draft         DNS Privacy Considerations              July 2018
+
 
    [I-D.dickinson-bcp-op]
               Dickinson, S., Rijswijk-Deij, R., and A. Mankin,
@@ -1002,14 +1020,6 @@ Internet-Draft         DNS Privacy Considerations              July 2018
               Terminology", draft-ietf-dnsop-terminology-bis-10 (work in
               progress), April 2018.
 
-
-
-
-Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 18]
-
-Internet-Draft         DNS Privacy Considerations              July 2018
-
-
    [I-D.ietf-doh-dns-over-https]
               Hoffman, P. and P. McManus, "DNS Queries over HTTPS
               (DoH)", draft-ietf-doh-dns-over-https-12 (work in
@@ -1017,15 +1027,15 @@ Internet-Draft         DNS Privacy Considerations              July 2018
 
    [morecowbell]
               Grothoff, C., Wachs, M., Ermert, M., and J. Appelbaum,
-              "NSA's MORECOWBELL: Knell for DNS", January 2015,
-              <https://gnunet.org/morecowbell>.
+              "NSA's MORECOWBELL: Knell for DNS", GNUnet e.V., January
+              2015, <https://gnunet.org/morecowbell>.
 
    [packetq]  Dot SE, "PacketQ, a simple tool to make SQL-queries
               against PCAP-files", 2011,
               <https://github.com/dotse/packetq/wiki>.
 
    [packetq-list]
-              PacketQ, ""PacketQ Mailing List"",
+              PacketQ, "PacketQ Mailing List",
               <http://lists.iis.se/mailman/listinfo/packetq>.
 
    [passive-dns]
@@ -1037,13 +1047,24 @@ Internet-Draft         DNS Privacy Considerations              July 2018
               Encryption", <https://www.ietf.org/mail-archive/web/dns-
               privacy/current/pdfWqAIUmEl47.pdf>.
 
-   [prism]    NSA, "PRISM", 2007, <http://en.wikipedia.org/wiki/
-              PRISM_%28surveillance_program%29>.
+   [prism]    Wikipedia, "PRISM (surveillance program)", July 2015,
+              <https://en.wikipedia.org/w/index.php?title=PRISM_(surveil
+              lance_program)&oldid=673789455>.
 
    [RFC4033]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
               Rose, "DNS Security Introduction and Requirements",
               RFC 4033, DOI 10.17487/RFC4033, March 2005,
               <https://www.rfc-editor.org/info/rfc4033>.
+
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 19]
+
+Internet-Draft         DNS Privacy Considerations              July 2018
+
 
    [RFC5155]  Laurie, B., Sisson, G., Arends, R., and D. Blacka, "DNS
               Security (DNSSEC) Hashed Authenticated Denial of
@@ -1058,13 +1079,6 @@ Internet-Draft         DNS Privacy Considerations              July 2018
               P. Roberts, "Issues with IP Address Sharing", RFC 6269,
               DOI 10.17487/RFC6269, June 2011,
               <https://www.rfc-editor.org/info/rfc6269>.
-
-
-
-Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 19]
-
-Internet-Draft         DNS Privacy Considerations              July 2018
-
 
    [RFC7413]  Cheng, Y., Chu, J., Radhakrishnan, S., and A. Jain, "TCP
               Fast Open", RFC 7413, DOI 10.17487/RFC7413, December 2014,
@@ -1097,23 +1111,9 @@ Internet-Draft         DNS Privacy Considerations              July 2018
               Cookies", RFC 7873, DOI 10.17487/RFC7873, May 2016,
               <https://www.rfc-editor.org/info/rfc7873>.
 
-   [RFC7929]  Wouters, P., "DNS-Based Authentication of Named Entities
-              (DANE) Bindings for OpenPGP", RFC 7929,
-              DOI 10.17487/RFC7929, August 2016,
-              <https://www.rfc-editor.org/info/rfc7929>.
 
-   [ripe-atlas-turkey]
-              Aben, E., "A RIPE Atlas View of Internet Meddling in
-              Turkey", March 2014,
-              <https://labs.ripe.net/Members/emileaben/ a-ripe-atlas-
-              view-of-internet-meddling-in-turkey>.
 
-   [sidn-entrada]
-              Hesselman, C., Jansen, J., Wullink, M., Vink, K., and M.
-              Simon, "A privacy framework for 'DNS big data'
-              applications", 2014,
-              <https://www.sidnlabs.nl/uploads/tx_sidnpublications/
-              SIDN_Labs_Privacyraamwerk_Position_Paper_V1.4_ENG.pdf>.
+
 
 
 
@@ -1122,21 +1122,39 @@ Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 20]
 Internet-Draft         DNS Privacy Considerations              July 2018
 
 
+   [RFC7929]  Wouters, P., "DNS-Based Authentication of Named Entities
+              (DANE) Bindings for OpenPGP", RFC 7929,
+              DOI 10.17487/RFC7929, August 2016,
+              <https://www.rfc-editor.org/info/rfc7929>.
+
+   [ripe-atlas-turkey]
+              Aben, E., "A RIPE Atlas View of Internet Meddling in
+              Turkey", March 2014,
+              <https://labs.ripe.net/Members/emileaben/
+              a-ripe-atlas-view-of-internet-meddling-in-turkey>.
+
+   [sidn-entrada]
+              Hesselman, C., Jansen, J., Wullink, M., Vink, K., and M.
+              Simon, "A privacy framework for 'DNS big data'
+              applications", November 2014,
+              <https://www.sidnlabs.nl/uploads/tx_sidnpublications/
+              SIDN_Labs_Privacyraamwerk_Position_Paper_V1.4_ENG.pdf>.
+
    [thomas-ditl-tcp]
               Thomas, M. and D. Wessels, "An Analysis of TCP Traffic in
-              Root Server DITL Data"", 2014, <https://indico.dns-
+              Root Server DITL Data", DNS-OARC 2014 Fall Workshop,
+              October 2014, <https://indico.dns-
               oarc.net/event/20/session/2/contribution/15/material/
               slides/1.pdf>.
 
    [tor-leak]
               Tor, "DNS leaks in Tor", 2013,
-              <https://trac.torproject.org/projects/tor/wiki/doc/TorFAQ#
-              IkeepseeingthesewarningsaboutSOCKSandDNSandinformationleak
-              s.ShouldIworry>.
+              <https://www.torproject.org/docs/
+              faq.html.en#WarningsAboutSOCKSandDNSInformationLeaks>.
 
    [yanbin-tsudik]
               Yanbin, L. and G. Tsudik, "Towards Plugging Privacy Leaks
-              in the Domain Name System", 2009,
+              in the Domain Name System", October 2009,
               <http://arxiv.org/abs/0910.2472>.
 
 7.3.  URIs
@@ -1150,6 +1168,15 @@ Internet-Draft         DNS Privacy Considerations              July 2018
        based_De-NAT_Scheme
 
    [4] https://www.eugdpr.org/the-regulation.html
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 21]
+
+Internet-Draft         DNS Privacy Considerations              July 2018
+
 
 Authors' Addresses
 
@@ -1173,4 +1200,33 @@ Authors' Addresses
 
 
 
-Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 21]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 22]
