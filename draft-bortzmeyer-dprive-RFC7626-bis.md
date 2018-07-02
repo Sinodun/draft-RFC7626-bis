@@ -7,7 +7,7 @@
     area = "Internet Area"
     workgroup = "dprive"
     keyword = ["DNS"]
-    date = 2018-06-21T00:00:00Z
+    date = 2018-07-02T00:00:00Z
     [pi]
     toc = "yes"
     compact = "yes"
@@ -266,10 +266,11 @@ off-path attackers. It is noted, however, that they are designed to just verify
 IP addresses (and should change once a client's IP address changes), they are
 not designed to actively track users (like HTTP cookies).
 
-There are anecdotal accounts of MAC addresses and even user ids
-being inserted in non-standard EDNS(0) options for stub to resolver
-communications to support proprietary functionality implemented at the resolver
-(e.g. parental filtering).
+There are anecdotal accounts of MAC addresses and even user names being
+inserted in non-standard EDNS(0) options for stub to resolver communications
+[need reference] to support proprietary functionality implemented at the
+resolver (e.g. parental filtering).
+
 
 ##  Cache Snooping
 
@@ -293,7 +294,7 @@ communications to support proprietary functionality implemented at the resolver
    and more privacy-aware and secured against surveillance (e.g. [TLS13, QUIC]),
    the use of unencrypted transports for DNS may become "the weakest link" in
    privacy. It is noted that there is on-going work attempting to encrypt the
-   SNI in the TLS handshake but that this is a non-trivial problem [].
+   SNI in the TLS handshake but that this is a non-trivial problem [need reference].
 
    An important specificity of the DNS traffic is that it may take a
    different path than the communication between the initiator and the
@@ -351,15 +352,15 @@ The use of encrypted transports directly mitigates passive surveillance of the
 DNS payload, however there are still some privacy attacks possible.
 
 These are cases where user identification, fingerprinting or correlations may be
-possible due to the use of certain transport layers or clear text features.
-These issues are not specific to DNS, but DNS traffic is susceptible to these
-attacks when using specific transports.
+possible due to the use of certain transport layers or clear text/observable
+features. These issues are not specific to DNS, but DNS traffic is susceptible
+to these attacks when using specific transports.
 
 There are some general examples, for example, certain studies have highlighted
-that IP TTL/Hoplimit values can be used to fingerprint client OS's.
+that IP TTL/Hoplimit values can be used to fingerprint client OS's [need reference].
 
 The use of clear text transport options to decrease latency may also identify a
-user e.g. using TCP Fast Open [].
+user e.g. using TCP Fast Open [need reference].
 
 More specifically, (since the deployment of encrypted transports is not
 widespread at the time of writing) users wishing to use encrypted transports for
@@ -371,9 +372,9 @@ an added mechanism to track them as they move across network environments.
 
 Users of encrypted transports are also highly likely to re-use sessions for
 multiple DNS queries to optimise performance (e.g. via DNS pipelining or HTTPS
-multiplexing ). Certain configuration options for encrypted transports could
+multiplexing). Certain configuration options for encrypted transports could
 also in principle fingerprint a user, for example session resumption, the
-maximum number of messages to send or a maximum total connection time before
+maximum number of messages to send or a maximum connection time before
 closing a connections and re-opening.
 
 Whilst there are known attacks on older versions of TLS the most recent
@@ -399,15 +400,14 @@ correlated to unencrypted DNS requests upstream of a recursive resolver.
    data."  In [RFC6973] parlance, enablers become observers when they
    start collecting data.
 
-   Many programs exist to collect and analyze DNS data at the servers --
-   from the "query log" of some programs like BIND to tcpdump and more
-   sophisticated programs like PacketQ [packetq] [packetq-list] and
-   DNSmezzo [dnsmezzo].  In the case of DoH servers the server sees not 
-   only the DNS traffic but also any headers attached to the traffic. 
-   
-   The organization managing the DNS server can
-   use this data itself, or it can be part of a surveillance program
-   like PRISM [prism] and pass data to an outside observer.
+   Many programs exist to collect and analyze DNS data at the servers -- from
+   the "query log" of some programs like BIND to tcpdump and more sophisticated
+   programs like PacketQ [packetq] [packetq-list] and DNSmezzo [dnsmezzo]. The
+   organization managing the DNS server can use this data itself, or it can be
+   part of a surveillance program like PRISM [prism] and pass data to an
+   outside observer.
+
+
 
    Sometimes, this data is kept for a long time and/or distributed to
    third parties for research purposes [ditl] [day-at-root], security
@@ -425,43 +425,46 @@ correlated to unencrypted DNS requests upstream of a recursive resolver.
    lot about you.  The resolver of a large IAP, or a large public
    resolver, can collect data from many users.  You may get an idea of
    the data collected by reading the privacy policy of a big public
-   resolver, e.g., https://developers.google.com/speed/public-dns/
-   privacy.
+   resolver, e.g., https://developers.google.com/speed/public-dns/privacy.
 
 #### Encrypted transports
 
 Use of encrypted transports does not reduce the data available in the recursive
 resolver and ironically can actually expose more information about users to
 operators. As mentioned in (#on-the-wire) use of session based encrypted
-transports (TCP/TLS) can add correlation data about users. Such concerns apply
-equally to DNS-over-TLS and DoH which both use TLS as the underlying transport.
+transports (TCP/TLS) can expose correlation data about users. Such concerns in
+the TCP/TLS layers apply equally to DNS-over-TLS and DoH which both use TLS as
+the underlying transport.
+
 
 #### DoH vs DNS-over-TLS
 
 The proposed specification for DoH [] includes a Privacy Considerations section
-which highlights that HTTP and DNS are very different protocols. As a
+which highlights some of the differences between HTTP and DNS. As a
 deliberate design choice DoH inherits the privacy properties of the HTTPS stack
 and as a consequence introduces new privacy concerns when compared with DNS over
 UDP, TCP or TLS (RFC7858). The rationale for this decision is that retaining the
 ability to leverage the full functionality of the HTTP ecosystem is more
-important than placing any constraints on this new protocol based on privacy
-considerations.
+important than placing specific constraints on this new protocol based on privacy
+considerations (modulo limiting the use of HTTP cookies).
 
-As a result there exists a natural tension between
+In analysing the new issues introduced by DoH it is helpful to recognise that
+there exists a natural tension between
 
 * the wide practice in HTTP to use various headers to optimise HTTP
-connections, functionality and behaviour (which can facilitate user
-identification and tracking) 
+  connections, functionality and behaviour (which can facilitate user
+  identification and tracking)
 
-* and the fact that currently the DNS payload is very tightly
-encoded and contains no standardized user identifiers.
+* and the fact that the DNS payload is currently very tightly encoded and
+  contains no standardized user identifiers.
 
-DNS-over-TLS, for example, would normally contain no client identifiers in the
-DNS messages and a resolver would see only a stream of DNS queries originating
-from a client IP address. Whereas if DoH clients commonly include several
-headers in a DNS message (e.g. user-agent and accept-language) this could lead
-to the DoH server being able to identify the source of individual DNS requests
-not only to a specific end user device but to a specific application.
+DNS-over-TLS, for example, would normally contain no client identifiers above
+the TLS layer and a resolver would see only a stream of DNS query payloads
+originating within one or more connections from a client IP address. Whereas if
+DoH clients commonly include several headers in a DNS message (e.g. user-agent
+and accept-language) this could lead to the DoH server being able to identify
+the source of individual DNS requests not only to a specific end user device
+but to a specific application.
 
 Additionally, depending on the client architecture, isolation of DoH queries
 from other HTTP traffic may or may not be feasible or desirable. Depending on
@@ -469,19 +472,21 @@ the use case, isolation of DoH queries from other HTTP traffic may or may not
 increase privacy.
 
 The picture for privacy considerations and user expectations for DoH with
-respect to what additional data may be available to the resolver compared to DNS
-over UDP,TCP or TLS is complex and requires a detailed analysis for each
-particular use case. In particular the choice of HTTPS functionality vs privacy
-is specifically made an implementation choice and uses may well have
-differencing privacy expectations depending on the DoH use case implementation.
+respect to what additional data may be available to the DoH server compared to
+DNS over UDP,TCP or TLS is complex and requires a detailed analysis for each
+use case. In particular the choice of HTTPS functionality vs privacy is
+specifically made an implementation choice in DoH and users may well have differing
+privacy expectations depending on the DoH use case and implementation.
 
 At the extremes, there may be implementations that attempt to achieve parity
 with DNS-over-TLS from a privacy perspective at the cost of using no
 identifiable headers, there might be others that provide feature rich data flows
 where the low-level origin of the DNS query is easily identifiable.
 
-Users who have concerns about such additional data may choose not to use DoH and
-to use DNS-over-TLS instead.
+Privacy focussed users should be aware of the potential for additional client
+identifiers in DoH compared to DNS-over-TLS and may want to only use DoH
+implementations that provide clear guidence on what identifiers they add.
+
 
 ###  In the Authoritative Name Servers
 
@@ -576,7 +581,14 @@ channels are also possible, but out of the scope of this document.
 
 ### Blocking of services
 
-   TODO: Active blocking of port 853, blocking or attacking recursive resolvers offering encrypted transports,
+   User privacy can also be at risk if there is blocking (by local network
+   operators or more genearl mechanisms) of access to recursive servers that
+   offer encrypted transports. For example active blocking of port 853 for
+   DNS-over-TLS or of specific IP addresses (e.g. 1.1.1.1) could restrict the
+   resolvers available to the client. Similarly attacks on such services e.g.
+   DDoS could force users to switch to other services that do not offer
+   encrypted transports for DNS.
+
 
 ##  Re-identification and Other Inferences
 
@@ -609,7 +621,7 @@ channels are also possible, but out of the scope of this document.
 
 ##  More Information
 
-   Useful background information can also be found in [tor-leak] (about
+   Useful background information can also be found in [tor-leak](tor_ref) (about
    the risk of privacy leak through DNS) and in a few academic papers:
    [yanbin-tsudik], [castillo-garcia], [fangming-hori-sakurai], and
    [federrath-fuchs-herrmann-piosecny].
@@ -650,7 +662,7 @@ channels are also possible, but out of the scope of this document.
 
    To our knowledge, there are no specific privacy laws for DNS data, in
    any country.  Interpreting general privacy laws like
-   [data-protection-directive] or [GDPR] (European Union) in the context of DNS
+   [data-protection-directive] or [GDPR] applicable in the European Union in the context of DNS
    traffic data is not an easy task, and we do not know a court
    precedent here.  See an interesting analysis in [sidn-entrada].
 

@@ -5,8 +5,8 @@
 dprive                                                     S. Bortzmeyer
 Internet-Draft                                                     AFNIC
 Intended status: Standards Track                            S. Dickinson
-Expires: December 23, 2018                                    Sinodun IT
-                                                           June 21, 2018
+Expires: January 3, 2019                                      Sinodun IT
+                                                            July 2, 2018
 
 
                        DNS Privacy Considerations
@@ -26,14 +26,14 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 23, 2018.
+   This Internet-Draft will expire on January 3, 2019.
 
 Copyright Notice
 
@@ -42,7 +42,7 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (http://trustee.ietf.org/license-info) in effect on the date of
+   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Bortzmeyer & Dickinson  Expires December 23, 2018               [Page 1]
+Bortzmeyer & Dickinson   Expires January 3, 2019                [Page 1]
 
-Internet-Draft         DNS Privacy Considerations              June 2018
+Internet-Draft         DNS Privacy Considerations              July 2018
 
 
 Table of Contents
@@ -77,10 +77,10 @@ Table of Contents
        2.5.5.  Blocking of services  . . . . . . . . . . . . . . . .  14
      2.6.  Re-identification and Other Inferences  . . . . . . . . .  14
      2.7.  More Information  . . . . . . . . . . . . . . . . . . . .  14
-   3.  Actual "Attacks"  . . . . . . . . . . . . . . . . . . . . . .  14
+   3.  Actual "Attacks"  . . . . . . . . . . . . . . . . . . . . . .  15
    4.  Legalities  . . . . . . . . . . . . . . . . . . . . . . . . .  15
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
-   6.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  15
+   6.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  16
      7.1.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  16
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Bortzmeyer & Dickinson  Expires December 23, 2018               [Page 2]
+Bortzmeyer & Dickinson   Expires January 3, 2019                [Page 2]
 
-Internet-Draft         DNS Privacy Considerations              June 2018
+Internet-Draft         DNS Privacy Considerations              July 2018
 
 
    root name servers will send a referral.  In this example, the
@@ -165,9 +165,9 @@ Internet-Draft         DNS Privacy Considerations              June 2018
 
 
 
-Bortzmeyer & Dickinson  Expires December 23, 2018               [Page 3]
+Bortzmeyer & Dickinson   Expires January 3, 2019                [Page 3]
 
-Internet-Draft         DNS Privacy Considerations              June 2018
+Internet-Draft         DNS Privacy Considerations              July 2018
 
 
    Another important point to keep in mind when analyzing the privacy
@@ -221,9 +221,9 @@ Internet-Draft         DNS Privacy Considerations              June 2018
 
 
 
-Bortzmeyer & Dickinson  Expires December 23, 2018               [Page 4]
+Bortzmeyer & Dickinson   Expires January 3, 2019                [Page 4]
 
-Internet-Draft         DNS Privacy Considerations              June 2018
+Internet-Draft         DNS Privacy Considerations              July 2018
 
 
 2.1.  The Alleged Public Nature of DNS Data
@@ -277,9 +277,9 @@ Internet-Draft         DNS Privacy Considerations              June 2018
 
 
 
-Bortzmeyer & Dickinson  Expires December 23, 2018               [Page 5]
+Bortzmeyer & Dickinson   Expires January 3, 2019                [Page 5]
 
-Internet-Draft         DNS Privacy Considerations              June 2018
+Internet-Draft         DNS Privacy Considerations              July 2018
 
 
    the software one uses, which could be a privacy issue.  For instance,
@@ -333,9 +333,9 @@ Internet-Draft         DNS Privacy Considerations              June 2018
 
 
 
-Bortzmeyer & Dickinson  Expires December 23, 2018               [Page 6]
+Bortzmeyer & Dickinson   Expires January 3, 2019                [Page 6]
 
-Internet-Draft         DNS Privacy Considerations              June 2018
+Internet-Draft         DNS Privacy Considerations              July 2018
 
 
    DNS Cookies [RFC7873] are a lightweight DNS transaction security
@@ -346,10 +346,10 @@ Internet-Draft         DNS Privacy Considerations              June 2018
    once a client's IP address changes), they are not designed to
    actively track users (like HTTP cookies).
 
-   There are anecdotal accounts of MAC addresses and even user ids being
-   inserted in non-standard EDNS(0) options for stub to resolver
-   communications to support proprietary functionality implemented at
-   the resolver (e.g. parental filtering).
+   There are anecdotal accounts of MAC addresses and even user names
+   being inserted in non-standard EDNS(0) options for stub to resolver
+   communications [need reference] to support proprietary functionality
+   implemented at the resolver (e.g. parental filtering).
 
 2.3.  Cache Snooping
 
@@ -375,7 +375,7 @@ Internet-Draft         DNS Privacy Considerations              June 2018
    unencrypted transports for DNS may become "the weakest link" in
    privacy.  It is noted that there is on-going work attempting to
    encrypt the SNI in the TLS handshake but that this is a non-trivial
-   problem [].
+   problem [need reference].
 
    An important specificity of the DNS traffic is that it may take a
    different path than the communication between the initiator and the
@@ -389,9 +389,9 @@ Internet-Draft         DNS Privacy Considerations              June 2018
 
 
 
-Bortzmeyer & Dickinson  Expires December 23, 2018               [Page 7]
+Bortzmeyer & Dickinson   Expires January 3, 2019                [Page 7]
 
-Internet-Draft         DNS Privacy Considerations              June 2018
+Internet-Draft         DNS Privacy Considerations              July 2018
 
 
    The best place to tap, from an eavesdropper's point of view, is
@@ -445,23 +445,23 @@ Internet-Draft         DNS Privacy Considerations              June 2018
 
 
 
-Bortzmeyer & Dickinson  Expires December 23, 2018               [Page 8]
+Bortzmeyer & Dickinson   Expires January 3, 2019                [Page 8]
 
-Internet-Draft         DNS Privacy Considerations              June 2018
+Internet-Draft         DNS Privacy Considerations              July 2018
 
 
    These are cases where user identification, fingerprinting or
    correlations may be possible due to the use of certain transport
-   layers or clear text features.  These issues are not specific to DNS,
-   but DNS traffic is susceptible to these attacks when using specific
-   transports.
+   layers or clear text/observable features.  These issues are not
+   specific to DNS, but DNS traffic is susceptible to these attacks when
+   using specific transports.
 
    There are some general examples, for example, certain studies have
    highlighted that IP TTL/Hoplimit values can be used to fingerprint
-   client OS's.
+   client OS's [need reference].
 
    The use of clear text transport options to decrease latency may also
-   identify a user e.g. using TCP Fast Open [].
+   identify a user e.g. using TCP Fast Open [need reference].
 
    More specifically, (since the deployment of encrypted transports is
    not widespread at the time of writing) users wishing to use encrypted
@@ -475,11 +475,11 @@ Internet-Draft         DNS Privacy Considerations              June 2018
 
    Users of encrypted transports are also highly likely to re-use
    sessions for multiple DNS queries to optimise performance (e.g. via
-   DNS pipelining or HTTPS multiplexing ).  Certain configuration
-   options for encrypted transports could also in principle fingerprint
-   a user, for example session resumption, the maximum number of
-   messages to send or a maximum total connection time before closing a
-   connections and re-opening.
+   DNS pipelining or HTTPS multiplexing).  Certain configuration options
+   for encrypted transports could also in principle fingerprint a user,
+   for example session resumption, the maximum number of messages to
+   send or a maximum connection time before closing a connections and
+   re-opening.
 
    Whilst there are known attacks on older versions of TLS the most
    recent recommendations [RFC7525] and developments [TLS1.3] in this
@@ -501,9 +501,9 @@ Internet-Draft         DNS Privacy Considerations              June 2018
 
 
 
-Bortzmeyer & Dickinson  Expires December 23, 2018               [Page 9]
+Bortzmeyer & Dickinson   Expires January 3, 2019                [Page 9]
 
-Internet-Draft         DNS Privacy Considerations              June 2018
+Internet-Draft         DNS Privacy Considerations              July 2018
 
 
    all pose privacy threats (depending on the context) because they are
@@ -514,12 +514,9 @@ Internet-Draft         DNS Privacy Considerations              June 2018
    Many programs exist to collect and analyze DNS data at the servers --
    from the "query log" of some programs like BIND to tcpdump and more
    sophisticated programs like PacketQ [packetq] [packetq-list] and
-   DNSmezzo [dnsmezzo].  In the case of DoH servers the server sees not
-   only the DNS traffic but also any headers attached to the traffic.
-
-   The organization managing the DNS server can use this data itself, or
-   it can be part of a surveillance program like PRISM [prism] and pass
-   data to an outside observer.
+   DNSmezzo [dnsmezzo].  The organization managing the DNS server can
+   use this data itself, or it can be part of a surveillance program
+   like PRISM [prism] and pass data to an outside observer.
 
    Sometimes, this data is kept for a long time and/or distributed to
    third parties for research purposes [ditl] [day-at-root], security
@@ -537,54 +534,58 @@ Internet-Draft         DNS Privacy Considerations              June 2018
    lot about you.  The resolver of a large IAP, or a large public
    resolver, can collect data from many users.  You may get an idea of
    the data collected by reading the privacy policy of a big public
-   resolver, e.g., <https://developers.google.com/speed/public-dns/>
-   privacy.
+   resolver, e.g., <https://developers.google.com/speed/public-dns/
+   privacy>.
 
 2.5.1.1.  Encrypted transports
 
    Use of encrypted transports does not reduce the data available in the
    recursive resolver and ironically can actually expose more
    information about users to operators.  As mentioned in Section 2.4
-   use of session based encrypted transports (TCP/TLS) can add
-   correlation data about users.  Such concerns apply equally to DNS-
-   over-TLS and DoH which both use TLS as the underlying transport.
+   use of session based encrypted transports (TCP/TLS) can expose
+   correlation data about users.  Such concerns in the TCP/TLS layers
+   apply equally to DNS-over-TLS and DoH which both use TLS as the
+   underlying transport.
 
 2.5.1.2.  DoH vs DNS-over-TLS
 
    The proposed specification for DoH [] includes a Privacy
-   Considerations section which highlights that HTTP and DNS are very
-   different protocols.  As a deliberate design choice DoH inherits the
-
-
-
-Bortzmeyer & Dickinson  Expires December 23, 2018              [Page 10]
-
-Internet-Draft         DNS Privacy Considerations              June 2018
-
-
+   Considerations section which highlights some of the differences
+   between HTTP and DNS.  As a deliberate design choice DoH inherits the
    privacy properties of the HTTPS stack and as a consequence introduces
    new privacy concerns when compared with DNS over UDP, TCP or TLS
+
+
+
+Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 10]
+
+Internet-Draft         DNS Privacy Considerations              July 2018
+
+
    (RFC7858).  The rationale for this decision is that retaining the
    ability to leverage the full functionality of the HTTP ecosystem is
-   more important than placing any constraints on this new protocol
-   based on privacy considerations.
+   more important than placing specific constraints on this new protocol
+   based on privacy considerations (modulo limiting the use of HTTP
+   cookies).
 
-   As a result there exists a natural tension between
+   In analysing the new issues introduced by DoH it is helpful to
+   recognise that there exists a natural tension between
 
    o  the wide practice in HTTP to use various headers to optimise HTTP
       connections, functionality and behaviour (which can facilitate
       user identification and tracking)
 
-   o  and the fact that currently the DNS payload is very tightly
+   o  and the fact that the DNS payload is currently very tightly
       encoded and contains no standardized user identifiers.
 
    DNS-over-TLS, for example, would normally contain no client
-   identifiers in the DNS messages and a resolver would see only a
-   stream of DNS queries originating from a client IP address.  Whereas
-   if DoH clients commonly include several headers in a DNS message
-   (e.g. user-agent and accept-language) this could lead to the DoH
-   server being able to identify the source of individual DNS requests
-   not only to a specific end user device but to a specific application.
+   identifiers above the TLS layer and a resolver would see only a
+   stream of DNS query payloads originating within one or more
+   connections from a client IP address.  Whereas if DoH clients
+   commonly include several headers in a DNS message (e.g. user-agent
+   and accept-language) this could lead to the DoH server being able to
+   identify the source of individual DNS requests not only to a specific
+   end user device but to a specific application.
 
    Additionally, depending on the client architecture, isolation of DoH
    queries from other HTTP traffic may or may not be feasible or
@@ -592,12 +593,12 @@ Internet-Draft         DNS Privacy Considerations              June 2018
    other HTTP traffic may or may not increase privacy.
 
    The picture for privacy considerations and user expectations for DoH
-   with respect to what additional data may be available to the resolver
-   compared to DNS over UDP,TCP or TLS is complex and requires a
-   detailed analysis for each particular use case.  In particular the
-   choice of HTTPS functionality vs privacy is specifically made an
-   implementation choice and uses may well have differencing privacy
-   expectations depending on the DoH use case implementation.
+   with respect to what additional data may be available to the DoH
+   server compared to DNS over UDP,TCP or TLS is complex and requires a
+   detailed analysis for each use case.  In particular the choice of
+   HTTPS functionality vs privacy is specifically made an implementation
+   choice in DoH and users may well have differing privacy expectations
+   depending on the DoH use case and implementation.
 
    At the extremes, there may be implementations that attempt to achieve
    parity with DNS-over-TLS from a privacy perspective at the cost of
@@ -605,17 +606,16 @@ Internet-Draft         DNS Privacy Considerations              June 2018
    feature rich data flows where the low-level origin of the DNS query
    is easily identifiable.
 
-   Users who have concerns about such additional data may choose not to
-   use DoH and to use DNS-over-TLS instead.
+   Privacy focussed users should be aware of the potential for
+   additional client identifiers in DoH compared to DNS-over-TLS and may
+   want to only use DoH implementations that provide clear guidence on
+   what identifiers they add.
 
 
 
-
-
-
-Bortzmeyer & Dickinson  Expires December 23, 2018              [Page 11]
+Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 11]
 
-Internet-Draft         DNS Privacy Considerations              June 2018
+Internet-Draft         DNS Privacy Considerations              July 2018
 
 
 2.5.2.  In the Authoritative Name Servers
@@ -669,9 +669,9 @@ Internet-Draft         DNS Privacy Considerations              June 2018
 
 
 
-Bortzmeyer & Dickinson  Expires December 23, 2018              [Page 12]
+Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 12]
 
-Internet-Draft         DNS Privacy Considerations              June 2018
+Internet-Draft         DNS Privacy Considerations              July 2018
 
 
    "popular" domains (such as the Alexa Top N list).  For instance,
@@ -725,15 +725,21 @@ Internet-Draft         DNS Privacy Considerations              June 2018
 
 
 
-Bortzmeyer & Dickinson  Expires December 23, 2018              [Page 13]
+Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 13]
 
-Internet-Draft         DNS Privacy Considerations              June 2018
+Internet-Draft         DNS Privacy Considerations              July 2018
 
 
 2.5.5.  Blocking of services
 
-   TODO: Active blocking of port 853, blocking or attacking recursive
-   resolvers offering encrypted transports,
+   User privacy can also be at risk if there is blocking (by local
+   network operators or more genearl mechanisms) of access to recursive
+   servers that offer encrypted transports.  For example active blocking
+   of port 853 for DNS-over-TLS or of specific IP addresses (e.g.
+   1.1.1.1) could restrict the resolvers available to the client.
+   Similarly attacks on such services e.g.  DDoS could force users to
+   switch to other services that do not offer encrypted transports for
+   DNS.
 
 2.6.  Re-identification and Other Inferences
 
@@ -766,9 +772,19 @@ Internet-Draft         DNS Privacy Considerations              June 2018
 
 2.7.  More Information
 
-   Useful background information can also be found in tor-leak [2] and
-   in a few academic papers: [yanbin-tsudik], [castillo-garcia],
-   [fangming-hori-sakurai], and [federrath-fuchs-herrmann-piosecny].
+   Useful background information can also be found in tor-leak [2]
+   (about the risk of privacy leak through DNS) and in a few academic
+   papers: [yanbin-tsudik], [castillo-garcia], [fangming-hori-sakurai],
+   and [federrath-fuchs-herrmann-piosecny].
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 14]
+
+Internet-Draft         DNS Privacy Considerations              July 2018
+
 
 3.  Actual "Attacks"
 
@@ -777,15 +793,6 @@ Internet-Draft         DNS Privacy Considerations              June 2018
    "Interesting" primary DNS requests are mixed with useless (for the
    eavesdropper) secondary and tertiary requests (see the terminology in
    Section 1).  But, in this time of "big data" processing, powerful
-
-
-
-
-Bortzmeyer & Dickinson  Expires December 23, 2018              [Page 14]
-
-Internet-Draft         DNS Privacy Considerations              June 2018
-
-
    techniques now exist to get from the raw data to what the
    eavesdropper is actually interested in.
 
@@ -814,9 +821,10 @@ Internet-Draft         DNS Privacy Considerations              June 2018
 
    To our knowledge, there are no specific privacy laws for DNS data, in
    any country.  Interpreting general privacy laws like [data-
-   protection-directive] or GDPR [3] in the context of DNS traffic data
-   is not an easy task, and we do not know a court precedent here.  See
-   an interesting analysis in [sidn-entrada].
+   protection-directive] or [GDPR] applicable in the European Union in
+   the context of DNS traffic data is not an easy task, and we do not
+   know a court precedent here.  See an interesting analysis in [sidn-
+   entrada].
 
 5.  Security Considerations
 
@@ -825,6 +833,15 @@ Internet-Draft         DNS Privacy Considerations              June 2018
    the choices and compromises they imply), much less define solutions.
    Possible solutions to the issues described here are discussed in
    other documents (currently too many to all be mentioned); see, for
+
+
+
+
+Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 15]
+
+Internet-Draft         DNS Privacy Considerations              July 2018
+
+
    instance, 'Recommendations for DNS Privacy Operators' [I-D.draft-
    dickinson-dprive-bcp-op].
 
@@ -834,14 +851,6 @@ Internet-Draft         DNS Privacy Considerations              June 2018
    work that led to this document.  Thanks to Ondrej Sury for the
    interesting discussions.  Thanks to Mohsen Souissi and John Heidemann
    for proofreading and to Paul Hoffman, Matthijs Mekking, Marcos Sanz,
-
-
-
-Bortzmeyer & Dickinson  Expires December 23, 2018              [Page 15]
-
-Internet-Draft         DNS Privacy Considerations              June 2018
-
-
    Tim Wicinski, Francis Dupont, Allison Mankin, and Warren Kumari for
    proofreading, providing technical remarks, and making many
    readability improvements.  Thanks to Dan York, Suzanne Woolf, Tony
@@ -856,9 +865,7 @@ Internet-Draft         DNS Privacy Considerations              June 2018
    [1] https://www.ietf.org/mail-archive/web/dns-privacy/current/
        pdfWqAIUmEl47.pdf
 
-   [2] about the risk of privacy leak through DNS
-
-   [3] European Union
+   [2] tor_ref
 
 Authors' Addresses
 
@@ -886,11 +893,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-Bortzmeyer & Dickinson  Expires December 23, 2018              [Page 16]
+Bortzmeyer & Dickinson   Expires January 3, 2019               [Page 16]
