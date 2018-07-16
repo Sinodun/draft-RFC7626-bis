@@ -3,8 +3,8 @@
 # - xml2rfc (https://xml2rfc.tools.ietf.org/)
 # - unoconv (https://github.com/dagwieers/unoconv)
 
-DRAFT=draft-bortzmeyer-dprive-RFC7626-bis
-VERSION=00
+DRAFT=draft-bortzmeyer-dprive-rfc7626-bis
+VERSION=01
 
 OUTDIR=draft-$(VERSION)
 
