@@ -4,7 +4,7 @@
 # - unoconv (https://github.com/dagwieers/unoconv)
 
 DRAFT=draft-bortzmeyer-dprive-rfc7626-bis
-VERSION=01
+VERSION=02
 
 OUTDIR=draft-$(VERSION)
 

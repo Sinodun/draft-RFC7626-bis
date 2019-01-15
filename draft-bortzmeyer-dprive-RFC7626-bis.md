@@ -2,13 +2,13 @@
     Title = "DNS Privacy Considerations"
     abbrev = "DNS Privacy Considerations"
     category = "info"
-    docName= "draft-bortzmeyer-dprive-rfc7626-bis-01"
+    docName= "draft-bortzmeyer-dprive-rfc7626-bis-02"
     ipr = "trust200902"
     area = "Internet Area"
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2018-07-16T00:00:00Z
+    date = 2019-01-15T00:00:00Z
     [pi]
     toc = "yes"
     compact = "yes"
@@ -43,9 +43,9 @@
 
 .# Abstract
 
-   This document describes the privacy issues associated with the use of
-   the DNS by Internet users.  It is intended to be an analysis of the
-   present situation and does not prescribe solutions.
+  This document describes the privacy issues associated with the use of the DNS
+  by Internet users. It is intended to be an analysis of the present situation
+  and does not prescribe solutions. This document obsoletes RFC 7626.
    
 {mainmatter}
 
@@ -63,7 +63,7 @@
    and this is an attempt at a comprehensive and accurate list.
 
    Let us begin with a simplified reminder of how the DNS works. (See also
-   [@?I-D.ietf-dnsop-terminology-bis]) A client, the stub resolver, issues a
+   [@?RFC8499]) A client, the stub resolver, issues a
    DNS query to a server, called the recursive resolver (also called caching
    resolver or full resolver or recursive name server). Let's use the query
    "What are the AAAA records for www.example.com?" as an example. AAAA is the
@@ -108,7 +108,7 @@
 
    Almost all this DNS traffic is currently sent in clear (unencrypted). At the
    time of writing there is increasing deployment of DNS-over-TLS [@RFC7858]
-   and work underway on DoH [@I-D.ietf-doh-dns-over-https]. There are a few
+   and work underway on DoH [@RFC8484]. There are a few
    cases where there is some alternative channel encryption, for instance, in
    an IPsec VPN, at least between the stub resolver and the resolver.
 
@@ -293,11 +293,11 @@ implemented at the resolver (e.g. parental filtering).
    communication with a recipient, while the HTTP traffic will be encrypted,
    the DNS exchange prior to it will not be. When other protocols will become
    more and more privacy-aware and secured against surveillance (e.g.
-   [I-D.draft-ietf-tls-tls130, [I-D.draft-ietf-quic-transport]), the use of
+   [@?RFC8446], [@I-D.ietf-quic-transport]), the use of
    unencrypted transports for DNS may become "the weakest link" in privacy. It
    is noted that there is on-going work attempting to encrypt the SNI in the
    TLS handshake but that this is a non-trivial problem
-   [I-D.ietf-tls-sni-encryption].
+   [@I-D.ietf-tls-sni-encryption].
 
    An important specificity of the DNS traffic is that it may take a
    different path than the communication between the initiator and the
@@ -384,7 +384,7 @@ maximum number of messages to send or a maximum connection time before
 closing a connections and re-opening.
 
 Whilst there are known attacks on older versions of TLS the most recent
-recommendations [@RFC7525] and developments [I-D.draft-ietf-tls-tls13] in this
+recommendations [@RFC7525] and developments [@RFC8446] in this
 area largely mitigate those.
 
 Traffic analysis of unpadded encrypted traffic is also possible
@@ -446,7 +446,7 @@ the underlying transport.
 
 #### DoH vs DNS-over-TLS
 
-The proposed specification for DoH [@I-D.ietf-doh-dns-over-https] includes a
+The proposed specification for DoH [@RFC8484] includes a
 Privacy Considerations section which highlights some of the differences between
 HTTP and DNS. As a deliberate design choice DoH inherits the privacy properties
 of the HTTPS stack and as a consequence introduces new privacy concerns when
@@ -592,10 +592,10 @@ channels are also possible, but out of the scope of this document.
    User privacy can also be at risk if there is blocking (by local network
    operators or more general mechanisms) of access to recursive servers that
    offer encrypted transports. For example active blocking of port 853 for
-   DNS-over-TLS or of specific IP addresses (e.g. 1.1.1.1) could restrict the
-   resolvers available to the client. Similarly attacks on such services e.g.
-   DDoS could force users to switch to other services that do not offer
-   encrypted transports for DNS.
+   DNS-over-TLS or of specific IP addresses (e.g. 1.1.1.1 or
+   2606:4700:4700::1111) could restrict the resolvers available to the client.
+   Similarly attacks on such services e.g. DDoS could force users to switch to
+   other services that do not offer encrypted transports for DNS.
 
 
 ##  Re-identification and Other Inferences
@@ -683,7 +683,7 @@ channels are also possible, but out of the scope of this document.
    and compromises they imply), much less define solutions. Possible solutions
    to the issues described here are discussed in other documents (currently too
    many to all be mentioned); see, for instance, 'Recommendations for DNS
-   Privacy Operators' [@I-D.dickinson-dprive-bcp-op].
+   Privacy Operators' [@I-D.ietf-dprive-bcp-op].
 
 
 # Acknowledgments
@@ -700,6 +700,10 @@ channels are also possible, but out of the scope of this document.
    the last remarks.
 
 # Changelog
+
+draft-bortzmeyer-dprive-rfc7626-bis-02
+
+* Update various references and fix some nits.
 
 draft-bortzmeyer-dprive-rfc7626-bis-01
 
