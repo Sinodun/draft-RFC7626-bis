@@ -3,10 +3,10 @@
 # - xml2rfc (https://xml2rfc.tools.ietf.org/)
 # - unoconv (https://github.com/dagwieers/unoconv)
 
-DRAFT=draft-bortzmeyer-dprive-rfc7626-bis
-VERSION=02
+DRAFT=draft-ietf-dprive-rfc7626-bis
+VERSION=00
 
-OUTDIR=draft-$(VERSION)
+OUTDIR=adopted-draft-$(VERSION)
 
 XML=$(OUTDIR)/$(DRAFT).xml
 HTML=$(OUTDIR)/$(DRAFT)-$(VERSION).html
