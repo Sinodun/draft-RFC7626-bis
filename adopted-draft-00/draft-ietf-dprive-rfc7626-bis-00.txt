@@ -6,7 +6,7 @@ dprive                                                     S. Bortzmeyer
 Internet-Draft                                                     AFNIC
 Obsoletes: 7626 (if approved)                               S. Dickinson
 Intended status: Informational                                Sinodun IT
-Expires: January 26, 2020                                  July 25, 2019
+Expires: January 9, 2020                                    July 8, 2019
 
 
                        DNS Privacy Considerations
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 26, 2020.
+   This Internet-Draft will expire on January 9, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020                [Page 1]
+Bortzmeyer & Dickinson   Expires January 9, 2020                [Page 1]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020                [Page 2]
+Bortzmeyer & Dickinson   Expires January 9, 2020                [Page 2]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -165,7 +165,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020                [Page 3]
+Bortzmeyer & Dickinson   Expires January 9, 2020                [Page 3]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -221,7 +221,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020                [Page 4]
+Bortzmeyer & Dickinson   Expires January 9, 2020                [Page 4]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -277,7 +277,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020                [Page 5]
+Bortzmeyer & Dickinson   Expires January 9, 2020                [Page 5]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -333,7 +333,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020                [Page 6]
+Bortzmeyer & Dickinson   Expires January 9, 2020                [Page 6]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -389,7 +389,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020                [Page 7]
+Bortzmeyer & Dickinson   Expires January 9, 2020                [Page 7]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -445,7 +445,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020                [Page 8]
+Bortzmeyer & Dickinson   Expires January 9, 2020                [Page 8]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -501,7 +501,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020                [Page 9]
+Bortzmeyer & Dickinson   Expires January 9, 2020                [Page 9]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -557,7 +557,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 10]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 10]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -613,7 +613,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 11]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 11]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -669,7 +669,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 12]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 12]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -725,7 +725,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 13]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 13]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -781,7 +781,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 14]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 14]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -837,7 +837,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 15]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 15]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -893,7 +893,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 16]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 16]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -949,7 +949,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 17]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 17]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -1005,7 +1005,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 18]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 18]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -1061,7 +1061,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 19]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 19]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -1117,7 +1117,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 20]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 20]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -1173,7 +1173,7 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 21]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 21]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -1229,7 +1229,7 @@ Authors' Addresses
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 22]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 22]
 
 Internet-Draft         DNS Privacy Considerations              July 2019
 
@@ -1285,4 +1285,4 @@ Internet-Draft         DNS Privacy Considerations              July 2019
 
 
 
-Bortzmeyer & Dickinson  Expires January 26, 2020               [Page 23]
+Bortzmeyer & Dickinson   Expires January 9, 2020               [Page 23]
