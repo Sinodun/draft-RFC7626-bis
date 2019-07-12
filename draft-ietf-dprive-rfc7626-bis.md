@@ -769,7 +769,7 @@ Resolution Authority</title>
 </reference>
 
 <reference anchor="morecowbell"
-	   target="https://gnunet.org/morecowbell">
+	   target="https://pdfs.semanticscholar.org/2610/2b99bdd6a258a98740af8217ba8da8a1e4fa.pdf">
 <front>
 <title>NSA's MORECOWBELL: Knell for DNS</title>
 <author fullname="Christian Grothoff" surname="Grothoff" initials="C."/>
