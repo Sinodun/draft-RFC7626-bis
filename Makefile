@@ -4,7 +4,7 @@
 # - unoconv (https://github.com/dagwieers/unoconv)
 
 DRAFT=draft-ietf-dprive-rfc7626-bis
-VERSION=00
+VERSION=01
 
 OUTDIR=adopted-draft-$(VERSION)
 

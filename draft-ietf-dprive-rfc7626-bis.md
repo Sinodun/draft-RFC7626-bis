@@ -2,13 +2,13 @@
     Title = "DNS Privacy Considerations"
     abbrev = "DNS Privacy Considerations"
     category = "info"
-    docName= "draft-ietf-dprive-rfc7626-bis-00"
+    docName= "draft-ietf-dprive-rfc7626-bis-01"
     ipr = "trust200902"
     area = "Internet Area"
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2019-07-08T00:00:00Z
+    date = 2019-09-19T00:00:00Z
     [pi]
     toc = "yes"
     compact = "yes"
@@ -82,7 +82,10 @@
    the AAAA records for www.example.com?", not "What are the name servers of
    .com?". By repeating the full question, instead of just the relevant part of
    the question to the next in line, the DNS provides more information than
-   necessary to the name server.
+   necessary to the name server. In this simplified description, recursive
+   resolvers do not implement QNAME minimization as described in [@!RFC7816],
+   which will only send the relevant part of the question to the upstream name
+   server.
 
 
    Because DNS relies on caching heavily, the algorithm described just
@@ -409,7 +412,7 @@ of a recursive resolver.
 
    Many programs exist to collect and analyze DNS data at the servers -- from
    the "query log" of some programs like BIND to tcpdump and more sophisticated
-   programs like PacketQ [@packetq] [@packetq-list] and DNSmezzo [@dnsmezzo]. The
+   programs like PacketQ [@packetq] and DNSmezzo [@dnsmezzo]. The
    organization managing the DNS server can use this data itself, or it can be
    part of a surveillance program like PRISM [@prism] and pass data to an
    outside observer.
@@ -498,13 +501,14 @@ implementations that provide clear guidance on what identifiers they add.
 
 ###  In the Authoritative Name Servers
 
-   Unlike what happens for recursive resolvers, observation capabilities
-   of authoritative name servers are limited by caching; they see only
-   the requests for which the answer was not in the cache.  For
-   aggregated statistics ("What is the percentage of LOC queries?"),
-   this is sufficient, but it prevents an observer from seeing
-   everything.  Still, the authoritative name servers see a part of the
-   traffic, and this subset may be sufficient to violate some privacy
+   Unlike what happens for recursive resolvers, observation capabilities of
+   authoritative name servers are limited by caching; they see only the requests
+   for which the answer was not in the cache. For aggregated statistics ("What
+   is the percentage of LOC queries?"), this is sufficient, but it prevents an
+   observer from seeing everything. Similarly the increasing deployment of QNAME
+   minimisation [@ripe-qname-measurements] reduces the data visible at the
+   authoritative name server. Still, the authoritative name servers see a part
+   of the traffic, and this subset may be sufficient to violate some privacy
    expectations.
 
    Also, the end user typically has some legal/contractual link with the
@@ -658,12 +662,15 @@ channels are also possible, but out of the scope of this document.
    privacy reasons.  Other passive DNS systems may not be so careful.
    And there is still the potential problems with revealing QNAMEs.
 
-   The revelations (from the Edward Snowden documents, which were leaked
-   from the National Security Agency (NSA)) of the MORECOWBELL
-   surveillance program [@morecowbell], which uses the DNS, both
-   passively and actively, to surreptitiously gather information about
-   the users, is another good example showing that the lack of privacy
-   protections in the DNS is actively exploited.
+   The revelations from the Edward Snowden documents, which were leaked from the
+   National Security Agency (NSA) provide evidence of the use of
+   the DNS in mass surveillance operations [@morecowbell]. For example the
+   MORECOWBELL surveillance program, which uses a dedicated covert monitoring
+   infrastructure to actively query DNS servers and perform HTTP requests to
+   obtain meta information about services and to check their availability.
+   Also the QUANTUMTHEORY project which includes detecting lookups for certain
+   addresses and injecting bogus replies is another good example showing that
+   the lack of privacy protections in the DNS is actively exploited.
 
 
 #  Legalities
@@ -701,6 +708,13 @@ channels are also possible, but out of the scope of this document.
 
 # Changelog
 
+draft-ietf-dprive-rfc7627-bis-01
+
+* Update text and old reference on Snowdon revelations.
+* Add text on and references to QNAME minimisation RFC and deployment measurements
+* Correct outdated references
+
+
 draft-ietf-dprive-rfc7627-bis-00
 
 * Rename after WG adoption
@@ -733,7 +747,7 @@ Initial commit.  Differences to RFC7626:
 </front>
 </reference>
 
-<reference anchor="pitfalls-of-dns-encrption" target="https://www.ietf.org/mail-archive/web/dns-privacy/current/pdfWqAIUmEl47.pdf">
+<reference anchor="pitfalls-of-dns-encrption" target="https://dl.acm.org/citation.cfm?id=2665959">
 <front>
 <title>Pretty Bad Privacy:Pitfalls of DNS Encryption</title>
 <author fullname="Haya Shulman" surname="Shulman" initials="H"/>
@@ -807,22 +821,14 @@ network problems and potential malware infections.</t>
 </front>
 </reference>
 
-<reference anchor="packetq" target="https://github.com/dotse/packetq/wiki">
+<reference anchor="packetq" target="https://github.com/DNS-OARC/PacketQ">
 <front>
 <title>PacketQ, a simple tool to make SQL-queries against PCAP-files</title>
-<author><organization>Dot SE</organization></author>
+<author><organization>DNS-OARC</organization></author>
 <date year="2011"/>
 <abstract><t>A tool that provides a basic SQL-frontend to
 PCAP-files. Outputs JSON, CSV and XML and includes a build-in
 webserver with JSON-api and a nice looking AJAX GUI.</t></abstract>
-</front>
-</reference>
-
-<reference anchor="packetq-list" target="http://lists.iis.se/mailman/listinfo/packetq">
-<front>
-<title>PacketQ Mailing List</title>
-<author><organization>PacketQ</organization></author>
-<date/>
 </front>
 </reference>
 
@@ -845,13 +851,13 @@ webserver with JSON-api and a nice looking AJAX GUI.</t></abstract>
 </reference>
 
 <reference anchor="grangeia.snooping"
-	   target="http://www.msit2005.mut.ac.th/msit_media/1_2551/nete4630/materials/20080718130017Hc.pdf">
+	   target="https://www.semanticscholar.org/paper/Cache-Snooping-or-Snooping-the-Cache-for-Fun-and-1-Grangeia/9b22f606e10b3609eafbdcbfc9090b63be8778c3">
   <front>
     <title>DNS Cache Snooping or Snooping the Cache for Fun and
     Profit</title>
     <author fullname="Luis Grangeia" surname="Grangeia"
 	    initials="L."/>
-    <date month="February" year="2004"/>
+    <date  year="2005"/>
   </front>
 </reference>
   
@@ -893,6 +899,15 @@ years, we have come to refer to this project and related activities as
 </front>
 </reference>
 
+<reference anchor="ripe-qname-measurements" target="https://labs.ripe.net/Members/wouter_de_vries/make-dns-a-bit-more-private-with-qname-minimisation">
+<front>
+<title>Making the DNS More Private with QNAME Minimisation</title>
+<author fullname="Wouter de Vries " initials="W. de Vries "><organization>University of Twente</organization></author>
+<date month="April" year="2019"/>
+</front>
+</reference>
+
+
 <reference anchor="data-protection-directive" target="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:31995L0046:EN:HTML">
 <front>
 <title>Directive 95/46/EC of the European Pariament and of the council on the protection of individuals
@@ -904,7 +919,7 @@ movement of such data</title>
 <seriesInfo name='Official Journal L 281,' value='pp. 0031 - 0050' />
 </reference>
 
-<reference anchor="passive-dns" target="http://www.enyo.de/fw/software/dnslogger/#2">
+<reference anchor="passive-dns" target="https://www.first.org/conference/2005/papers/florian-weimer-slides-1.pdf">
 <front>
 <title>Passive DNS Replication</title>
 <author fullname="Florian Weimer" initials="F." surname="Weimer"/>
@@ -1033,7 +1048,7 @@ of users, i. e. link multiple sessions of them. </t>
 <seriesInfo name="DOI" value="10.1007/978-3-642-27937-9_10"/>
 </reference>
 
-<reference anchor="sidn-entrada" target="https://www.sidnlabs.nl/uploads/tx_sidnpublications/SIDN_Labs_Privacyraamwerk_Position_Paper_V1.4_ENG.pdf">
+<reference anchor="sidn-entrada" target="https://www.sidnlabs.nl/downloads/yBW6hBoaSZe4m6GJc_0b7w/2211058ab6330c7f3788141ea19d3db7/SIDN_Labs_Privacyraamwerk_Position_Paper_V1.4_ENG.pdf">
 <front>
 <title>A privacy framework for 'DNS big data' applications</title>
 <author fullname="Cristian Hesselman" surname="Hesselman" initials="C."/>
