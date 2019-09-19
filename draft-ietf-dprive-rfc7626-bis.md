@@ -87,7 +87,6 @@
    which will only send the relevant part of the question to the upstream name
    server.
 
-
    Because DNS relies on caching heavily, the algorithm described just
    above is actually a bit more complicated, and not all questions are
    sent to the authoritative name servers.  If a few seconds later the
@@ -118,10 +117,10 @@
   instance, in an IPsec VPN, at least between the stub resolver and
   the resolver.
 
-   Today, almost all DNS queries are sent over UDP [@thomas-ditl-tcp].
-   This has practical consequences when considering encryption of the
-   traffic as a possible privacy technique.  Some encryption solutions
-   are only designed for TCP, not UDP.
+   Today, almost all DNS queries are sent over UDP [@thomas-ditl-tcp]. This has
+   practical consequences when considering encryption of the traffic as a
+   possible privacy technique. Some encryption solutions are only designed for
+   TCP, not UDP and new solutions are still emerging [@I-D.ietf-quic-transport].
 
    Another important point to keep in mind when analyzing the privacy
    issues of DNS is the fact that DNS requests received by a server are
@@ -161,15 +160,22 @@
    For privacy-related terms, we will use the terminology from
    [@!RFC6973].
 
-#   Risks
+#   Scope
 
    This document focuses mostly on the study of privacy risks for the
    end user (the one performing DNS requests).  We consider the risks of
    pervasive surveillance [@!RFC7258] as well as risks coming from a more
-   focused surveillance.  Privacy risks for the holder of a zone (the
-   risk that someone gets the data) are discussed in [@RFC5936] and
-   [@RFC5155].  Non-privacy risks (such as cache poisoning) are out of
-   scope.
+   focused surveillance.  
+   
+   Privacy risks for the holder of a zone (the risk that someone gets the data)
+   are discussed in [@RFC5936] and [@RFC5155].
+   
+   Privacy risks for recursive operators such as leakage of private namespaces
+   or blocklists are out of scope for this document.
+   
+   Non-privacy risks (such as cache poisoning) are also out of scope.
+
+# Risks
 
 ##  The Alleged Public Nature of DNS Data
 
@@ -357,7 +363,7 @@ implemented at the resolver (e.g. parental filtering).
 ### Encrypted Transports
 
 The use of encrypted transports directly mitigates passive surveillance of the
-DNS payload, however there are still some privacy attacks possible.
+DNS payload, however there are still some privacy attacks possible. This section enumerates the residual privacy risks to an end user when an attacker can passively monitor encrypted DNS traffic flows on the wire.  
 
 These are cases where user identification, fingerprinting or correlations may be
 possible due to the use of certain transport layers or clear text/observable
@@ -417,8 +423,6 @@ of a recursive resolver.
    part of a surveillance program like PRISM [@prism] and pass data to an
    outside observer.
 
-
-
    Sometimes, this data is kept for a long time and/or distributed to
    third parties for research purposes [@ditl] [@day-at-root], security
    analysis, or surveillance tasks.  These uses are sometimes under some
@@ -433,21 +437,49 @@ of a recursive resolver.
    Recursive Resolvers see all the traffic since there is typically no
    caching before them.  To summarize: your recursive resolver knows a
    lot about you.  The resolver of a large IAP, or a large public
-   resolver, can collect data from many users.  You may get an idea of
-   the data collected by reading the privacy policy of a big public
-   resolver, e.g., https://developers.google.com/speed/public-dns/privacy.
+   resolver, can collect data from many users.
 
-#### Encrypted transports
+   Given all the above considerations the choice of recursive resolver has
+   direct privacy considerations for end users. Historically end user devices
+   have used the DHCP provided local network recursive resolver which may have
+   strong, medium or weak privacy policies depending on the network. Privacy
+   policies for these servers may or may not be available for users to make an
+   informed choice.
+
+   More recently some networks and end users have actively chosen to use a large
+   public resolver instead e.g. Google Public DNS, Cloudflare or Quad9 (need
+   refs). There can be many reasons: cost considerations for network operators,
+   better reliability or anti-censorship considerations are just a few. Such
+   services typically do provide a privacy policy and the end user can get an
+   idea of the data collected by such operators by reading one e.g.,
+   https://developers.google.com/speed/public-dns/privacy.
+
+   There are concerns that should the trend towards using large public resolvers
+   increase that this will itself provide a privacy concern due to a small
+   number of operators having visibility of the majority of DNS requests
+   globally and the potential for aggregating data across services about a user.
+   This is particularly true in the light of some recent deployment proposals
+   for encrypted transports, specifically DoH in browsers opting to use Trusted
+   Recursive Resolvers directly.
+
+   At the time of writing the deployment models for DNS are evolving and are the
+   subject of much other work (ref some other stuff to avoid more discussion
+   here?).
+
+#### Encrypted transports - DoT and DoH
 
 Use of encrypted transports does not reduce the data available in the recursive
 resolver and ironically can actually expose more information about users to
 operators. As mentioned in (#on-the-wire) use of session based encrypted
 transports (TCP/TLS) can expose correlation data about users. Such concerns in
 the TCP/TLS layers apply equally to DoT and DoH which both use TLS as
-the underlying transport.
+the underlying transport, some examples are:
 
+* fingerprinting based on TLS version and/or cipher suite selection
+* user tracking via session resumption in TLS 1.2
+* encrypted traffic analysis based on message size and timing
 
-#### DoH vs DoT
+#### DoH
 
 The proposed specification for DoH [@RFC8484] includes a
 Privacy Considerations section which highlights some of the differences between
@@ -486,8 +518,8 @@ The picture for privacy considerations and user expectations for DoH with
 respect to what additional data may be available to the DoH server compared to
 DNS over UDP, TCP or TLS is complex and requires a detailed analysis for each
 use case. In particular the choice of HTTPS functionality vs privacy is
-specifically made an implementation choice in DoH and users may well have differing
-privacy expectations depending on the DoH use case and implementation.
+specifically made an implementation choice in DoH and users may well have
+differing privacy expectations depending on the DoH use case and implementation.
 
 At the extremes, there may be implementations that attempt to achieve parity
 with DoT from a privacy perspective at the cost of using no
@@ -495,8 +527,11 @@ identifiable headers, there might be others that provide feature rich data flows
 where the low-level origin of the DNS query is easily identifiable.
 
 Privacy focussed users should be aware of the potential for additional client
-identifiers in DoH compared to DoT and may want to only use DoH
+identifiers in DoH compared to DoT and may want to only use DoH client
 implementations that provide clear guidance on what identifiers they add.
+
+They may also want to actively override any default DoH settings in e.g.
+browsers in favour of their chosen recursive resolver.
 
 
 ###  In the Authoritative Name Servers
@@ -713,7 +748,7 @@ draft-ietf-dprive-rfc7627-bis-01
 * Update text and old reference on Snowdon revelations.
 * Add text on and references to QNAME minimisation RFC and deployment measurements
 * Correct outdated references
-
+* Clarify scope
 
 draft-ietf-dprive-rfc7627-bis-00
 
