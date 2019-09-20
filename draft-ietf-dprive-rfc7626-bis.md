@@ -11,6 +11,7 @@
     date = 2019-09-19T00:00:00Z
     [pi]
     toc = "yes"
+    tocdepth = "6"
     compact = "yes"
     symrefs = "yes"
     sortrefs = "yes"
@@ -173,7 +174,8 @@
    Privacy risks for recursive operators such as leakage of private namespaces
    or blocklists are out of scope for this document.
    
-   Non-privacy risks (such as cache poisoning) are also out of scope.
+   Non-privacy risks (e.g security related concerns such as cache poisoning) are
+   also out of scope.
 
 # Risks
 
@@ -372,8 +374,8 @@ to these attacks when using specific transports.
 
 There are some general examples, for example, certain studies have highlighted
 that IP TTL or TCP Window sizes [os-fingerprint](http://netres.ec/?b=11B99BD)
- values can be used to fingerprint client OS's
- or that various techniques can be used to de-NAT DNS queries
+values can be used to fingerprint client OS's or that various techniques can be
+used to de-NAT DNS queries
 [dns-de-nat](https://www.researchgate.net/publication/320322146_DNS-DNS_DNS-based_De-NAT_Scheme).
 
 The use of clear text transport options to decrease latency may also identify a
@@ -390,9 +392,12 @@ an added mechanism to track them as they move across network environments.
 Users of encrypted transports are also highly likely to re-use sessions for
 multiple DNS queries to optimize performance (e.g. via DNS pipelining or HTTPS
 multiplexing). Certain configuration options for encrypted transports could
-also in principle fingerprint a user, for example session resumption, the
-maximum number of messages to send or a maximum connection time before
-closing a connections and re-opening.
+also in principle fingerprint a user or client application. For example:
+
+* TLS version or cipher suite selection
+* session resumption
+* the maximum number of messages to send or 
+* a maximum connection time before closing a connections and re-opening.
 
 Whilst there are known attacks on older versions of TLS the most recent
 recommendations [@RFC7525] and developments [@RFC8446] in this
@@ -439,6 +444,8 @@ of a recursive resolver.
    lot about you.  The resolver of a large IAP, or a large public
    resolver, can collect data from many users.
 
+#### Resolver selection
+
    Given all the above considerations the choice of recursive resolver has
    direct privacy considerations for end users. Historically end user devices
    have used the DHCP provided local network recursive resolver which may have
@@ -454,19 +461,83 @@ of a recursive resolver.
    idea of the data collected by such operators by reading one e.g.,
    https://developers.google.com/speed/public-dns/privacy.
 
+   Even more recently some applications e.g. Firefox [@firefox] have announced
+   plans to deploy application specific DNS settings which might be enabled by
+   default. Current proposals revolve around using a hard-coded list of large
+   public resolver services which offer DoH. Users may want to actively override
+   any default application specific settings in favour of their chosen recursive
+   resolver.
+
    There are concerns that should the trend towards using large public resolvers
    increase that this will itself provide a privacy concern due to a small
    number of operators having visibility of the majority of DNS requests
    globally and the potential for aggregating data across services about a user.
-   This is particularly true in the light of some recent deployment proposals
-   for encrypted transports, specifically DoH in browsers opting to use Trusted
-   Recursive Resolvers directly.
+   Additionally the operating organisation of the resolver may be in a different
+   legal jurisdiction to the user which creates additional privacy concerns
+   around legal protections of and access to the data collected by the operator.
 
-   At the time of writing the deployment models for DNS are evolving and are the
-   subject of much other work (ref some other stuff to avoid more discussion
-   here?).
+   At the time of writing the deployment models for DNS are evolving, their
+   implications are complex and often extend beyond the scope of this document .
+   They are the subject of much other work (ref some other stuff to avoid more
+   discussion here?).
 
-#### Encrypted transports - DoT and DoH
+####  Active attacks on resolver configuration
+
+  The previous paragraphs discussed DNS privacy, assuming that all the traffic
+  was directed to the intended servers (i.e those that would be used in the
+  absence of an active attack) and that the potential attacker was purely
+  passive. But, in reality, we can have active attackers in the network
+  redirecting the traffic, not just to observe it but also potentially change
+  it.
+
+  For instance, a DHCP server controlled by an attacker can direct you to a
+  recursive resolver also controlled by that attacker. Most of the time, it
+  seems to be done to divert traffic in order to also direct the user to a web
+  server controlled by the attacker. However it could be used just to capture
+  the traffic and gather information about you.
+
+  Other attacks, besides using DHCP, are possible. The cleartext traffic from a
+  DNS client to a DNS server can be intercepted along its way from originator
+  to intended source, for instance, by transparent attacker controlled DNS
+  proxies in the network that will divert the traffic intended for a legitimate
+  DNS server. This server can masquerade as the intended server and respond
+  with data to the client. (Attacker controlled servers that inject malicious
+  data are possible, but it is a separate problem not relevant to privacy.) A
+  server controlled by an attacker may respond correctly for a long period of
+  time, thereby foregoing detection.
+
+  Also, malware like DNSchanger [@dnschanger] can change the recursive resolver
+  in the machine's configuration, or the routing itself can be subverted (for
+  instance, [@ripe-atlas-turkey]).
+
+#### Blocking of user selected services
+
+  User privacy can also be at risk if there is blocking (by local network
+  operators or more general mechanisms) of access to remote recursive servers
+  that offer encrypted transports when the local resolver does not offer
+  encryption and/or has very poor privacy policies. For example active blocking
+  of port 853 for DoT or of specific IP addresses (e.g. 1.1.1.1 or
+  2606:4700:4700::1111) could restrict the resolvers available to the user. The
+  extent of the risk to end user privacy is highly dependant on the specific
+  network and user context; a user on a network that is known to perform
+  surveillance would be compromised if they could not access such services
+  whereas a user on a trusted network might have no privacy motivation to do
+  so.
+
+  Similarly attacks on such services e.g. DDoS could force users to switch to
+  other services that do not offer encrypted transports for DNS.
+
+#### Authentication of Servers
+
+  Both DoH and Strict mode for DoT require authentication of the server
+  and therefore as long as the authentication credentials are obtained over a
+  secure channel then using either of these transports defeats the attack of
+  re-directing traffic to rogue servers. Of course attacks on these secure
+  channels are also possible, but out of the scope of this document.
+
+#### Encrypted Transports
+
+##### DoT and DoH
 
 Use of encrypted transports does not reduce the data available in the recursive
 resolver and ironically can actually expose more information about users to
@@ -477,9 +548,8 @@ the underlying transport, some examples are:
 
 * fingerprinting based on TLS version and/or cipher suite selection
 * user tracking via session resumption in TLS 1.2
-* encrypted traffic analysis based on message size and timing
 
-#### DoH
+##### DoH Specific Considerations
 
 The proposed specification for DoH [@RFC8484] includes a
 Privacy Considerations section which highlights some of the differences between
@@ -529,10 +599,6 @@ where the low-level origin of the DNS query is easily identifiable.
 Privacy focussed users should be aware of the potential for additional client
 identifiers in DoH compared to DoT and may want to only use DoH client
 implementations that provide clear guidance on what identifiers they add.
-
-They may also want to actively override any default DoH settings in e.g.
-browsers in favour of their chosen recursive resolver.
-
 
 ###  In the Authoritative Name Servers
 
@@ -589,58 +655,15 @@ browsers in favour of their chosen recursive resolver.
    third of the domains.  With the control (or the ability to sniff the
    traffic) of a few name servers, you can gather a lot of information.
 
-###  Rogue Servers
-
-   The previous paragraphs discussed DNS privacy, assuming that all the
-   traffic was directed to the intended servers and that the potential
-   attacker was purely passive.  But, in reality, we can have active
-   attackers redirecting the traffic, not to change it but just to
-   observe it.
-
-   For instance, a rogue DHCP server, or a trusted DHCP server that has
-   had its configuration altered by malicious parties, can direct you to
-   a rogue recursive resolver.  Most of the time, it seems to be done to
-   divert traffic by providing lies for some domain names.  But it could
-   be used just to capture the traffic and gather information about you.
-   Other attacks, besides using DHCP, are possible.  The traffic from a
-   DNS client to a DNS server can be intercepted along its way from
-   originator to intended source, for instance, by transparent DNS
-   proxies in the network that will divert the traffic intended for a
-   legitimate DNS server.  This rogue server can masquerade as the
-   intended server and respond with data to the client.  (Rogue servers
-   that inject malicious data are possible, but it is a separate problem
-   not relevant to privacy.)  A rogue server may respond correctly for a
-   long period of time, thereby foregoing detection.  This may be done
-   for what could be claimed to be good reasons, such as optimization or
-   caching, but it leads to a reduction of privacy compared to if there
-   was no attacker present.  Also, malware like DNSchanger [@dnschanger]
-   can change the recursive resolver in the machine's configuration, or
-   the routing itself can be subverted (for instance,
-   [@ripe-atlas-turkey]).
-
-### Authentication of servers
-
-Both DoH and Strict mode for DoT require authentication of the server
-and therefore as long as the authentication credentials are obtained over a
-secure channel then using either of these transports defeats the attack of
-re-directing traffic to rogue servers. Of course attacks on these secure
-channels are also possible, but out of the scope of this document.
-
-### Blocking of services
-
-   User privacy can also be at risk if there is blocking (by local network
-   operators or more general mechanisms) of access to recursive servers that
-   offer encrypted transports. For example active blocking of port 853 for
-   DoT or of specific IP addresses (e.g. 1.1.1.1 or
-   2606:4700:4700::1111) could restrict the resolvers available to the client.
-   Similarly attacks on such services e.g. DDoS could force users to switch to
-   other services that do not offer encrypted transports for DNS.
-
 
 ##  Re-identification and Other Inferences
 
-   An observer has access not only to the data he/she directly collects
-   but also to the results of various inferences about this data.
+   An observer has access not only to the data he/she directly collects but also
+   to the results of various inferences about this data. The term 'observer'
+   here is used very generally, it might be one that is passively observing
+   cleartext DNS traffic, one in the network that is actively attacking the user
+   by re-directing DNS resolution, or it might be a local or remote resolver
+   operator.
 
    For instance, a user can be re-identified via DNS queries.  If the
    adversary knows a user's identity and can watch their DNS queries for
@@ -749,6 +772,9 @@ draft-ietf-dprive-rfc7627-bis-01
 * Add text on and references to QNAME minimisation RFC and deployment measurements
 * Correct outdated references
 * Clarify scope
+* Clarify what risks are considered in section 3.4.2
+* Re-structure section 3.5 (was 2.5), re-work several sections here
+* Add discussion of resolver selection
 
 draft-ietf-dprive-rfc7627-bis-00
 
@@ -773,6 +799,14 @@ Initial commit.  Differences to RFC7626:
 *  Add section on DNS payload
 *  Add section on authentication of servers
 *  Add section on blocking of services
+
+<reference anchor="firefox" target="https://blog.mozilla.org/futurereleases/2019/09/06/whats-next-in-making-dns-over-https-the-default/">
+<front>
+<title>What’s next in making Encrypted DNS-over-HTTPS the Default</title>
+<author fullname="Selena Deckelmann" surname="Deckelmann"/>
+<date month="September" year="2019"/>
+</front>
+</reference>
 
 <reference anchor="os-fingerprint" target="http://www.netresec.com/?page=Blog&month=2011-11&post=Passive-OS-Fingerprinting">
 <front>
