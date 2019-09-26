@@ -79,12 +79,12 @@ Table of Contents
    5.  Legalities  . . . . . . . . . . . . . . . . . . . . . . . . .  18
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
    7.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  18
-   8.  Changelog . . . . . . . . . . . . . . . . . . . . . . . . . .  18
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  19
+   8.  Changelog . . . . . . . . . . . . . . . . . . . . . . . . . .  19
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  20
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  20
-     9.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  25
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  25
+     9.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  26
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  26
 
 1.  Introduction
 
@@ -599,7 +599,8 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    user devices have used the DHCP provided local network recursive
    resolver which may have strong, medium or weak privacy policies
    depending on the network.  Privacy policies for these servers may or
-   may not be available for users to make an informed choice.
+   may not be available and users need to be aware that privacy
+   guarantees will vary with network.
 
    More recently some networks and end users have actively chosen to use
    a large public resolver instead e.g.  Google Public DNS, Cloudflare
@@ -607,9 +608,8 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    for network operators, better reliability or anti-censorship
    considerations are just a few.  Such services typically do provide a
    privacy policy and the end user can get an idea of the data collected
-   by such operators by reading one e.g.,
-   <https://developers.google.com/speed/public-dns/privacy>.
-
+   by such operators by reading one e.g., Google Public DNS - Your
+   Privacy [4].
 
 
 
@@ -618,26 +618,44 @@ Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 11]
 Internet-Draft         DNS Privacy Considerations         September 2019
 
 
-   Even more recently some applications e.g.  Firefox [firefox] have
-   announced plans to deploy application specific DNS settings which
-   might be enabled by default.  Current proposals revolve around using
-   a hard-coded list of large public resolver services which offer DoH.
-   Users may want to actively override any default application specific
-   settings in favour of their chosen recursive resolver.
+   Even more recently some applications have announced plans to deploy
+   application specific DNS settings which might be enabled by default.
+   For example current proposals by Firefox [firefox] revolve around a
+   default based on geographic region using a pre-configured list of
+   large public resolver services which offer DoH, combined with non-
+   standard probing and signalling mechanism to disable DoH in
+   particular networks.  Whereas Chrome [chrome] is experimenting with
+   using DoH to the DHCP provided resolver if it is on a list of DoH-
+   compatible providers.  At the time of writing efforts to provide
+   standardized signalling mechanisms for applications to discover the
+   services offered by local resolvers are in progress
+   [I-D.ietf-dnsop-resolver-information].
 
-   There are concerns that should the trend towards using large public
-   resolvers increase that this will itself provide a privacy concern
+   If applications enable application specific DNS settings without
+   properly informing the user of the change (or do not provide an
+   option for user configuration of the application recursive resolver)
+   there is a potential privacy issue; depending on the network context
+   and the application default the application might use a recursive
+   server that provides less privacy protection than the default network
+   provided server without the users full knowledge.  Users that are
+   fully aware of an application specific DNS setting may want to
+   actively override any default in favour of their chosen recursive
+   resolver.
+
+   There are also concerns that should the trend towards using large
+   public resolvers increase, this will itself provide a privacy concern
    due to a small number of operators having visibility of the majority
    of DNS requests globally and the potential for aggregating data
    across services about a user.  Additionally the operating
    organisation of the resolver may be in a different legal jurisdiction
-   to the user which creates additional privacy concerns around legal
+   to the user which creates further privacy concerns around legal
    protections of and access to the data collected by the operator.
 
    At the time of writing the deployment models for DNS are evolving,
-   their implications are complex and often extend beyond the scope of
-   this document .  They are the subject of much other work (ref some
-   other stuff to avoid more discussion here?).
+   their implications are complex and extend beyond the scope of this
+   document.  They are the subject of much other work including
+   [I-D.livingood-doh-implementation-risks-issues], the IETF ADD mailing
+   list [5] and the Encrypted DNS Deployment Initiative [6].
 
 3.5.1.2.  Active attacks on resolver configuration
 
@@ -647,6 +665,14 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    attacker was purely passive.  But, in reality, we can have active
    attackers in the network redirecting the traffic, not just to observe
    it but also potentially change it.
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 12]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
 
    For instance, a DHCP server controlled by an attacker can direct you
    to a recursive resolver also controlled by that attacker.  Most of
@@ -665,14 +691,6 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    possible, but it is a separate problem not relevant to privacy.)  A
    server controlled by an attacker may respond correctly for a long
    period of time, thereby foregoing detection.
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 12]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
    Also, malware like DNSchanger [dnschanger] can change the recursive
    resolver in the machine's configuration, or the routing itself can be
@@ -703,6 +721,15 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    and therefore as long as the authentication credentials are obtained
    over a secure channel then using either of these transports defeats
    the attack of re-directing traffic to rogue servers.  Of course
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 13]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    attacks on these secure channels are also possible, but out of the
    scope of this document.
 
@@ -721,14 +748,6 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    o  fingerprinting based on TLS version and/or cipher suite selection
 
    o  user tracking via session resumption in TLS 1.2
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 13]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
 3.5.1.5.2.  DoH Specific Considerations
 
@@ -759,6 +778,14 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    address.  Whereas if DoH clients commonly include several headers in
    a DNS message (e.g. user-agent and accept-language) this could lead
    to the DoH server being able to identify the source of individual DNS
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 14]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    requests not only to a specific end user device but to a specific
    application.
 
@@ -778,14 +805,6 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    At the extremes, there may be implementations that attempt to achieve
    parity with DoT from a privacy perspective at the cost of using no
    identifiable headers, there might be others that provide feature rich
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 14]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
-
    data flows where the low-level origin of the DNS query is easily
    identifiable.
 
@@ -815,6 +834,14 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
    As noted before, using a local resolver or a resolver close to the
    machine decreases the attack surface for an on-the-wire eavesdropper.
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 15]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    But it may decrease privacy against an observer located on an
    authoritative name server.  This authoritative name server will see
    the IP address of the end client instead of the address of a big
@@ -832,15 +859,6 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    even "junk" can leak information; for instance, if there is a typing
    error in the TLD, the user will send data to a TLD that is not the
    usual one.)
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 15]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
    Many domains, including TLDs, are partially hosted by third-party
    servers, sometimes in a different country.  The contracts between the
@@ -872,6 +890,14 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    adversary knows a user's identity and can watch their DNS queries for
    a period, then that same adversary may be able to re-identify the
    user solely based on their pattern of DNS queries later on regardless
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 16]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    of the location from which the user makes those queries.  For
    example, one study [herrmann-reidentification] found that such re-
    identification is possible so that "73.1% of all day-to-day links
@@ -887,16 +913,6 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    identifies people going to a site by putting in a very long DNS name
    and looking for queries of a specific length.  Such traffic analysis
    could weaken some privacy solutions.
-
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 16]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
    The IAB privacy and security program also have a work in progress
    [RFC7624] that considers such inference-based attacks in a more
@@ -930,6 +946,14 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    sometimes an entire zone.  They are used for many reasons -- some
    good, some bad.  Well-known passive DNS systems keep only the DNS
    responses, and not the source IP address of the client, precisely for
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 17]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    privacy reasons.  Other passive DNS systems may not be so careful.
    And there is still the potential problems with revealing QNAMEs.
 
@@ -944,21 +968,11 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    replies is another good example showing that the lack of privacy
    protections in the DNS is actively exploited.
 
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 17]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
-
 5.  Legalities
 
    To our knowledge, there are no specific privacy laws for DNS data, in
    any country.  Interpreting general privacy laws like
-   [data-protection-directive] or GDPR [4] applicable in the European
+   [data-protection-directive] or GDPR [7] applicable in the European
    Union in the context of DNS traffic data is not an easy task, and we
    do not know a court precedent here.  See an interesting analysis in
    [sidn-entrada].
@@ -986,6 +1000,16 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    for good written contributions.  And thanks to the IESG members for
    the last remarks.
 
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 18]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
 8.  Changelog
 
    draft-ietf-dprive-rfc7627-bis-01
@@ -1002,13 +1026,6 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    o  Clarify what risks are considered in section 3.4.2
 
    o  Re-structure section 3.5 (was 2.5), re-work several sections here
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 18]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
    o  Add discussion of resolver selection
 
@@ -1041,6 +1058,14 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
    o  Add section on authentication of servers
 
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 19]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    o  Add section on blocking of services
 
 9.  References
@@ -1054,17 +1079,6 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    [RFC1035]  Mockapetris, P., "Domain names - implementation and
               specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
               November 1987, <https://www.rfc-editor.org/info/rfc1035>.
-
-
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 19]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
    [RFC6973]  Cooper, A., Tschofenig, H., Aboba, B., Peterson, J.,
               Morris, J., Hansen, M., and R. Smith, "Privacy
@@ -1092,6 +1106,22 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               Resolution of DNS Queries", 2008,
               <http://deic.uab.es/~joaquin/papers/is08.pdf>.
 
+   [chrome]   Baheux, , "Experimenting with same-provider DNS-over-HTTPS
+              upgrade", September 2019,
+              <https://blog.chromium.org/2019/09/experimenting-with-
+              same-provider-dns.html>.
+
+
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 20]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    [dagon-malware]
               Dagon, D., "Corrupted DNS Resolution Paths: The Rise of a
               Malicious Resolution Authority", ISC/OARC Workshop, 2007,
@@ -1113,14 +1143,6 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               281, pp. 0031 - 0050, November 1995, <http://eur-
               lex.europa.eu/LexUriServ/
               LexUriServ.do?uri=CELEX:31995L0046:EN:HTML>.
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 20]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
    [day-at-root]
               Castro, S., Wessels, D., Fomenkov, M., and K. Claffy, "A
@@ -1148,6 +1170,14 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               <https://en.wikipedia.org/w/
               index.php?title=DNSChanger&oldid=578749672>.
 
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 21]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    [dnsmezzo]
               Bortzmeyer, S., "DNSmezzo", 2009,
               <http://www.dnsmezzo.net/>.
@@ -1169,15 +1199,6 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               hamburg.de/publications/2011/2011-09-14_FFHP_PrivacyPreser
               vingDNS_ESORICS2011.pdf>.
 
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 21]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
-
    [firefox]  Deckelmann, , "What's next in making Encrypted DNS-over-
               HTTPS the Default", September 2019,
               <https://blog.mozilla.org/futurereleases/2019/09/06/whats-
@@ -1197,6 +1218,22 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               DOI 10.1007/978-3-642-27937-9_10, 2012, <http://epub.uni-
               regensburg.de/21103/1/Paper_PUL_nordsec_published.pdf>.
 
+   [I-D.ietf-dnsop-resolver-information]
+              Sood, P., Arends, R., and P. Hoffman, "DNS Resolver
+              Information Self-publication", draft-ietf-dnsop-resolver-
+              information-00 (work in progress), August 2019.
+
+
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 22]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    [I-D.ietf-dprive-bcp-op]
               Dickinson, S., Overeinder, B., Rijswijk-Deij, R., and A.
               Mankin, "Recommendations for DNS Privacy Service
@@ -1213,6 +1250,12 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               SNI Encryption in TLS", draft-ietf-tls-sni-encryption-06
               (work in progress), September 2019.
 
+   [I-D.livingood-doh-implementation-risks-issues]
+              Livingood, J., Antonakakis, M., Sleigh, B., and A.
+              Winfield, "Centralized DNS over HTTPS (DoH) Implementation
+              Issues and Risks", draft-livingood-doh-implementation-
+              risks-issues-04 (work in progress), September 2019.
+
    [morecowbell]
               Grothoff, C., Wachs, M., Ermert, M., and J. Appelbaum,
               "NSA's MORECOWBELL: Knell for DNS", GNUnet e.V., January
@@ -1222,17 +1265,6 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    [packetq]  DNS-OARC, "PacketQ, a simple tool to make SQL-queries
               against PCAP-files", 2011, <https://github.com/DNS-OARC/
               PacketQ>.
-
-
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 22]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
    [passive-dns]
               Weimer, F., "Passive DNS Replication", April 2005,
@@ -1246,6 +1278,17 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    [prism]    Wikipedia, "PRISM (surveillance program)", July 2015,
               <https://en.wikipedia.org/w/index.php?title=PRISM_(surveil
               lance_program)&oldid=673789455>.
+
+
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 23]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
 
    [RFC4033]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
               Rose, "DNS Security Introduction and Requirements",
@@ -1283,13 +1326,6 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               DOI 10.17487/RFC7624, August 2015, <https://www.rfc-
               editor.org/info/rfc7624>.
 
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 23]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
-
    [RFC7858]  Hu, Z., Zhu, L., Heidemann, J., Mankin, A., Wessels, D.,
               and P. Hoffman, "Specification for DNS over Transport
               Layer Security (TLS)", RFC 7858, DOI 10.17487/RFC7858, May
@@ -1299,6 +1335,16 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               Kumari, "Client Subnet in DNS Queries", RFC 7871,
               DOI 10.17487/RFC7871, May 2016, <https://www.rfc-
               editor.org/info/rfc7871>.
+
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 24]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
 
    [RFC7873]  Eastlake 3rd, D. and M. Andrews, "Domain Name System (DNS)
               Cookies", RFC 7873, DOI 10.17487/RFC7873, May 2016,
@@ -1333,19 +1379,6 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               <https://labs.ripe.net/Members/wouter_de_vries/make-dns-a-
               bit-more-private-with-qname-minimisation>.
 
-
-
-
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 24]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
-
    [sidn-entrada]
               Hesselman, C., Jansen, J., Wullink, M., Vink, K., and M.
               Simon, "A privacy framework for 'DNS big data'
@@ -1360,6 +1393,14 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               October 2014, <https://indico.dns-
               oarc.net/event/20/session/2/contribution/15/material/
               slides/1.pdf>.
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 25]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
 
    [tor-leak]
               Tor, "DNS leaks in Tor", 2013,
@@ -1381,7 +1422,13 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    [3] https://www.researchgate.net/publication/320322146_DNS-DNS_DNS-
        based_De-NAT_Scheme
 
-   [4] https://www.eugdpr.org/the-regulation.html
+   [4] https://developers.google.com/speed/public-dns/privacy
+
+   [5] https://mailarchive.ietf.org/arch/browse/static/add
+
+   [6] https://www.encrypted-dns.org
+
+   [7] https://www.eugdpr.org/the-regulation.html
 
 Authors' Addresses
 
@@ -1394,14 +1441,6 @@ Authors' Addresses
    Email: bortzmeyer+ietf@nic.fr
 
 
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 25]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
-
    Sara Dickinson
    Sinodun IT
    Magdalen Centre
@@ -1410,45 +1449,6 @@ Internet-Draft         DNS Privacy Considerations         September 2019
    United Kingdom
 
    Email: sara@sinodun.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

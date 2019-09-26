@@ -450,8 +450,8 @@ of a recursive resolver.
    direct privacy considerations for end users. Historically end user devices
    have used the DHCP provided local network recursive resolver which may have
    strong, medium or weak privacy policies depending on the network. Privacy
-   policies for these servers may or may not be available for users to make an
-   informed choice.
+   policies for these servers may or may not be available and users need to be
+   aware that privacy guarantees will vary with network.
 
    More recently some networks and end users have actively chosen to use a large
    public resolver instead e.g. Google Public DNS, Cloudflare or Quad9 (need
@@ -459,27 +459,44 @@ of a recursive resolver.
    better reliability or anti-censorship considerations are just a few. Such
    services typically do provide a privacy policy and the end user can get an
    idea of the data collected by such operators by reading one e.g.,
-   https://developers.google.com/speed/public-dns/privacy.
+   [Google Public DNS - Your Privacy](https://developers.google.com/speed/public-dns/privacy).
 
-   Even more recently some applications e.g. Firefox [@firefox] have announced
-   plans to deploy application specific DNS settings which might be enabled by
-   default. Current proposals revolve around using a hard-coded list of large
-   public resolver services which offer DoH. Users may want to actively override
-   any default application specific settings in favour of their chosen recursive
+   Even more recently some applications have announced plans to deploy
+   application specific DNS settings which might be enabled by default. For
+   example current proposals by Firefox [@firefox] revolve around a default
+   based on geographic region using a pre-configured list of large public
+   resolver services which offer DoH, combined with non-standard probing and
+   signalling mechanism to disable DoH in particular networks. Whereas Chrome
+   [@chrome] is experimenting with using DoH to the DHCP provided resolver if it
+   is on a list of DoH-compatible providers. At the time of writing efforts
+   to provide standardized signalling mechanisms for applications to discover
+   the services offered by local resolvers are in progress
+   [@I-D.ietf-dnsop-resolver-information].
+
+   If applications enable application specific DNS settings without properly
+   informing the user of the change (or do not provide an option for user
+   configuration of the application recursive resolver) there is a potential
+   privacy issue; depending on the network context and the application default
+   the application might use a recursive server that provides less privacy
+   protection than the default network provided server without the users full
+   knowledge. Users that are fully aware of an application specific DNS setting
+   may want to actively override any default in favour of their chosen recursive
    resolver.
 
-   There are concerns that should the trend towards using large public resolvers
-   increase that this will itself provide a privacy concern due to a small
+   There are also concerns that should the trend towards using large public
+   resolvers increase, this will itself provide a privacy concern due to a small
    number of operators having visibility of the majority of DNS requests
    globally and the potential for aggregating data across services about a user.
    Additionally the operating organisation of the resolver may be in a different
-   legal jurisdiction to the user which creates additional privacy concerns
-   around legal protections of and access to the data collected by the operator.
+   legal jurisdiction to the user which creates further privacy concerns around
+   legal protections of and access to the data collected by the operator.
 
    At the time of writing the deployment models for DNS are evolving, their
-   implications are complex and often extend beyond the scope of this document .
-   They are the subject of much other work (ref some other stuff to avoid more
-   discussion here?).
+   implications are complex and extend beyond the scope of this document. They
+   are the subject of much other work including
+   [@I-D.livingood-doh-implementation-risks-issues], the [IETF ADD mailing
+   list](https://mailarchive.ietf.org/arch/browse/static/add) and the [Encrypted
+   DNS Deployment Initiative](https://www.encrypted-dns.org).
 
 ####  Active attacks on resolver configuration
 
@@ -799,6 +816,14 @@ Initial commit.  Differences to RFC7626:
 *  Add section on DNS payload
 *  Add section on authentication of servers
 *  Add section on blocking of services
+
+<reference anchor="chrome" target="https://blog.chromium.org/2019/09/experimenting-with-same-provider-dns.html">
+<front>
+<title>Experimenting with same-provider DNS-over-HTTPS upgrade</title>
+<author fullname="Kenji Baheux" surname="Baheux"/>
+<date month="September" year="2019"/>
+</front>
+</reference>
 
 <reference anchor="firefox" target="https://blog.mozilla.org/futurereleases/2019/09/06/whats-next-in-making-dns-over-https-the-default/">
 <front>
