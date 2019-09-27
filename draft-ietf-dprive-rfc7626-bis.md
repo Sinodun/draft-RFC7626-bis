@@ -8,7 +8,7 @@
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2019-09-19T00:00:00Z
+    date = 2019-09-27T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -785,13 +785,15 @@ implementations that provide clear guidance on what identifiers they add.
 
 draft-ietf-dprive-rfc7627-bis-01
 
+* Re-structure section 3.5 (was 2.5) 
+  * Collect considerations for recursive resolvers together
+  * Re-work several sections here to clarify their context (e.g. ‘Rogue servers' becomes ‘Active attacks on resolver configuration’)
+  * Add discussion of resolver selection
 * Update text and old reference on Snowdon revelations.
 * Add text on and references to QNAME minimisation RFC and deployment measurements
 * Correct outdated references
-* Clarify scope
+* Clarify scope by adding a Scope section (was Risks overview)
 * Clarify what risks are considered in section 3.4.2
-* Re-structure section 3.5 (was 2.5), re-work several sections here
-* Add discussion of resolver selection
 
 draft-ietf-dprive-rfc7627-bis-00
 

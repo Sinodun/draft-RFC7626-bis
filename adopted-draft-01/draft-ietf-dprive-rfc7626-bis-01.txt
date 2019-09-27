@@ -6,7 +6,7 @@ dprive                                                     S. Bortzmeyer
 Internet-Draft                                                     AFNIC
 Obsoletes: 7626 (if approved)                               S. Dickinson
 Intended status: Informational                                Sinodun IT
-Expires: March 22, 2020                               September 19, 2019
+Expires: March 30, 2020                               September 27, 2019
 
 
                        DNS Privacy Considerations
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 22, 2020.
+   This Internet-Draft will expire on March 30, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                 [Page 1]
+Bortzmeyer & Dickinson   Expires March 30, 2020                 [Page 1]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                 [Page 2]
+Bortzmeyer & Dickinson   Expires March 30, 2020                 [Page 2]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -165,7 +165,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                 [Page 3]
+Bortzmeyer & Dickinson   Expires March 30, 2020                 [Page 3]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -221,7 +221,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                 [Page 4]
+Bortzmeyer & Dickinson   Expires March 30, 2020                 [Page 4]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -277,7 +277,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                 [Page 5]
+Bortzmeyer & Dickinson   Expires March 30, 2020                 [Page 5]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -333,7 +333,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                 [Page 6]
+Bortzmeyer & Dickinson   Expires March 30, 2020                 [Page 6]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -389,7 +389,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                 [Page 7]
+Bortzmeyer & Dickinson   Expires March 30, 2020                 [Page 7]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -445,7 +445,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                 [Page 8]
+Bortzmeyer & Dickinson   Expires March 30, 2020                 [Page 8]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -501,7 +501,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                 [Page 9]
+Bortzmeyer & Dickinson   Expires March 30, 2020                 [Page 9]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -557,7 +557,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 10]
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 10]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -613,7 +613,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 11]
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 11]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -669,7 +669,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 12]
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 12]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -725,7 +725,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 13]
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 13]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -781,7 +781,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 14]
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 14]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -837,7 +837,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 15]
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 15]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -893,7 +893,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 16]
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 16]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -949,7 +949,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 17]
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 17]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -1005,7 +1005,7 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 18]
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 18]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
@@ -1014,6 +1014,16 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
    draft-ietf-dprive-rfc7627-bis-01
 
+   o  Re-structure section 3.5 (was 2.5)
+
+      *  Collect considerations for recursive resolvers together
+
+      *  Re-work several sections here to clarify their context (e.g.
+         'Rogue servers' becomes 'Active attacks on resolver
+         configuration')
+
+      *  Add discussion of resolver selection
+
    o  Update text and old reference on Snowdon revelations.
 
    o  Add text on and references to QNAME minimisation RFC and
@@ -1021,13 +1031,9 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
    o  Correct outdated references
 
-   o  Clarify scope
+   o  Clarify scope by adding a Scope section (was Risks overview)
 
    o  Clarify what risks are considered in section 3.4.2
-
-   o  Re-structure section 3.5 (was 2.5), re-work several sections here
-
-   o  Add discussion of resolver selection
 
    draft-ietf-dprive-rfc7627-bis-00
 
@@ -1052,19 +1058,19 @@ Internet-Draft         DNS Privacy Considerations         September 2019
 
    o  Update many references
 
+
+
+
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 19]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    o  Add discussions of encrypted transports including DoT and DoH
 
    o  Add section on DNS payload
 
    o  Add section on authentication of servers
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 19]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
    o  Add section on blocking of services
 
@@ -1106,21 +1112,20 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               Resolution of DNS Queries", 2008,
               <http://deic.uab.es/~joaquin/papers/is08.pdf>.
 
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 20]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    [chrome]   Baheux, , "Experimenting with same-provider DNS-over-HTTPS
               upgrade", September 2019,
               <https://blog.chromium.org/2019/09/experimenting-with-
               same-provider-dns.html>.
-
-
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 20]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
    [dagon-malware]
               Dagon, D., "Corrupted DNS Resolution Paths: The Rise of a
@@ -1165,18 +1170,18 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               October 2010, <https://www.dns-oarc.net/files/workshop-
               201010/OARC-ers-20101012.pdf>.
 
+
+
+
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 21]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    [dnschanger]
               Wikipedia, "DNSChanger", October 2013,
               <https://en.wikipedia.org/w/
               index.php?title=DNSChanger&oldid=578749672>.
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 21]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
    [dnsmezzo]
               Bortzmeyer, S., "DNSmezzo", 2009,
@@ -1218,21 +1223,21 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               DOI 10.1007/978-3-642-27937-9_10, 2012, <http://epub.uni-
               regensburg.de/21103/1/Paper_PUL_nordsec_published.pdf>.
 
+
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 22]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    [I-D.ietf-dnsop-resolver-information]
               Sood, P., Arends, R., and P. Hoffman, "DNS Resolver
               Information Self-publication", draft-ietf-dnsop-resolver-
               information-00 (work in progress), August 2019.
-
-
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 22]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
    [I-D.ietf-dprive-bcp-op]
               Dickinson, S., Overeinder, B., Rijswijk-Deij, R., and A.
@@ -1275,20 +1280,19 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               Shulman, H., "Pretty Bad Privacy:Pitfalls of DNS
               Encryption", <https://dl.acm.org/citation.cfm?id=2665959>.
 
-   [prism]    Wikipedia, "PRISM (surveillance program)", July 2015,
-              <https://en.wikipedia.org/w/index.php?title=PRISM_(surveil
-              lance_program)&oldid=673789455>.
 
 
 
 
 
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 23]
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 23]
 
 Internet-Draft         DNS Privacy Considerations         September 2019
 
+
+   [prism]    Wikipedia, "PRISM (surveillance program)", July 2015,
+              <https://en.wikipedia.org/w/index.php?title=PRISM_(surveil
+              lance_program)&oldid=673789455>.
 
    [RFC4033]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
               Rose, "DNS Security Introduction and Requirements",
@@ -1331,20 +1335,21 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               Layer Security (TLS)", RFC 7858, DOI 10.17487/RFC7858, May
               2016, <https://www.rfc-editor.org/info/rfc7858>.
 
+
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 24]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    [RFC7871]  Contavalli, C., van der Gaast, W., Lawrence, D., and W.
               Kumari, "Client Subnet in DNS Queries", RFC 7871,
               DOI 10.17487/RFC7871, May 2016, <https://www.rfc-
               editor.org/info/rfc7871>.
-
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 24]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
    [RFC7873]  Eastlake 3rd, D. and M. Andrews, "Domain Name System (DNS)
               Cookies", RFC 7873, DOI 10.17487/RFC7873, May 2016,
@@ -1387,20 +1392,22 @@ Internet-Draft         DNS Privacy Considerations         September 2019
               yBW6hBoaSZe4m6GJc_0b7w/2211058ab6330c7f3788141ea19d3db7/
               SIDN_Labs_Privacyraamwerk_Position_Paper_V1.4_ENG.pdf>.
 
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 25]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    [thomas-ditl-tcp]
               Thomas, M. and D. Wessels, "An Analysis of TCP Traffic in
               Root Server DITL Data", DNS-OARC 2014 Fall Workshop,
               October 2014, <https://indico.dns-
               oarc.net/event/20/session/2/contribution/15/material/
               slides/1.pdf>.
-
-
-
-
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 25]
-
-Internet-Draft         DNS Privacy Considerations         September 2019
-
 
    [tor-leak]
               Tor, "DNS leaks in Tor", 2013,
@@ -1441,6 +1448,16 @@ Authors' Addresses
    Email: bortzmeyer+ietf@nic.fr
 
 
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 26]
+
+Internet-Draft         DNS Privacy Considerations         September 2019
+
+
    Sara Dickinson
    Sinodun IT
    Magdalen Centre
@@ -1453,4 +1470,43 @@ Authors' Addresses
 
 
 
-Bortzmeyer & Dickinson   Expires March 22, 2020                [Page 26]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Bortzmeyer & Dickinson   Expires March 30, 2020                [Page 27]
