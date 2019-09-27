@@ -2,15 +2,16 @@
     Title = "DNS Privacy Considerations"
     abbrev = "DNS Privacy Considerations"
     category = "info"
-    docName= "draft-ietf-dprive-rfc7626-bis-00"
+    docName= "draft-ietf-dprive-rfc7626-bis-01"
     ipr = "trust200902"
     area = "Internet Area"
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2019-07-08T00:00:00Z
+    date = 2019-09-27T00:00:00Z
     [pi]
     toc = "yes"
+    tocdepth = "6"
     compact = "yes"
     symrefs = "yes"
     sortrefs = "yes"
@@ -82,8 +83,10 @@
    the AAAA records for www.example.com?", not "What are the name servers of
    .com?". By repeating the full question, instead of just the relevant part of
    the question to the next in line, the DNS provides more information than
-   necessary to the name server.
-
+   necessary to the name server. In this simplified description, recursive
+   resolvers do not implement QNAME minimization as described in [@!RFC7816],
+   which will only send the relevant part of the question to the upstream name
+   server.
 
    Because DNS relies on caching heavily, the algorithm described just
    above is actually a bit more complicated, and not all questions are
@@ -115,10 +118,10 @@
   instance, in an IPsec VPN, at least between the stub resolver and
   the resolver.
 
-   Today, almost all DNS queries are sent over UDP [@thomas-ditl-tcp].
-   This has practical consequences when considering encryption of the
-   traffic as a possible privacy technique.  Some encryption solutions
-   are only designed for TCP, not UDP.
+   Today, almost all DNS queries are sent over UDP [@thomas-ditl-tcp]. This has
+   practical consequences when considering encryption of the traffic as a
+   possible privacy technique. Some encryption solutions are only designed for
+   TCP, not UDP and new solutions are still emerging [@I-D.ietf-quic-transport].
 
    Another important point to keep in mind when analyzing the privacy
    issues of DNS is the fact that DNS requests received by a server are
@@ -158,15 +161,23 @@
    For privacy-related terms, we will use the terminology from
    [@!RFC6973].
 
-#   Risks
+#   Scope
 
    This document focuses mostly on the study of privacy risks for the
    end user (the one performing DNS requests).  We consider the risks of
    pervasive surveillance [@!RFC7258] as well as risks coming from a more
-   focused surveillance.  Privacy risks for the holder of a zone (the
-   risk that someone gets the data) are discussed in [@RFC5936] and
-   [@RFC5155].  Non-privacy risks (such as cache poisoning) are out of
-   scope.
+   focused surveillance.  
+   
+   Privacy risks for the holder of a zone (the risk that someone gets the data)
+   are discussed in [@RFC5936] and [@RFC5155].
+   
+   Privacy risks for recursive operators such as leakage of private namespaces
+   or blocklists are out of scope for this document.
+   
+   Non-privacy risks (e.g security related concerns such as cache poisoning) are
+   also out of scope.
+
+# Risks
 
 ##  The Alleged Public Nature of DNS Data
 
@@ -354,7 +365,7 @@ implemented at the resolver (e.g. parental filtering).
 ### Encrypted Transports
 
 The use of encrypted transports directly mitigates passive surveillance of the
-DNS payload, however there are still some privacy attacks possible.
+DNS payload, however there are still some privacy attacks possible. This section enumerates the residual privacy risks to an end user when an attacker can passively monitor encrypted DNS traffic flows on the wire.  
 
 These are cases where user identification, fingerprinting or correlations may be
 possible due to the use of certain transport layers or clear text/observable
@@ -363,8 +374,8 @@ to these attacks when using specific transports.
 
 There are some general examples, for example, certain studies have highlighted
 that IP TTL or TCP Window sizes [os-fingerprint](http://netres.ec/?b=11B99BD)
- values can be used to fingerprint client OS's
- or that various techniques can be used to de-NAT DNS queries
+values can be used to fingerprint client OS's or that various techniques can be
+used to de-NAT DNS queries
 [dns-de-nat](https://www.researchgate.net/publication/320322146_DNS-DNS_DNS-based_De-NAT_Scheme).
 
 The use of clear text transport options to decrease latency may also identify a
@@ -381,9 +392,12 @@ an added mechanism to track them as they move across network environments.
 Users of encrypted transports are also highly likely to re-use sessions for
 multiple DNS queries to optimize performance (e.g. via DNS pipelining or HTTPS
 multiplexing). Certain configuration options for encrypted transports could
-also in principle fingerprint a user, for example session resumption, the
-maximum number of messages to send or a maximum connection time before
-closing a connections and re-opening.
+also in principle fingerprint a user or client application. For example:
+
+* TLS version or cipher suite selection
+* session resumption
+* the maximum number of messages to send or 
+* a maximum connection time before closing a connections and re-opening.
 
 Whilst there are known attacks on older versions of TLS the most recent
 recommendations [@RFC7525] and developments [@RFC8446] in this
@@ -409,12 +423,10 @@ of a recursive resolver.
 
    Many programs exist to collect and analyze DNS data at the servers -- from
    the "query log" of some programs like BIND to tcpdump and more sophisticated
-   programs like PacketQ [@packetq] [@packetq-list] and DNSmezzo [@dnsmezzo]. The
+   programs like PacketQ [@packetq] and DNSmezzo [@dnsmezzo]. The
    organization managing the DNS server can use this data itself, or it can be
    part of a surveillance program like PRISM [@prism] and pass data to an
    outside observer.
-
-
 
    Sometimes, this data is kept for a long time and/or distributed to
    third parties for research purposes [@ditl] [@day-at-root], security
@@ -430,21 +442,131 @@ of a recursive resolver.
    Recursive Resolvers see all the traffic since there is typically no
    caching before them.  To summarize: your recursive resolver knows a
    lot about you.  The resolver of a large IAP, or a large public
-   resolver, can collect data from many users.  You may get an idea of
-   the data collected by reading the privacy policy of a big public
-   resolver, e.g., https://developers.google.com/speed/public-dns/privacy.
+   resolver, can collect data from many users.
 
-#### Encrypted transports
+#### Resolver selection
+
+   Given all the above considerations the choice of recursive resolver has
+   direct privacy considerations for end users. Historically end user devices
+   have used the DHCP provided local network recursive resolver which may have
+   strong, medium or weak privacy policies depending on the network. Privacy
+   policies for these servers may or may not be available and users need to be
+   aware that privacy guarantees will vary with network.
+
+   More recently some networks and end users have actively chosen to use a large
+   public resolver instead e.g. Google Public DNS, Cloudflare or Quad9 (need
+   refs). There can be many reasons: cost considerations for network operators,
+   better reliability or anti-censorship considerations are just a few. Such
+   services typically do provide a privacy policy and the end user can get an
+   idea of the data collected by such operators by reading one e.g.,
+   [Google Public DNS - Your Privacy](https://developers.google.com/speed/public-dns/privacy).
+
+   Even more recently some applications have announced plans to deploy
+   application specific DNS settings which might be enabled by default. For
+   example current proposals by Firefox [@firefox] revolve around a default
+   based on geographic region using a pre-configured list of large public
+   resolver services which offer DoH, combined with non-standard probing and
+   signalling mechanism to disable DoH in particular networks. Whereas Chrome
+   [@chrome] is experimenting with using DoH to the DHCP provided resolver if it
+   is on a list of DoH-compatible providers. At the time of writing efforts
+   to provide standardized signalling mechanisms for applications to discover
+   the services offered by local resolvers are in progress
+   [@I-D.ietf-dnsop-resolver-information].
+
+   If applications enable application specific DNS settings without properly
+   informing the user of the change (or do not provide an option for user
+   configuration of the application recursive resolver) there is a potential
+   privacy issue; depending on the network context and the application default
+   the application might use a recursive server that provides less privacy
+   protection than the default network provided server without the users full
+   knowledge. Users that are fully aware of an application specific DNS setting
+   may want to actively override any default in favour of their chosen recursive
+   resolver.
+
+   There are also concerns that should the trend towards using large public
+   resolvers increase, this will itself provide a privacy concern due to a small
+   number of operators having visibility of the majority of DNS requests
+   globally and the potential for aggregating data across services about a user.
+   Additionally the operating organisation of the resolver may be in a different
+   legal jurisdiction to the user which creates further privacy concerns around
+   legal protections of and access to the data collected by the operator.
+
+   At the time of writing the deployment models for DNS are evolving, their
+   implications are complex and extend beyond the scope of this document. They
+   are the subject of much other work including
+   [@I-D.livingood-doh-implementation-risks-issues], the [IETF ADD mailing
+   list](https://mailarchive.ietf.org/arch/browse/static/add) and the [Encrypted
+   DNS Deployment Initiative](https://www.encrypted-dns.org).
+
+####  Active attacks on resolver configuration
+
+  The previous paragraphs discussed DNS privacy, assuming that all the traffic
+  was directed to the intended servers (i.e those that would be used in the
+  absence of an active attack) and that the potential attacker was purely
+  passive. But, in reality, we can have active attackers in the network
+  redirecting the traffic, not just to observe it but also potentially change
+  it.
+
+  For instance, a DHCP server controlled by an attacker can direct you to a
+  recursive resolver also controlled by that attacker. Most of the time, it
+  seems to be done to divert traffic in order to also direct the user to a web
+  server controlled by the attacker. However it could be used just to capture
+  the traffic and gather information about you.
+
+  Other attacks, besides using DHCP, are possible. The cleartext traffic from a
+  DNS client to a DNS server can be intercepted along its way from originator
+  to intended source, for instance, by transparent attacker controlled DNS
+  proxies in the network that will divert the traffic intended for a legitimate
+  DNS server. This server can masquerade as the intended server and respond
+  with data to the client. (Attacker controlled servers that inject malicious
+  data are possible, but it is a separate problem not relevant to privacy.) A
+  server controlled by an attacker may respond correctly for a long period of
+  time, thereby foregoing detection.
+
+  Also, malware like DNSchanger [@dnschanger] can change the recursive resolver
+  in the machine's configuration, or the routing itself can be subverted (for
+  instance, [@ripe-atlas-turkey]).
+
+#### Blocking of user selected services
+
+  User privacy can also be at risk if there is blocking (by local network
+  operators or more general mechanisms) of access to remote recursive servers
+  that offer encrypted transports when the local resolver does not offer
+  encryption and/or has very poor privacy policies. For example active blocking
+  of port 853 for DoT or of specific IP addresses (e.g. 1.1.1.1 or
+  2606:4700:4700::1111) could restrict the resolvers available to the user. The
+  extent of the risk to end user privacy is highly dependant on the specific
+  network and user context; a user on a network that is known to perform
+  surveillance would be compromised if they could not access such services
+  whereas a user on a trusted network might have no privacy motivation to do
+  so.
+
+  Similarly attacks on such services e.g. DDoS could force users to switch to
+  other services that do not offer encrypted transports for DNS.
+
+#### Authentication of Servers
+
+  Both DoH and Strict mode for DoT require authentication of the server
+  and therefore as long as the authentication credentials are obtained over a
+  secure channel then using either of these transports defeats the attack of
+  re-directing traffic to rogue servers. Of course attacks on these secure
+  channels are also possible, but out of the scope of this document.
+
+#### Encrypted Transports
+
+##### DoT and DoH
 
 Use of encrypted transports does not reduce the data available in the recursive
 resolver and ironically can actually expose more information about users to
 operators. As mentioned in (#on-the-wire) use of session based encrypted
 transports (TCP/TLS) can expose correlation data about users. Such concerns in
 the TCP/TLS layers apply equally to DoT and DoH which both use TLS as
-the underlying transport.
+the underlying transport, some examples are:
 
+* fingerprinting based on TLS version and/or cipher suite selection
+* user tracking via session resumption in TLS 1.2
 
-#### DoH vs DoT
+##### DoH Specific Considerations
 
 The proposed specification for DoH [@RFC8484] includes a
 Privacy Considerations section which highlights some of the differences between
@@ -483,8 +605,8 @@ The picture for privacy considerations and user expectations for DoH with
 respect to what additional data may be available to the DoH server compared to
 DNS over UDP, TCP or TLS is complex and requires a detailed analysis for each
 use case. In particular the choice of HTTPS functionality vs privacy is
-specifically made an implementation choice in DoH and users may well have differing
-privacy expectations depending on the DoH use case and implementation.
+specifically made an implementation choice in DoH and users may well have
+differing privacy expectations depending on the DoH use case and implementation.
 
 At the extremes, there may be implementations that attempt to achieve parity
 with DoT from a privacy perspective at the cost of using no
@@ -492,19 +614,19 @@ identifiable headers, there might be others that provide feature rich data flows
 where the low-level origin of the DNS query is easily identifiable.
 
 Privacy focussed users should be aware of the potential for additional client
-identifiers in DoH compared to DoT and may want to only use DoH
+identifiers in DoH compared to DoT and may want to only use DoH client
 implementations that provide clear guidance on what identifiers they add.
-
 
 ###  In the Authoritative Name Servers
 
-   Unlike what happens for recursive resolvers, observation capabilities
-   of authoritative name servers are limited by caching; they see only
-   the requests for which the answer was not in the cache.  For
-   aggregated statistics ("What is the percentage of LOC queries?"),
-   this is sufficient, but it prevents an observer from seeing
-   everything.  Still, the authoritative name servers see a part of the
-   traffic, and this subset may be sufficient to violate some privacy
+   Unlike what happens for recursive resolvers, observation capabilities of
+   authoritative name servers are limited by caching; they see only the requests
+   for which the answer was not in the cache. For aggregated statistics ("What
+   is the percentage of LOC queries?"), this is sufficient, but it prevents an
+   observer from seeing everything. Similarly the increasing deployment of QNAME
+   minimisation [@ripe-qname-measurements] reduces the data visible at the
+   authoritative name server. Still, the authoritative name servers see a part
+   of the traffic, and this subset may be sufficient to violate some privacy
    expectations.
 
    Also, the end user typically has some legal/contractual link with the
@@ -550,58 +672,15 @@ implementations that provide clear guidance on what identifiers they add.
    third of the domains.  With the control (or the ability to sniff the
    traffic) of a few name servers, you can gather a lot of information.
 
-###  Rogue Servers
-
-   The previous paragraphs discussed DNS privacy, assuming that all the
-   traffic was directed to the intended servers and that the potential
-   attacker was purely passive.  But, in reality, we can have active
-   attackers redirecting the traffic, not to change it but just to
-   observe it.
-
-   For instance, a rogue DHCP server, or a trusted DHCP server that has
-   had its configuration altered by malicious parties, can direct you to
-   a rogue recursive resolver.  Most of the time, it seems to be done to
-   divert traffic by providing lies for some domain names.  But it could
-   be used just to capture the traffic and gather information about you.
-   Other attacks, besides using DHCP, are possible.  The traffic from a
-   DNS client to a DNS server can be intercepted along its way from
-   originator to intended source, for instance, by transparent DNS
-   proxies in the network that will divert the traffic intended for a
-   legitimate DNS server.  This rogue server can masquerade as the
-   intended server and respond with data to the client.  (Rogue servers
-   that inject malicious data are possible, but it is a separate problem
-   not relevant to privacy.)  A rogue server may respond correctly for a
-   long period of time, thereby foregoing detection.  This may be done
-   for what could be claimed to be good reasons, such as optimization or
-   caching, but it leads to a reduction of privacy compared to if there
-   was no attacker present.  Also, malware like DNSchanger [@dnschanger]
-   can change the recursive resolver in the machine's configuration, or
-   the routing itself can be subverted (for instance,
-   [@ripe-atlas-turkey]).
-
-### Authentication of servers
-
-Both DoH and Strict mode for DoT require authentication of the server
-and therefore as long as the authentication credentials are obtained over a
-secure channel then using either of these transports defeats the attack of
-re-directing traffic to rogue servers. Of course attacks on these secure
-channels are also possible, but out of the scope of this document.
-
-### Blocking of services
-
-   User privacy can also be at risk if there is blocking (by local network
-   operators or more general mechanisms) of access to recursive servers that
-   offer encrypted transports. For example active blocking of port 853 for
-   DoT or of specific IP addresses (e.g. 1.1.1.1 or
-   2606:4700:4700::1111) could restrict the resolvers available to the client.
-   Similarly attacks on such services e.g. DDoS could force users to switch to
-   other services that do not offer encrypted transports for DNS.
-
 
 ##  Re-identification and Other Inferences
 
-   An observer has access not only to the data he/she directly collects
-   but also to the results of various inferences about this data.
+   An observer has access not only to the data he/she directly collects but also
+   to the results of various inferences about this data. The term 'observer'
+   here is used very generally, it might be one that is passively observing
+   cleartext DNS traffic, one in the network that is actively attacking the user
+   by re-directing DNS resolution, or it might be a local or remote resolver
+   operator.
 
    For instance, a user can be re-identified via DNS queries.  If the
    adversary knows a user's identity and can watch their DNS queries for
@@ -658,12 +737,15 @@ channels are also possible, but out of the scope of this document.
    privacy reasons.  Other passive DNS systems may not be so careful.
    And there is still the potential problems with revealing QNAMEs.
 
-   The revelations (from the Edward Snowden documents, which were leaked
-   from the National Security Agency (NSA)) of the MORECOWBELL
-   surveillance program [@morecowbell], which uses the DNS, both
-   passively and actively, to surreptitiously gather information about
-   the users, is another good example showing that the lack of privacy
-   protections in the DNS is actively exploited.
+   The revelations from the Edward Snowden documents, which were leaked from the
+   National Security Agency (NSA) provide evidence of the use of
+   the DNS in mass surveillance operations [@morecowbell]. For example the
+   MORECOWBELL surveillance program, which uses a dedicated covert monitoring
+   infrastructure to actively query DNS servers and perform HTTP requests to
+   obtain meta information about services and to check their availability.
+   Also the QUANTUMTHEORY project which includes detecting lookups for certain
+   addresses and injecting bogus replies is another good example showing that
+   the lack of privacy protections in the DNS is actively exploited.
 
 
 #  Legalities
@@ -701,6 +783,18 @@ channels are also possible, but out of the scope of this document.
 
 # Changelog
 
+draft-ietf-dprive-rfc7627-bis-01
+
+* Re-structure section 3.5 (was 2.5) 
+  * Collect considerations for recursive resolvers together
+  * Re-work several sections here to clarify their context (e.g. ‘Rogue servers' becomes ‘Active attacks on resolver configuration’)
+  * Add discussion of resolver selection
+* Update text and old reference on Snowdon revelations.
+* Add text on and references to QNAME minimisation RFC and deployment measurements
+* Correct outdated references
+* Clarify scope by adding a Scope section (was Risks overview)
+* Clarify what risks are considered in section 3.4.2
+
 draft-ietf-dprive-rfc7627-bis-00
 
 * Rename after WG adoption
@@ -725,6 +819,22 @@ Initial commit.  Differences to RFC7626:
 *  Add section on authentication of servers
 *  Add section on blocking of services
 
+<reference anchor="chrome" target="https://blog.chromium.org/2019/09/experimenting-with-same-provider-dns.html">
+<front>
+<title>Experimenting with same-provider DNS-over-HTTPS upgrade</title>
+<author fullname="Kenji Baheux" surname="Baheux"/>
+<date month="September" year="2019"/>
+</front>
+</reference>
+
+<reference anchor="firefox" target="https://blog.mozilla.org/futurereleases/2019/09/06/whats-next-in-making-dns-over-https-the-default/">
+<front>
+<title>What’s next in making Encrypted DNS-over-HTTPS the Default</title>
+<author fullname="Selena Deckelmann" surname="Deckelmann"/>
+<date month="September" year="2019"/>
+</front>
+</reference>
+
 <reference anchor="os-fingerprint" target="http://www.netresec.com/?page=Blog&month=2011-11&post=Passive-OS-Fingerprinting">
 <front>
 <title>Passive OS Fingerprinting</title>
@@ -733,7 +843,7 @@ Initial commit.  Differences to RFC7626:
 </front>
 </reference>
 
-<reference anchor="pitfalls-of-dns-encrption" target="https://www.ietf.org/mail-archive/web/dns-privacy/current/pdfWqAIUmEl47.pdf">
+<reference anchor="pitfalls-of-dns-encrption" target="https://dl.acm.org/citation.cfm?id=2665959">
 <front>
 <title>Pretty Bad Privacy:Pitfalls of DNS Encryption</title>
 <author fullname="Haya Shulman" surname="Shulman" initials="H"/>
@@ -769,7 +879,7 @@ Resolution Authority</title>
 </reference>
 
 <reference anchor="morecowbell"
-	   target="https://gnunet.org/morecowbell">
+	   target="https://pdfs.semanticscholar.org/2610/2b99bdd6a258a98740af8217ba8da8a1e4fa.pdf">
 <front>
 <title>NSA's MORECOWBELL: Knell for DNS</title>
 <author fullname="Christian Grothoff" surname="Grothoff" initials="C."/>
@@ -807,22 +917,14 @@ network problems and potential malware infections.</t>
 </front>
 </reference>
 
-<reference anchor="packetq" target="https://github.com/dotse/packetq/wiki">
+<reference anchor="packetq" target="https://github.com/DNS-OARC/PacketQ">
 <front>
 <title>PacketQ, a simple tool to make SQL-queries against PCAP-files</title>
-<author><organization>Dot SE</organization></author>
+<author><organization>DNS-OARC</organization></author>
 <date year="2011"/>
 <abstract><t>A tool that provides a basic SQL-frontend to
 PCAP-files. Outputs JSON, CSV and XML and includes a build-in
 webserver with JSON-api and a nice looking AJAX GUI.</t></abstract>
-</front>
-</reference>
-
-<reference anchor="packetq-list" target="http://lists.iis.se/mailman/listinfo/packetq">
-<front>
-<title>PacketQ Mailing List</title>
-<author><organization>PacketQ</organization></author>
-<date/>
 </front>
 </reference>
 
@@ -845,13 +947,13 @@ webserver with JSON-api and a nice looking AJAX GUI.</t></abstract>
 </reference>
 
 <reference anchor="grangeia.snooping"
-	   target="http://www.msit2005.mut.ac.th/msit_media/1_2551/nete4630/materials/20080718130017Hc.pdf">
+	   target="https://www.semanticscholar.org/paper/Cache-Snooping-or-Snooping-the-Cache-for-Fun-and-1-Grangeia/9b22f606e10b3609eafbdcbfc9090b63be8778c3">
   <front>
     <title>DNS Cache Snooping or Snooping the Cache for Fun and
     Profit</title>
     <author fullname="Luis Grangeia" surname="Grangeia"
 	    initials="L."/>
-    <date month="February" year="2004"/>
+    <date  year="2005"/>
   </front>
 </reference>
   
@@ -893,6 +995,15 @@ years, we have come to refer to this project and related activities as
 </front>
 </reference>
 
+<reference anchor="ripe-qname-measurements" target="https://labs.ripe.net/Members/wouter_de_vries/make-dns-a-bit-more-private-with-qname-minimisation">
+<front>
+<title>Making the DNS More Private with QNAME Minimisation</title>
+<author fullname="Wouter de Vries " initials="W. de Vries "><organization>University of Twente</organization></author>
+<date month="April" year="2019"/>
+</front>
+</reference>
+
+
 <reference anchor="data-protection-directive" target="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:31995L0046:EN:HTML">
 <front>
 <title>Directive 95/46/EC of the European Pariament and of the council on the protection of individuals
@@ -904,7 +1015,7 @@ movement of such data</title>
 <seriesInfo name='Official Journal L 281,' value='pp. 0031 - 0050' />
 </reference>
 
-<reference anchor="passive-dns" target="http://www.enyo.de/fw/software/dnslogger/#2">
+<reference anchor="passive-dns" target="https://www.first.org/conference/2005/papers/florian-weimer-slides-1.pdf">
 <front>
 <title>Passive DNS Replication</title>
 <author fullname="Florian Weimer" initials="F." surname="Weimer"/>
@@ -1033,7 +1144,7 @@ of users, i. e. link multiple sessions of them. </t>
 <seriesInfo name="DOI" value="10.1007/978-3-642-27937-9_10"/>
 </reference>
 
-<reference anchor="sidn-entrada" target="https://www.sidnlabs.nl/uploads/tx_sidnpublications/SIDN_Labs_Privacyraamwerk_Position_Paper_V1.4_ENG.pdf">
+<reference anchor="sidn-entrada" target="https://www.sidnlabs.nl/downloads/yBW6hBoaSZe4m6GJc_0b7w/2211058ab6330c7f3788141ea19d3db7/SIDN_Labs_Privacyraamwerk_Position_Paper_V1.4_ENG.pdf">
 <front>
 <title>A privacy framework for 'DNS big data' applications</title>
 <author fullname="Cristian Hesselman" surname="Hesselman" initials="C."/>
