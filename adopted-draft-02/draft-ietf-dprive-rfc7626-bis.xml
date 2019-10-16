@@ -46,7 +46,7 @@
 <uri></uri>
 </address>
 </author>
-<date year="2019" month="October" day="15"/>
+<date year="2019" month="October" day="16"/>
 
 <area>Internet Area</area>
 <workgroup>dprive</workgroup>
@@ -395,7 +395,8 @@ end user's connection and the public DNS service.</t>
 <list style="symbols">
 <t>directly configured with only the recursive resolvers of the IAP and</t>
 <t>all traffic (including DNS) between the device and the cellular network is
-encrypted using a mobile encryption technology such as 3G
+encrypted following an encryption profile edited by the IPv6 for Third
+Generation Partnership Project (<eref target="https://www.3gpp.org">3GPP</eref>).
 
 <vspace/></t>
 </list>
@@ -852,9 +853,9 @@ implementations that provide clear guidance on what identifiers they add.
    Allison Mankin, and Warren Kumari for proofreading, providing technical
    remarks, and making many readability improvements. Thanks to Dan York,
    Suzanne Woolf, Tony Finch, Stephen Farrell, Peter Koch, Simon Josefsson, and
-   Frank Denis for good written contributions. Thanks to Vittorio Bertola for a
-   detailed review of the -bis. And thanks to the IESG members for the last
-   remarks.
+   Frank Denis for good written contributions. Thanks to Vittorio Bertola and
+   Mohamed Boucadair for a detailed review of the -bis. And thanks to the IESG
+   members for the last remarks.
 </t>
 </section>
 
@@ -863,8 +864,11 @@ implementations that provide clear guidance on what identifiers they add.
 </t>
 <t>
 <list style="symbols">
-<t>Numerous editorial corrections thanks to Mohamed Boucadair</t>
+<t>Numerous editorial corrections thanks to Mohamed Boucadair and
+<list style="symbols">
 <t>Minor additions to Scope section</t>
+<t>New text on cellular network DNS</t>
+</list></t>
 <t>Additional text from Vittorio Bertola on blocking and security</t>
 </list>
 </t>

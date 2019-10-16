@@ -8,7 +8,7 @@
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2019-10-15T00:00:00Z
+    date = 2019-10-16T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -373,7 +373,8 @@ implemented at the resolver (e.g., parental filtering).
   
   * directly configured with only the recursive resolvers of the IAP and
   * all traffic (including DNS) between the device and the cellular network is
-  encrypted using a mobile encryption technology such as 3G 
+    encrypted following an encryption profile edited by the IPv6 for Third
+    Generation Partnership Project ([3GPP](https://www.3gpp.org)).
   
   The attack surface for this specific scenario is not considered here.
 
@@ -805,16 +806,17 @@ implementations that provide clear guidance on what identifiers they add.
    Allison Mankin, and Warren Kumari for proofreading, providing technical
    remarks, and making many readability improvements. Thanks to Dan York,
    Suzanne Woolf, Tony Finch, Stephen Farrell, Peter Koch, Simon Josefsson, and
-   Frank Denis for good written contributions. Thanks to Vittorio Bertola for a
-   detailed review of the -bis. And thanks to the IESG members for the last
-   remarks.
+   Frank Denis for good written contributions. Thanks to Vittorio Bertola and
+   Mohamed Boucadair for a detailed review of the -bis. And thanks to the IESG
+   members for the last remarks.
 
 # Changelog
 
 draft-ietf-dprive-rfc7626-bis-02
 
-* Numerous editorial corrections thanks to Mohamed Boucadair
-* Minor additions to Scope section
+* Numerous editorial corrections thanks to Mohamed Boucadair and
+  * Minor additions to Scope section
+  * New text on cellular network DNS
 * Additional text from Vittorio Bertola on blocking and security
 
 draft-ietf-dprive-rfc7626-bis-01
