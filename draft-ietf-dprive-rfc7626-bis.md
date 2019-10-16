@@ -353,7 +353,7 @@ implemented at the resolver (e.g., parental filtering).
 
   * The recursive resolver can be in the IAP network. For most residential
   users and potentially other networks, the typical case is for the end
-  user's computer to be configured (typically automatically through DHCP or
+  user's device to be configured (typically automatically through DHCP or
   RA options) with the addresses of the DNS proxy in the CPE, which in turns
   points to the DNS recursive resolvers at the IAP. The attack surface for
   on-the-wire attacks is therefore from the end user system across the
