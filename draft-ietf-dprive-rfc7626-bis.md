@@ -2,13 +2,13 @@
     Title = "DNS Privacy Considerations"
     abbrev = "DNS Privacy Considerations"
     category = "info"
-    docName= "draft-ietf-dprive-rfc7626-bis-01"
+    docName= "draft-ietf-dprive-rfc7626-bis-02"
     ipr = "trust200902"
     area = "Internet Area"
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2019-09-27T00:00:00Z
+    date = 2019-10-16T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -55,16 +55,16 @@
    This document is an analysis of the DNS privacy issues, in the spirit
    of Section 8 of [@!RFC6973].
 
-   The Domain Name System is specified in [@!RFC1034], [@!RFC1035], and many
-   later RFCs, which have never been consolidated.  It is one of the
-   most important infrastructure components of the Internet and often
-   ignored or misunderstood by Internet users (and even by many
-   professionals).  Almost every activity on the Internet starts with a
-   DNS query (and often several).  Its use has many privacy implications
-   and this is an attempt at a comprehensive and accurate list.
+   The Domain Name System (DNS) is specified in [@!RFC1034], [@!RFC1035], and
+   many later RFCs, which have never been consolidated. It is one of the most
+   important infrastructure components of the Internet and often ignored or
+   misunderstood by Internet users (and even by many professionals). Almost
+   every activity on the Internet starts with a DNS query (and often several).
+   Its use has many privacy implications and this document is an attempt at a
+   comprehensive and accurate list.
 
-   Let us begin with a simplified reminder of how the DNS works. (See also
-   [@?RFC8499]) A client, the stub resolver, issues a
+   Let us begin with a simplified reminder of how the DNS works (See also
+   [@?RFC8499]). A client, the stub resolver, issues a
    DNS query to a server, called the recursive resolver (also called caching
    resolver or full resolver or recursive name server). Let's use the query
    "What are the AAAA records for www.example.com?" as an example. AAAA is the
@@ -84,11 +84,11 @@
    .com?". By repeating the full question, instead of just the relevant part of
    the question to the next in line, the DNS provides more information than
    necessary to the name server. In this simplified description, recursive
-   resolvers do not implement QNAME minimization as described in [@!RFC7816],
+   resolvers do not implement QNAME minimization as described in [@RFC7816],
    which will only send the relevant part of the question to the upstream name
    server.
 
-   Because DNS relies on caching heavily, the algorithm described just
+   Because DNS relies on caching heavily, the algorithm described
    above is actually a bit more complicated, and not all questions are
    sent to the authoritative name servers.  If a few seconds later the
    stub resolver asks the recursive resolver, "What are the SRV records
@@ -110,12 +110,12 @@
    caching in the first resolver).
 
   At the time of writing, almost all this DNS traffic is currently
-  sent in clear (unencrypted). However there is increasing deployment
+  sent in clear (i.e., unencrypted). However there is increasing deployment
   of DNS-over-TLS (DoT) [@RFC7858] and DNS-over-HTTPS (DoH)
-  [@RFC8484], particularly in mobile devices, browsers and by
+  [@RFC8484], particularly in mobile devices, browsers, and by
   providers of anycast recursive DNS resolution services. There are a
   few cases where there is some alternative channel encryption, for
-  instance, in an IPsec VPN, at least between the stub resolver and
+  instance, in an IPsec VPN tunnel, at least between the stub resolver and
   the resolver.
 
    Today, almost all DNS queries are sent over UDP [@thomas-ditl-tcp]. This has
@@ -166,16 +166,25 @@
    This document focuses mostly on the study of privacy risks for the
    end user (the one performing DNS requests).  We consider the risks of
    pervasive surveillance [@!RFC7258] as well as risks coming from a more
-   focused surveillance.  
+   focused surveillance.
+
+   This document does not attempt a comparison of specific privacy protections
+   provided by individual networks or organisations, it makes only general
+   observations about typical current practices.
    
    Privacy risks for the holder of a zone (the risk that someone gets the data)
    are discussed in [@RFC5936] and [@RFC5155].
    
-   Privacy risks for recursive operators such as leakage of private namespaces
-   or blocklists are out of scope for this document.
+   Privacy risks for recursive operators (including access providers and
+   operators in enterprise networks) such as leakage of private namespaces or
+   blocklists are out of scope for this document.
    
    Non-privacy risks (e.g security related concerns such as cache poisoning) are
    also out of scope.
+
+   The privacy risks associated with the use of other protocols, e.g.,
+   unencrypted TLS SNI extensions or HTTPS destination IP address fingerprinting
+   are not considered here.
 
 # Risks
 
@@ -184,7 +193,7 @@
    It has long been claimed that "the data in the DNS is public".  While
    this sentence makes sense for an Internet-wide lookup system, there
    are multiple facets to the data and metadata involved that deserve a
-   more detailed look.  First, access control lists and private
+   more detailed look.  First, access control lists (ACLs) and private
    namespaces notwithstanding, the DNS operates under the assumption
    that public-facing authoritative name servers will respond to "usual"
    DNS queries for any zone they are authoritative for without further
@@ -208,13 +217,12 @@
 
 ##  Data in the DNS Request
 
-   The DNS request includes many fields, but two of them seem
-   particularly relevant for the privacy issues: the QNAME and the
-   source IP address. "source IP address" is used in a loose sense of
-   "source IP address + maybe source port", because the port is also in
-   the request and can be used to differentiate between several users
-   sharing an IP address (behind a Carrier-Grade NAT (CGN), for instance
-   [@RFC6269]).
+   The DNS request includes many fields, but two of them seem particularly
+   relevant for the privacy issues: the QNAME and the source IP address. "source
+   IP address" is used in a loose sense of "source IP address + maybe source
+   port number", because the port number is also in the request and can be used to
+   differentiate between several users sharing an IP address (behind a
+   Carrier-Grade NAT (CGN) or a NPTv6, for instance [@RFC6269]).
 
    The QNAME is the full name sent by the user.  It gives information
    about what the user does ("What are the MX records of example.net?"
@@ -239,20 +247,19 @@
    but not with whom.  If your Mail User Agent (MUA) starts looking up
    Pretty Good Privacy (PGP) keys in the DNS [@RFC7929], then
    privacy becomes a lot more important.  And email is just an example;
-   there would be other really interesting uses for a more privacy-
-   friendly DNS.
+   there would be other really interesting uses for a more privacy-friendly DNS.
 
    For the communication between the stub resolver and the recursive resolver,
-  the source IP address is the address of the user's machine. Therefore, all the
-  issues and warnings about collection of IP addresses apply here. For the
-  communication between the recursive resolver and the authoritative name
-  servers, the source IP address has a different meaning; it does not have the
-  same status as the source address in an HTTP connection. It is now the IP
-  address of the recursive resolver that, in a way, "hides" the real user.
-  However, hiding does not always work. Sometimes EDNS(0) Client subnet
-  [@RFC7871] is used (see its privacy analysis in [@denis-edns-client-subnet]).
-  Sometimes the end user has a personal recursive resolver on her machine. In
-  both cases, the IP address is as sensitive as it is for HTTP [@sidn-entrada].
+   the source IP address is the address of the user's machine. Therefore, all
+   the issues and warnings about collection of IP addresses apply here. For the
+   communication between the recursive resolver and the authoritative name
+   servers, the source IP address has a different meaning; it does not have the
+   same status as the source address in an HTTP connection. It is typically the
+   IP address of the recursive resolver that, in a way, "hides" the real user.
+   However, hiding does not always work. Sometimes EDNS(0) Client subnet
+   [@RFC7871] is used (see its privacy analysis in [@denis-edns-client-subnet]).
+   Sometimes the end user has a personal recursive resolver on her machine. In
+   both cases, the IP address is as sensitive as it is for HTTP [@sidn-entrada].
 
    A note about IP addresses: there is currently no IETF document that
    describes in detail all the privacy issues around IP addressing.  In
@@ -262,8 +269,8 @@
    implications for details of information leakage associated with the
    collection of source addresses.  (For example, a specific IPv6 source
    address seen on the public Internet is less likely than an IPv4
-   address to originate behind a CGN or other NAT.)  However, for both
-   IPv4 and IPv6 addresses, it's important to note that source addresses
+   address to originate behind an address sharing scheme.)  However, for both
+   IPv4 and IPv6 addresses, it is important to note that source addresses
    are propagated with queries and comprise metadata about the host,
    user, or application that originated them.
 
@@ -285,7 +292,7 @@ addresses]
 (https://lists.dns-oarc.net/pipermail/dns-operations/2016-January/014141.html) 
 and even user names being inserted in non-standard EDNS(0) options
 for stub to resolver communications to support proprietary functionality
-implemented at the resolver (e.g. parental filtering).
+implemented at the resolver (e.g., parental filtering).
 
 ##  Cache Snooping
 
@@ -306,7 +313,7 @@ implemented at the resolver (e.g. parental filtering).
    confidentiality from its goals.) So, if an initiator starts an HTTPS
    communication with a recipient, while the HTTP traffic will be encrypted, the
    DNS exchange prior to it will not be. When other protocols will become more
-   and more privacy-aware and secured against surveillance (e.g. [@?RFC8446],
+   and more privacy-aware and secured against surveillance (e.g., [@?RFC8446],
    [@I-D.ietf-quic-transport]), the use of unencrypted transports for DNS may
    become "the weakest link" in privacy. It is noted that at the time of writing
    there is on-going work attempting to encrypt the SNI in the TLS handshake
@@ -324,48 +331,60 @@ implemented at the resolver (e.g. parental filtering).
    because traffic is not limited by DNS caching.
 
    The attack surface between the stub resolver and the rest of the
-   world can vary widely depending upon how the end user's computer is
+   world can vary widely depending upon how the end user's device is
    configured.  By order of increasing attack surface:
 
-      The recursive resolver can be on the end user's computer.  In
-      (currently) a small number of cases, individuals may choose to
-      operate their own DNS resolver on their local machine.  In this
-      case, the attack surface for the connection between the stub
-      resolver and the caching resolver is limited to that single
-      machine.
+  * The recursive resolver can be on the end user's device.  In
+  (currently) a small number of cases, individuals may choose to
+  operate their own DNS resolver on their local machine.  In this
+  case, the attack surface for the connection between the stub
+  resolver and the caching resolver is limited to that single
+  machine.
 
-      The recursive resolver may be at the local network edge.  For
-      many/most enterprise networks and for some residential users, the
-      caching resolver may exist on a server at the edge of the local
-      network.  In this case, the attack surface is the local network.
-      Note that in large enterprise networks, the DNS resolver may not
-      be located at the edge of the local network but rather at the edge
-      of the overall enterprise network.  In this case, the enterprise
-      network could be thought of as similar to the Internet Access
-      Provider (IAP) network referenced below.
+  * The recursive resolver may be at the local network edge.  For
+  many/most enterprise networks and for some residential users, the
+  caching resolver may exist on a server at the edge of the local
+  network.  In this case, the attack surface is the local network.
+  Note that in large enterprise networks, the DNS resolver may not
+  be located at the edge of the local network but rather at the edge
+  of the overall enterprise network.  In this case, the enterprise
+  network could be thought of as similar to the Internet Access
+  Provider (IAP) network referenced below.
 
-      The recursive resolver can be in the IAP premises.  For most
-      residential users and potentially other networks, the typical case
-      is for the end user's computer to be configured (typically
-      automatically through DHCP) with the addresses of the DNS
-      recursive resolvers at the IAP.  The attack surface for on-the-
-      wire attacks is therefore from the end-user system across the
-      local network and across the IAP network to the IAP's recursive
-      resolvers.
+  * The recursive resolver can be in the IAP network. For most residential
+  users and potentially other networks, the typical case is for the end
+  user's device to be configured (typically automatically through DHCP or
+  RA options) with the addresses of the DNS proxy in the CPE, which in turns
+  points to the DNS recursive resolvers at the IAP. The attack surface for
+  on-the-wire attacks is therefore from the end user system across the
+  local network and across the IAP network to the IAP's recursive resolvers.
 
-      The recursive resolver can be a public DNS service.  Some machines
-      may be configured to use public DNS resolvers such as those
-      operated today by Google Public DNS or OpenDNS.  The end user may
-      have configured their machine to use these DNS recursive resolvers
-      themselves -- or their IAP may have chosen to use the public DNS
-      resolvers rather than operating their own resolvers.  In this
-      case, the attack surface is the entire public Internet between the
-      end user's connection and the public DNS service.
+  * The recursive resolver can be a public DNS service.  Some machines
+  may be configured to use public DNS resolvers such as those
+  operated by Google Public DNS or OpenDNS.  The end user may
+  have configured their machine to use these DNS recursive resolvers
+  themselves -- or their IAP may have chosen to use the public DNS
+  resolvers rather than operating their own resolvers.  In this
+  case, the attack surface is the entire public Internet between the
+  end user's connection and the public DNS service.
+
+  It is also noted that typically a device connected *only* to a modern cellular network
+  is 
+  
+  * directly configured with only the recursive resolvers of the IAP and
+  * all traffic (including DNS) between the device and the cellular network is
+    encrypted following an encryption profile edited by the IPv6 for Third
+    Generation Partnership Project ([3GPP](https://www.3gpp.org)).
+  
+  The attack surface for this specific scenario is not considered here.
+
 
 ### Encrypted Transports
 
 The use of encrypted transports directly mitigates passive surveillance of the
-DNS payload, however there are still some privacy attacks possible. This section enumerates the residual privacy risks to an end user when an attacker can passively monitor encrypted DNS traffic flows on the wire.  
+DNS payload, however there are still some privacy attacks possible. This section
+enumerates the residual privacy risks to an end user when an attacker can
+passively monitor encrypted DNS traffic flows on the wire.
 
 These are cases where user identification, fingerprinting or correlations may be
 possible due to the use of certain transport layers or clear text/observable
@@ -373,13 +392,13 @@ features. These issues are not specific to DNS, but DNS traffic is susceptible
 to these attacks when using specific transports.
 
 There are some general examples, for example, certain studies have highlighted
-that IP TTL or TCP Window sizes [os-fingerprint](http://netres.ec/?b=11B99BD)
+that IPv4 TTL, IPv6 Hop Limit, or TCP Window sizes [os-fingerprint](http://netres.ec/?b=11B99BD)
 values can be used to fingerprint client OS's or that various techniques can be
 used to de-NAT DNS queries
 [dns-de-nat](https://www.researchgate.net/publication/320322146_DNS-DNS_DNS-based_De-NAT_Scheme).
 
-The use of clear text transport options to decrease latency may also identify a
-user e.g. using TCP Fast Open [@RFC7413].
+The use of clear text transport options to optimize latency may also identify a
+user, e.g., using TCP Fast Open with TLS 1.2 [@RFC7413].
 
 More specifically, (since the deployment of encrypted transports is not
 widespread at the time of writing) users wishing to use encrypted transports for
@@ -390,7 +409,7 @@ actually serve to identify the user as one that desires privacy and can provide
 an added mechanism to track them as they move across network environments.
 
 Users of encrypted transports are also highly likely to re-use sessions for
-multiple DNS queries to optimize performance (e.g. via DNS pipelining or HTTPS
+multiple DNS queries to optimize performance (e.g., via DNS pipelining or HTTPS
 multiplexing). Certain configuration options for encrypted transports could
 also in principle fingerprint a user or client application. For example:
 
@@ -444,51 +463,54 @@ of a recursive resolver.
    lot about you.  The resolver of a large IAP, or a large public
    resolver, can collect data from many users.
 
-#### Resolver selection
+#### Resolver Selection
 
-   Given all the above considerations the choice of recursive resolver has
-   direct privacy considerations for end users. Historically end user devices
-   have used the DHCP provided local network recursive resolver which may have
-   strong, medium or weak privacy policies depending on the network. Privacy
+   Given all the above considerations, the choice of recursive resolver has
+   direct privacy considerations for end users. Historically, end user devices
+   have used the DHCP-provided local network recursive resolver, which may have
+   strong, medium, or weak privacy policies depending on the network. Privacy
    policies for these servers may or may not be available and users need to be
    aware that privacy guarantees will vary with network.
 
    More recently some networks and end users have actively chosen to use a large
-   public resolver instead e.g. Google Public DNS, Cloudflare or Quad9 (need
-   refs). There can be many reasons: cost considerations for network operators,
-   better reliability or anti-censorship considerations are just a few. Such
-   services typically do provide a privacy policy and the end user can get an
-   idea of the data collected by such operators by reading one e.g.,
-   [Google Public DNS - Your Privacy](https://developers.google.com/speed/public-dns/privacy).
+   public resolver instead, e.g., [Google Public
+   DNS](https://developers.google.com/speed/public-dns),
+   [Cloudflare](https://developers.cloudflare.com/1.1.1.1/setting-up-1.1.1.1/), 
+   or [Quad9](https://www.quad9.net). There can be many reasons: cost
+   considerations for network operators, better reliability or anti-censorship
+   considerations are just a few. Such services typically do provide a privacy
+   policy and the end user can get an idea of the data collected by such
+   operators by reading one e.g., [Google Public DNS - Your
+   Privacy](https://developers.google.com/speed/public-dns/privacy).
 
    Even more recently some applications have announced plans to deploy
-   application specific DNS settings which might be enabled by default. For
-   example current proposals by Firefox [@firefox] revolve around a default
-   based on geographic region using a pre-configured list of large public
+   application-specific DNS settings which might be enabled by default. For
+   example, current proposals by Firefox [@firefox] revolve around a default
+   based on the geographic region, using a pre-configured list of large public
    resolver services which offer DoH, combined with non-standard probing and
    signalling mechanism to disable DoH in particular networks. Whereas Chrome
-   [@chrome] is experimenting with using DoH to the DHCP provided resolver if it
-   is on a list of DoH-compatible providers. At the time of writing efforts
+   [@chrome] is experimenting with using DoH to the DHCP-provided resolver if it
+   is on a list of DoH-compatible providers. At the time of writing, efforts
    to provide standardized signalling mechanisms for applications to discover
    the services offered by local resolvers are in progress
    [@I-D.ietf-dnsop-resolver-information].
 
-   If applications enable application specific DNS settings without properly
+   If applications enable application-specific DNS settings without properly
    informing the user of the change (or do not provide an option for user
-   configuration of the application recursive resolver) there is a potential
-   privacy issue; depending on the network context and the application default
+   configuration of the application's recursive resolver) there is a potential
+   privacy issue; depending on the network context and the application default,
    the application might use a recursive server that provides less privacy
-   protection than the default network provided server without the users full
+   protection than the default network-provided server without the user's full
    knowledge. Users that are fully aware of an application specific DNS setting
    may want to actively override any default in favour of their chosen recursive
    resolver.
 
-   There are also concerns that should the trend towards using large public
-   resolvers increase, this will itself provide a privacy concern due to a small
+   There are also concerns that, should the trend towards using large public
+   resolvers increase, this will itself provide a privacy concern, due to a small
    number of operators having visibility of the majority of DNS requests
    globally and the potential for aggregating data across services about a user.
    Additionally the operating organisation of the resolver may be in a different
-   legal jurisdiction to the user which creates further privacy concerns around
+   legal jurisdiction than the user, which creates further privacy concerns around
    legal protections of and access to the data collected by the operator.
 
    At the time of writing the deployment models for DNS are evolving, their
@@ -498,9 +520,9 @@ of a recursive resolver.
    list](https://mailarchive.ietf.org/arch/browse/static/add) and the [Encrypted
    DNS Deployment Initiative](https://www.encrypted-dns.org).
 
-####  Active attacks on resolver configuration
+####  Active Attacks on Resolver Configuration
 
-  The previous paragraphs discussed DNS privacy, assuming that all the traffic
+  The previous section discussed DNS privacy, assuming that all the traffic
   was directed to the intended servers (i.e those that would be used in the
   absence of an active attack) and that the potential attacker was purely
   passive. But, in reality, we can have active attackers in the network
@@ -527,29 +549,37 @@ of a recursive resolver.
   in the machine's configuration, or the routing itself can be subverted (for
   instance, [@ripe-atlas-turkey]).
 
-#### Blocking of user selected services
+#### Blocking of User Selected Services
 
   User privacy can also be at risk if there is blocking (by local network
   operators or more general mechanisms) of access to remote recursive servers
   that offer encrypted transports when the local resolver does not offer
-  encryption and/or has very poor privacy policies. For example active blocking
-  of port 853 for DoT or of specific IP addresses (e.g. 1.1.1.1 or
+  encryption and/or has very poor privacy policies. For example, active blocking
+  of port 853 for DoT or of specific IP addresses (e.g., 1.1.1.1 or
   2606:4700:4700::1111) could restrict the resolvers available to the user. The
-  extent of the risk to end user privacy is highly dependant on the specific
+  extent of the risk to end user privacy is highly dependent on the specific
   network and user context; a user on a network that is known to perform
-  surveillance would be compromised if they could not access such services
+  surveillance would be compromised if they could not access such services,
   whereas a user on a trusted network might have no privacy motivation to do
   so.
 
-  Similarly attacks on such services e.g. DDoS could force users to switch to
-  other services that do not offer encrypted transports for DNS.
+  In some cases, networks might block access to remote resolvers for security
+  reasons, for example to cripple malware and bots or to prevent data
+  exfiltration methods that use encrypted DNS communications as transport. In
+  these cases, if the network fully respects user privacy in other ways (i.e.
+  encrypted DNS and good data handling policies) the block can serve to further
+  protect user privacy by ensuring such security precautions.
+
+  It is also noted that attacks on remote resolver services, e.g., DDoS could
+  force users to switch to other services that do not offer encrypted transports
+  for DNS.
 
 #### Authentication of Servers
 
-  Both DoH and Strict mode for DoT require authentication of the server
-  and therefore as long as the authentication credentials are obtained over a
-  secure channel then using either of these transports defeats the attack of
-  re-directing traffic to rogue servers. Of course attacks on these secure
+  Both DoH and Strict mode for DoT [@RFC8310] require authentication of the
+  server and therefore as long as the authentication credentials are obtained
+  over a secure channel then using either of these transports defeats the attack
+  of re-directing traffic to rogue servers. Of course attacks on these secure
   channels are also possible, but out of the scope of this document.
 
 #### Encrypted Transports
@@ -568,8 +598,7 @@ the underlying transport, some examples are:
 
 ##### DoH Specific Considerations
 
-The proposed specification for DoH [@RFC8484] includes a
-Privacy Considerations section which highlights some of the differences between
+Section 8 of [@RFC8484] highlights some of the privacy consideration differences between
 HTTP and DNS. As a deliberate design choice DoH inherits the privacy properties
 of the HTTPS stack and as a consequence introduces new privacy concerns when
 compared with DNS over UDP, TCP or TLS [@RFC7858]. The rationale for this
@@ -591,7 +620,7 @@ there exists a natural tension between
 DoT, for example, would normally contain no client identifiers above
 the TLS layer and a resolver would see only a stream of DNS query payloads
 originating within one or more connections from a client IP address. Whereas if
-DoH clients commonly include several headers in a DNS message (e.g. user-agent
+DoH clients commonly include several headers in a DNS message (e.g., user-agent
 and accept-language) this could lead to the DoH server being able to identify
 the source of individual DNS requests not only to a specific end user device
 but to a specific application.
@@ -613,7 +642,7 @@ with DoT from a privacy perspective at the cost of using no
 identifiable headers, there might be others that provide feature rich data flows
 where the low-level origin of the DNS query is easily identifiable.
 
-Privacy focussed users should be aware of the potential for additional client
+Privacy focused users should be aware of the potential for additional client
 identifiers in DoH compared to DoT and may want to only use DoH client
 implementations that provide clear guidance on what identifiers they add.
 
@@ -689,7 +718,7 @@ implementations that provide clear guidance on what identifiers they add.
    of the location from which the user makes those queries.  For
    example, one study [@herrmann-reidentification] found that such re-
    identification is possible so that "73.1% of all day-to-day links
-   were correctly established, i.e. user u was either re-identified
+   were correctly established, i.e., user u was either re-identified
    unambiguously (1) or the classifier correctly reported that u was not
    present on day t+1 any more (2)."  While that study related to web
    browsing behavior, equally characteristic patterns may be produced
@@ -770,24 +799,31 @@ implementations that provide clear guidance on what identifiers they add.
 
 # Acknowledgments
 
-   Thanks to Nathalie Boulvard and to the CENTR members for the original
-   work that led to this document.  Thanks to Ondrej Sury for the
-   interesting discussions.  Thanks to Mohsen Souissi and John Heidemann
-   for proofreading and to Paul Hoffman, Matthijs Mekking, Marcos Sanz,
-   Tim Wicinski, Francis Dupont, Allison Mankin, and Warren Kumari for
-   proofreading, providing technical remarks, and making many
-   readability improvements.  Thanks to Dan York, Suzanne Woolf, Tony
-   Finch, Stephen Farrell, Peter Koch, Simon Josefsson, and Frank Denis
-   for good written contributions.  And thanks to the IESG members for
-   the last remarks.
+   Thanks to Nathalie Boulvard and to the CENTR members for the original work
+   that led to this document. Thanks to Ondrej Sury for the interesting
+   discussions. Thanks to Mohsen Souissi and John Heidemann for proofreading and
+   to Paul Hoffman, Matthijs Mekking, Marcos Sanz, Tim Wicinski, Francis Dupont,
+   Allison Mankin, and Warren Kumari for proofreading, providing technical
+   remarks, and making many readability improvements. Thanks to Dan York,
+   Suzanne Woolf, Tony Finch, Stephen Farrell, Peter Koch, Simon Josefsson, and
+   Frank Denis for good written contributions. Thanks to Vittorio Bertola and
+   Mohamed Boucadair for a detailed review of the -bis. And thanks to the IESG
+   members for the last remarks.
 
 # Changelog
 
-draft-ietf-dprive-rfc7627-bis-01
+draft-ietf-dprive-rfc7626-bis-02
+
+* Numerous editorial corrections thanks to Mohamed Boucadair and
+  * Minor additions to Scope section
+  * New text on cellular network DNS
+* Additional text from Vittorio Bertola on blocking and security
+
+draft-ietf-dprive-rfc7626-bis-01
 
 * Re-structure section 3.5 (was 2.5) 
   * Collect considerations for recursive resolvers together
-  * Re-work several sections here to clarify their context (e.g. ‘Rogue servers' becomes ‘Active attacks on resolver configuration’)
+  * Re-work several sections here to clarify their context (e.g., ‘Rogue servers' becomes ‘Active attacks on resolver configuration’)
   * Add discussion of resolver selection
 * Update text and old reference on Snowdon revelations.
 * Add text on and references to QNAME minimisation RFC and deployment measurements
@@ -795,7 +831,7 @@ draft-ietf-dprive-rfc7627-bis-01
 * Clarify scope by adding a Scope section (was Risks overview)
 * Clarify what risks are considered in section 3.4.2
 
-draft-ietf-dprive-rfc7627-bis-00
+draft-ietf-dprive-rfc7626-bis-00
 
 * Rename after WG adoption
 * Use DoT acronym throughout
