@@ -70,19 +70,19 @@ Table of Contents
      3.4.  On the Wire . . . . . . . . . . . . . . . . . . . . . . .   8
        3.4.1.  Unencrypted Transports  . . . . . . . . . . . . . . .   8
        3.4.2.  Encrypted Transports  . . . . . . . . . . . . . . . .   9
-     3.5.  In the Servers  . . . . . . . . . . . . . . . . . . . . .  10
+     3.5.  In the Servers  . . . . . . . . . . . . . . . . . . . . .  11
        3.5.1.  In the Recursive Resolvers  . . . . . . . . . . . . .  11
        3.5.2.  In the Authoritative Name Servers . . . . . . . . . .  15
-     3.6.  Re-identification and Other Inferences  . . . . . . . . .  16
+     3.6.  Re-identification and Other Inferences  . . . . . . . . .  17
      3.7.  More Information  . . . . . . . . . . . . . . . . . . . .  17
    4.  Actual "Attacks"  . . . . . . . . . . . . . . . . . . . . . .  17
    5.  Legalities  . . . . . . . . . . . . . . . . . . . . . . . . .  18
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
-   7.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  18
+   7.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  19
    8.  Changelog . . . . . . . . . . . . . . . . . . . . . . . . . .  19
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  20
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  20
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  21
      9.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  26
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  27
 
@@ -99,9 +99,9 @@ Table of Contents
    DNS query (and often several).  Its use has many privacy implications
    and this document is an attempt at a comprehensive and accurate list.
 
-   Let us begin with a simplified reminder of how the DNS works.  (See
-   also [RFC8499]) A client, the stub resolver, issues a DNS query to a
-   server, called the recursive resolver (also called caching resolver
+   Let us begin with a simplified reminder of how the DNS works (See
+   also [RFC8499]).  A client, the stub resolver, issues a DNS query to
+   a server, called the recursive resolver (also called caching resolver
    or full resolver or recursive name server).  Let's use the query
    "What are the AAAA records for www.example.com?" as an example.  AAAA
    is the QTYPE (Query Type), and www.example.com is the QNAME (Query
@@ -247,7 +247,7 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    Non-privacy risks (e.g security related concerns such as cache
    poisoning) are also out of scope.
 
-   The privacy risks associated with the use of other protocols e.g.,
+   The privacy risks associated with the use of other protocols, e.g.,
    unencrypted TLS SNI extensions or HTTPS destination IP address
    fingerprinting are not considered here.
 
@@ -293,10 +293,10 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    The DNS request includes many fields, but two of them seem
    particularly relevant for the privacy issues: the QNAME and the
    source IP address. "source IP address" is used in a loose sense of
-   "source IP address + maybe source port", because the port is also in
-   the request and can be used to differentiate between several users
-   sharing an IP address (behind a Carrier-Grade NAT (CGN) or a NPTv6,
-   for instance [RFC6269]).
+   "source IP address + maybe source port number", because the port
+   number is also in the request and can be used to differentiate
+   between several users sharing an IP address (behind a Carrier-Grade
+   NAT (CGN) or a NPTv6, for instance [RFC6269]).
 
    The QNAME is the full name sent by the user.  It gives information
    about what the user does ("What are the MX records of example.net?"
@@ -355,7 +355,7 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    collection of source addresses.  (For example, a specific IPv6 source
    address seen on the public Internet is less likely than an IPv4
    address to originate behind an address sharing scheme.)  However, for
-   both IPv4 and IPv6 addresses, it's important to note that source
+   both IPv4 and IPv6 addresses, it is important to note that source
    addresses are propagated with queries and comprise metadata about the
    host, user, or application that originated them.
 
@@ -450,40 +450,43 @@ Bortzmeyer & Dickinson   Expires April 17, 2020                 [Page 8]
 Internet-Draft         DNS Privacy Considerations           October 2019
 
 
-     The recursive resolver can be on the end user's computer.  In
-     (currently) a small number of cases, individuals may choose to
-     operate their own DNS resolver on their local machine.  In this
-     case, the attack surface for the connection between the stub
-     resolver and the caching resolver is limited to that single
-     machine.
+  The recursive resolver can be on the end user's computer.  In
+  (currently) a small number of cases, individuals may choose to
+  operate their own DNS resolver on their local machine.  In this
+  case, the attack surface for the connection between the stub
+  resolver and the caching resolver is limited to that single
+  machine.
 
-     The recursive resolver may be at the local network edge.  For
-     many/most enterprise networks and for some residential users, the
-     caching resolver may exist on a server at the edge of the local
-     network.  In this case, the attack surface is the local network.
-     Note that in large enterprise networks, the DNS resolver may not
-     be located at the edge of the local network but rather at the edge
-     of the overall enterprise network.  In this case, the enterprise
-     network could be thought of as similar to the Internet Access
-     Provider (IAP) network referenced below.
+  The recursive resolver may be at the local network edge.  For
+  many/most enterprise networks and for some residential users, the
+  caching resolver may exist on a server at the edge of the local
+  network.  In this case, the attack surface is the local network.
+  Note that in large enterprise networks, the DNS resolver may not
+  be located at the edge of the local network but rather at the edge
+  of the overall enterprise network.  In this case, the enterprise
+  network could be thought of as similar to the Internet Access
+  Provider (IAP) network referenced below.
 
-     The recursive resolver can be in the IAP premises.  For most
-     residential users and potentially other networks, the typical case
-     is for the end user's computer to be configured (typically
-     automatically through DHCP options) with the addresses of the DNS
-     recursive resolvers at the IAP.  The attack surface for on-the-
-     wire attacks is therefore from the end-user system across the
-     local network and across the IAP network to the IAP's recursive
-     resolvers.
+  The recursive resolver can be in the IAP network. For most residential
+  users and potentially other networks, the typical case is for the end
+  user's computer to be configured (typically automatically through DHCP or
+  RA options) with the addresses of the DNS proxy in the CPE, which in turns
+  points to the DNS recursive resolvers at the IAP. The attack surface for
+  on-the- wire attacks is therefore from the end-user system across the
+  local network and across the IAP network to the IAP's recursive resolvers.
+  The end user's device can be directly configured with the recursive
+  resolvers of the IAP. This is typiclaly the case of terminals connected to
+  a cellular network. The trafdic (including DNS) between the terminal and
+  the cellular network is encrypted.
 
-     The recursive resolver can be a public DNS service.  Some machines
-     may be configured to use public DNS resolvers such as those
-     operated today by Google Public DNS or OpenDNS.  The end user may
-     have configured their machine to use these DNS recursive resolvers
-     themselves -- or their IAP may have chosen to use the public DNS
-     resolvers rather than operating their own resolvers.  In this
-     case, the attack surface is the entire public Internet between the
-     end user's connection and the public DNS service.
+  The recursive resolver can be a public DNS service.  Some machines
+  may be configured to use public DNS resolvers such as those
+  operated by Google Public DNS or OpenDNS.  The end user may
+  have configured their machine to use these DNS recursive resolvers
+  themselves -- or their IAP may have chosen to use the public DNS
+  resolvers rather than operating their own resolvers.  In this
+  case, the attack surface is the entire public Internet between the
+  end user's connection and the public DNS service.
 
 3.4.2.  Encrypted Transports
 
@@ -495,9 +498,6 @@ Internet-Draft         DNS Privacy Considerations           October 2019
 
    These are cases where user identification, fingerprinting or
    correlations may be possible due to the use of certain transport
-   layers or clear text/observable features.  These issues are not
-   specific to DNS, but DNS traffic is susceptible to these attacks when
-   using specific transports.
 
 
 
@@ -506,13 +506,17 @@ Bortzmeyer & Dickinson   Expires April 17, 2020                 [Page 9]
 Internet-Draft         DNS Privacy Considerations           October 2019
 
 
-   There are some general examples, for example, certain studies have
-   highlighted that IP TTL or TCP Window sizes os-fingerprint [2] values
-   can be used to fingerprint client OS's or that various techniques can
-   be used to de-NAT DNS queries dns-de-nat [3].
+   layers or clear text/observable features.  These issues are not
+   specific to DNS, but DNS traffic is susceptible to these attacks when
+   using specific transports.
 
-   The use of clear text transport options to decrease latency may also
-   identify a user e.g., using TCP Fast Open with TLS 1.2 [RFC7413].
+   There are some general examples, for example, certain studies have
+   highlighted that IPv4 TTL, IPv6 Hop Limit, or TCP Window sizes os-
+   fingerprint [2] values can be used to fingerprint client OS's or that
+   various techniques can be used to de-NAT DNS queries dns-de-nat [3].
+
+   The use of clear text transport options to optimize latency may also
+   identify a user, e.g., using TCP Fast Open with TLS 1.2 [RFC7413].
 
    More specifically, (since the deployment of encrypted transports is
    not widespread at the time of writing) users wishing to use encrypted
@@ -548,12 +552,8 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    DNS requests and responses can be correlated to unencrypted DNS
    requests upstream of a recursive resolver.
 
-3.5.  In the Servers
 
-   Using the terminology of [RFC6973], the DNS servers (recursive
-   resolvers and authoritative servers) are enablers: they facilitate
-   communication between an initiator and a recipient without being
-   directly in the communications path.  As a result, they are often
+
 
 
 
@@ -562,6 +562,12 @@ Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 10]
 Internet-Draft         DNS Privacy Considerations           October 2019
 
 
+3.5.  In the Servers
+
+   Using the terminology of [RFC6973], the DNS servers (recursive
+   resolvers and authoritative servers) are enablers: they facilitate
+   communication between an initiator and a recipient without being
+   directly in the communications path.  As a result, they are often
    forgotten in risk analysis.  But, to quote again [RFC6973], "Although
    [...] enablers may not generally be considered as attackers, they may
    all pose privacy threats (depending on the context) because they are
@@ -597,19 +603,13 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    Given all the above considerations, the choice of recursive resolver
    has direct privacy considerations for end users.  Historically, end
    user devices have used the DHCP-provided local network recursive
-   resolver, which may have strong, medium or weak privacy policies
+   resolver, which may have strong, medium, or weak privacy policies
    depending on the network.  Privacy policies for these servers may or
    may not be available and users need to be aware that privacy
    guarantees will vary with network.
 
    More recently some networks and end users have actively chosen to use
-   a large public resolver instead e.g., Google Public DNS [4],
-   Cloudflare [5] or Quad9 [6].  There can be many reasons: cost
-   considerations for network operators, better reliability or anti-
-   censorship considerations are just a few.  Such services typically do
-   provide a privacy policy and the end user can get an idea of the data
-   collected by such operators by reading one e.g., Google Public DNS -
-   Your Privacy [7].
+   a large public resolver instead, e.g., Google Public DNS [4],
 
 
 
@@ -617,6 +617,13 @@ Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 11]
 
 Internet-Draft         DNS Privacy Considerations           October 2019
 
+
+   Cloudflare [5], or Quad9 [6].  There can be many reasons: cost
+   considerations for network operators, better reliability or anti-
+   censorship considerations are just a few.  Such services typically do
+   provide a privacy policy and the end user can get an idea of the data
+   collected by such operators by reading one e.g., Google Public DNS -
+   Your Privacy [7].
 
    Even more recently some applications have announced plans to deploy
    application-specific DNS settings which might be enabled by default.
@@ -657,14 +664,7 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    [I-D.livingood-doh-implementation-risks-issues], the IETF ADD mailing
    list [8] and the Encrypted DNS Deployment Initiative [9].
 
-3.5.1.2.  Active Attacks on Resolver Configuration
 
-   The previous section discussed DNS privacy, assuming that all the
-   traffic was directed to the intended servers (i.e those that would be
-   used in the absence of an active attack) and that the potential
-   attacker was purely passive.  But, in reality, we can have active
-   attackers in the network redirecting the traffic, not just to observe
-   it but also potentially change it.
 
 
 
@@ -673,6 +673,15 @@ Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 12]
 
 Internet-Draft         DNS Privacy Considerations           October 2019
 
+
+3.5.1.2.  Active Attacks on Resolver Configuration
+
+   The previous section discussed DNS privacy, assuming that all the
+   traffic was directed to the intended servers (i.e those that would be
+   used in the absence of an active attack) and that the potential
+   attacker was purely passive.  But, in reality, we can have active
+   attackers in the network redirecting the traffic, not just to observe
+   it but also potentially change it.
 
    For instance, a DHCP server controlled by an attacker can direct you
    to a recursive resolver also controlled by that attacker.  Most of
@@ -713,15 +722,6 @@ Internet-Draft         DNS Privacy Considerations           October 2019
 
    In some cases, networks might block access to remote resolvers for
    security reasons, for example to cripple malware and bots or to
-   prevent data exfiltration methods that use encrypted DNS
-   communications as transport.  In these cases, if the network fully
-   respects user privacy in other ways (i.e.  encrypted DNS and good
-   data handling policies) the block can serve to further protect user
-   privacy by ensuring such security precautions.
-
-   It is also noted that attacks on remote resolver services e.g., DDoS
-   could force users to switch to other services that do not offer
-   encrypted transports for DNS.
 
 
 
@@ -729,6 +729,16 @@ Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 13]
 
 Internet-Draft         DNS Privacy Considerations           October 2019
 
+
+   prevent data exfiltration methods that use encrypted DNS
+   communications as transport.  In these cases, if the network fully
+   respects user privacy in other ways (i.e.  encrypted DNS and good
+   data handling policies) the block can serve to further protect user
+   privacy by ensuring such security precautions.
+
+   It is also noted that attacks on remote resolver services, e.g., DDoS
+   could force users to switch to other services that do not offer
+   encrypted transports for DNS.
 
 3.5.1.4.  Authentication of Servers
 
@@ -767,6 +777,15 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    this new protocol based on privacy considerations (modulo limiting
    the use of HTTP cookies).
 
+
+
+
+
+Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 14]
+
+Internet-Draft         DNS Privacy Considerations           October 2019
+
+
    In analyzing the new issues introduced by DoH it is helpful to
    recognize that there exists a natural tension between
 
@@ -776,15 +795,6 @@ Internet-Draft         DNS Privacy Considerations           October 2019
 
    o  and the fact that the DNS payload is currently very tightly
       encoded and contains no standardized user identifiers.
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 14]
-
-Internet-Draft         DNS Privacy Considerations           October 2019
-
 
    DoT, for example, would normally contain no client identifiers above
    the TLS layer and a resolver would see only a stream of DNS query
@@ -824,6 +834,14 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    Unlike what happens for recursive resolvers, observation capabilities
    of authoritative name servers are limited by caching; they see only
    the requests for which the answer was not in the cache.  For
+
+
+
+Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 15]
+
+Internet-Draft         DNS Privacy Considerations           October 2019
+
+
    aggregated statistics ("What is the percentage of LOC queries?"),
    this is sufficient, but it prevents an observer from seeing
    everything.  Similarly the increasing deployment of QNAME
@@ -834,14 +852,6 @@ Internet-Draft         DNS Privacy Considerations           October 2019
 
    Also, the end user typically has some legal/contractual link with the
    recursive resolver (he has chosen the IAP, or he has chosen to use a
-
-
-
-Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 15]
-
-Internet-Draft         DNS Privacy Considerations           October 2019
-
-
    given public resolver), while having no control and perhaps no
    awareness of the role of the authoritative name servers and their
    observation abilities.
@@ -880,6 +890,14 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    "popular" domains (such as the Alexa Top N list).  For instance,
    among the Alexa Top 100K, one DNS provider hosts today 10% of the
    domains.  The ten most important DNS providers host together one
+
+
+
+Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 16]
+
+Internet-Draft         DNS Privacy Considerations           October 2019
+
+
    third of the domains.  With the control (or the ability to sniff the
    traffic) of a few name servers, you can gather a lot of information.
 
@@ -889,15 +907,6 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    but also to the results of various inferences about this data.  The
    term 'observer' here is used very generally, it might be one that is
    passively observing cleartext DNS traffic, one in the network that is
-
-
-
-
-Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 16]
-
-Internet-Draft         DNS Privacy Considerations           October 2019
-
-
    actively attacking the user by re-directing DNS resolution, or it
    might be a local or remote resolver operator.
 
@@ -937,6 +946,14 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    A very quick examination of DNS traffic may lead to the false
    conclusion that extracting the needle from the haystack is difficult.
    "Interesting" primary DNS requests are mixed with useless (for the
+
+
+
+Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 17]
+
+Internet-Draft         DNS Privacy Considerations           October 2019
+
+
    eavesdropper) secondary and tertiary requests (see the terminology in
    Section 1).  But, in this time of "big data" processing, powerful
    techniques now exist to get from the raw data to what the
@@ -946,14 +963,6 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    detect "abnormal" behavior that can be traced back to the activity of
    malware on infected machines.  Yes, this research was done for the
    good, but technically it is a privacy attack and it demonstrates the
-
-
-
-Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 17]
-
-Internet-Draft         DNS Privacy Considerations           October 2019
-
-
    power of the observation of DNS traffic.  See [dns-footprint],
    [dagon-malware], and [darkreading-dns].
 
@@ -994,6 +1003,13 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    instance, 'Recommendations for DNS Privacy Operators'
    [I-D.ietf-dprive-bcp-op].
 
+
+
+Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 18]
+
+Internet-Draft         DNS Privacy Considerations           October 2019
+
+
 7.  Acknowledgments
 
    Thanks to Nathalie Boulvard and to the CENTR members for the original
@@ -1002,14 +1018,6 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    for proofreading and to Paul Hoffman, Matthijs Mekking, Marcos Sanz,
    Tim Wicinski, Francis Dupont, Allison Mankin, and Warren Kumari for
    proofreading, providing technical remarks, and making many
-
-
-
-Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 18]
-
-Internet-Draft         DNS Privacy Considerations           October 2019
-
-
    readability improvements.  Thanks to Dan York, Suzanne Woolf, Tony
    Finch, Stephen Farrell, Peter Koch, Simon Josefsson, and Frank Denis
    for good written contributions.  Thanks to Vittorio Bertola for a
@@ -1051,6 +1059,13 @@ Internet-Draft         DNS Privacy Considerations           October 2019
 
    draft-ietf-dprive-rfc7626-bis-00
 
+
+
+Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 19]
+
+Internet-Draft         DNS Privacy Considerations           October 2019
+
+
    o  Rename after WG adoption
 
    o  Use DoT acronym throughout
@@ -1058,13 +1073,6 @@ Internet-Draft         DNS Privacy Considerations           October 2019
    o  Minor updates to status of deployment and other drafts
 
    draft-bortzmeyer-dprive-rfc7626-bis-02
-
-
-
-Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 19]
-
-Internet-Draft         DNS Privacy Considerations           October 2019
-
 
    o  Update various references and fix some nits.
 
@@ -1105,14 +1113,6 @@ Internet-Draft         DNS Privacy Considerations           October 2019
               DOI 10.17487/RFC6973, July 2013, <https://www.rfc-
               editor.org/info/rfc6973>.
 
-   [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
-              Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May
-              2014, <https://www.rfc-editor.org/info/rfc7258>.
-
-9.2.  Informative References
-
-
-
 
 
 
@@ -1121,6 +1121,12 @@ Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 20]
 
 Internet-Draft         DNS Privacy Considerations           October 2019
 
+
+   [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
+              Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May
+              2014, <https://www.rfc-editor.org/info/rfc7258>.
+
+9.2.  Informative References
 
    [aeris-dns]
               Vinot, N., "Vie privee: et le DNS alors?", (In French),
@@ -1159,13 +1165,7 @@ Internet-Draft         DNS Privacy Considerations           October 2019
               lex.europa.eu/LexUriServ/
               LexUriServ.do?uri=CELEX:31995L0046:EN:HTML>.
 
-   [day-at-root]
-              Castro, S., Wessels, D., Fomenkov, M., and K. Claffy, "A
-              Day at the Root of the Internet", ACM SIGCOMM Computer
-              Communication Review, Vol. 38, Number 5,
-              DOI 10.1145/1452335.1452341, October 2008,
-              <http://www.sigcomm.org/sites/default/files/ccr/
-              papers/2008/October/1452335-1452341.pdf>.
+
 
 
 
@@ -1177,6 +1177,14 @@ Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 21]
 
 Internet-Draft         DNS Privacy Considerations           October 2019
 
+
+   [day-at-root]
+              Castro, S., Wessels, D., Fomenkov, M., and K. Claffy, "A
+              Day at the Root of the Internet", ACM SIGCOMM Computer
+              Communication Review, Vol. 38, Number 5,
+              DOI 10.1145/1452335.1452341, October 2008,
+              <http://www.sigcomm.org/sites/default/files/ccr/
+              papers/2008/October/1452335-1452341.pdf>.
 
    [denis-edns-client-subnet]
               Denis, F., "Security and privacy issues of edns-client-
@@ -1217,14 +1225,6 @@ Internet-Draft         DNS Privacy Considerations           October 2019
               hamburg.de/publications/2011/2011-09-14_FFHP_PrivacyPreser
               vingDNS_ESORICS2011.pdf>.
 
-   [firefox]  Deckelmann, , "What's next in making Encrypted DNS-over-
-              HTTPS the Default", September 2019,
-              <https://blog.mozilla.org/futurereleases/2019/09/06/whats-
-              next-in-making-dns-over-https-the-default/>.
-
-
-
-
 
 
 
@@ -1233,6 +1233,11 @@ Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 22]
 
 Internet-Draft         DNS Privacy Considerations           October 2019
 
+
+   [firefox]  Deckelmann, , "What's next in making Encrypted DNS-over-
+              HTTPS the Default", September 2019,
+              <https://blog.mozilla.org/futurereleases/2019/09/06/whats-
+              next-in-making-dns-over-https-the-default/>.
 
    [grangeia.snooping]
               Grangeia, L., "DNS Cache Snooping or Snooping the Cache
@@ -1275,11 +1280,6 @@ Internet-Draft         DNS Privacy Considerations           October 2019
               Issues and Risks", draft-livingood-doh-implementation-
               risks-issues-04 (work in progress), September 2019.
 
-   [morecowbell]
-              Grothoff, C., Wachs, M., Ermert, M., and J. Appelbaum,
-              "NSA's MORECOWBELL: Knell for DNS", GNUnet e.V., January
-              2015, <https://pdfs.semanticscholar.org/2610/2b99bdd6a258a
-              98740af8217ba8da8a1e4fa.pdf>.
 
 
 
@@ -1289,6 +1289,12 @@ Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 23]
 
 Internet-Draft         DNS Privacy Considerations           October 2019
 
+
+   [morecowbell]
+              Grothoff, C., Wachs, M., Ermert, M., and J. Appelbaum,
+              "NSA's MORECOWBELL: Knell for DNS", GNUnet e.V., January
+              2015, <https://pdfs.semanticscholar.org/2610/2b99bdd6a258a
+              98740af8217ba8da8a1e4fa.pdf>.
 
    [packetq]  DNS-OARC, "PacketQ, a simple tool to make SQL-queries
               against PCAP-files", 2011, <https://github.com/DNS-OARC/
@@ -1330,12 +1336,6 @@ Internet-Draft         DNS Privacy Considerations           October 2019
               Fast Open", RFC 7413, DOI 10.17487/RFC7413, December 2014,
               <https://www.rfc-editor.org/info/rfc7413>.
 
-   [RFC7525]  Sheffer, Y., Holz, R., and P. Saint-Andre,
-              "Recommendations for Secure Use of Transport Layer
-              Security (TLS) and Datagram Transport Layer Security
-              (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525, May
-              2015, <https://www.rfc-editor.org/info/rfc7525>.
-
 
 
 
@@ -1345,6 +1345,12 @@ Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 24]
 
 Internet-Draft         DNS Privacy Considerations           October 2019
 
+
+   [RFC7525]  Sheffer, Y., Holz, R., and P. Saint-Andre,
+              "Recommendations for Secure Use of Transport Layer
+              Security (TLS) and Datagram Transport Layer Security
+              (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525, May
+              2015, <https://www.rfc-editor.org/info/rfc7525>.
 
    [RFC7624]  Barnes, R., Schneier, B., Jennings, C., Hardie, T.,
               Trammell, B., Huitema, C., and D. Borkmann,
@@ -1389,18 +1395,16 @@ Internet-Draft         DNS Privacy Considerations           October 2019
               (DoH)", RFC 8484, DOI 10.17487/RFC8484, October 2018,
               <https://www.rfc-editor.org/info/rfc8484>.
 
-   [RFC8499]  Hoffman, P., Sullivan, A., and K. Fujiwara, "DNS
-              Terminology", BCP 219, RFC 8499, DOI 10.17487/RFC8499,
-              January 2019, <https://www.rfc-editor.org/info/rfc8499>.
-
-
-
 
 
 Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 25]
 
 Internet-Draft         DNS Privacy Considerations           October 2019
 
+
+   [RFC8499]  Hoffman, P., Sullivan, A., and K. Fujiwara, "DNS
+              Terminology", BCP 219, RFC 8499, DOI 10.17487/RFC8499,
+              January 2019, <https://www.rfc-editor.org/info/rfc8499>.
 
    [ripe-atlas-turkey]
               Aben, E., "A RIPE Atlas View of Internet Meddling in
@@ -1446,10 +1450,6 @@ Internet-Draft         DNS Privacy Considerations           October 2019
 
    [2] http://netres.ec/?b=11B99BD
 
-   [3] https://www.researchgate.net/publication/320322146_DNS-DNS_DNS-
-       based_De-NAT_Scheme
-
-   [4] https://developers.google.com/speed/public-dns
 
 
 
@@ -1457,6 +1457,11 @@ Bortzmeyer & Dickinson   Expires April 17, 2020                [Page 26]
 
 Internet-Draft         DNS Privacy Considerations           October 2019
 
+
+   [3] https://www.researchgate.net/publication/320322146_DNS-DNS_DNS-
+       based_De-NAT_Scheme
+
+   [4] https://developers.google.com/speed/public-dns
 
    [5] https://developers.cloudflare.com/1.1.1.1/setting-up-1.1.1.1/
 
@@ -1489,11 +1494,6 @@ Authors' Addresses
    United Kingdom
 
    Email: sara@sinodun.com
-
-
-
-
-
 
 
 

@@ -63,8 +63,8 @@
    Its use has many privacy implications and this document is an attempt at a
    comprehensive and accurate list.
 
-   Let us begin with a simplified reminder of how the DNS works. (See also
-   [@?RFC8499]) A client, the stub resolver, issues a
+   Let us begin with a simplified reminder of how the DNS works (See also
+   [@?RFC8499]). A client, the stub resolver, issues a
    DNS query to a server, called the recursive resolver (also called caching
    resolver or full resolver or recursive name server). Let's use the query
    "What are the AAAA records for www.example.com?" as an example. AAAA is the
@@ -182,7 +182,7 @@
    Non-privacy risks (e.g security related concerns such as cache poisoning) are
    also out of scope.
 
-   The privacy risks associated with the use of other protocols e.g.,
+   The privacy risks associated with the use of other protocols, e.g.,
    unencrypted TLS SNI extensions or HTTPS destination IP address fingerprinting
    are not considered here.
 
@@ -220,7 +220,7 @@
    The DNS request includes many fields, but two of them seem particularly
    relevant for the privacy issues: the QNAME and the source IP address. "source
    IP address" is used in a loose sense of "source IP address + maybe source
-   port", because the port is also in the request and can be used to
+   port number", because the port number is also in the request and can be used to
    differentiate between several users sharing an IP address (behind a
    Carrier-Grade NAT (CGN) or a NPTv6, for instance [@RFC6269]).
 
@@ -270,7 +270,7 @@
    collection of source addresses.  (For example, a specific IPv6 source
    address seen on the public Internet is less likely than an IPv4
    address to originate behind an address sharing scheme.)  However, for both
-   IPv4 and IPv6 addresses, it's important to note that source addresses
+   IPv4 and IPv6 addresses, it is important to note that source addresses
    are propagated with queries and comprise metadata about the host,
    user, or application that originated them.
 
@@ -351,18 +351,21 @@ implemented at the resolver (e.g., parental filtering).
       network could be thought of as similar to the Internet Access
       Provider (IAP) network referenced below.
 
-      The recursive resolver can be in the IAP premises.  For most
-      residential users and potentially other networks, the typical case
-      is for the end user's computer to be configured (typically
-      automatically through DHCP options) with the addresses of the DNS
-      recursive resolvers at the IAP.  The attack surface for on-the-
-      wire attacks is therefore from the end-user system across the
-      local network and across the IAP network to the IAP's recursive
-      resolvers.
+      The recursive resolver can be in the IAP network. For most residential
+      users and potentially other networks, the typical case is for the end
+      user's computer to be configured (typically automatically through DHCP or
+      RA options) with the addresses of the DNS proxy in the CPE, which in turns
+      points to the DNS recursive resolvers at the IAP. The attack surface for
+      on-the- wire attacks is therefore from the end-user system across the
+      local network and across the IAP network to the IAP's recursive resolvers.
+      The end user's device can be directly configured with the recursive
+      resolvers of the IAP. This is typiclaly the case of terminals connected to
+      a cellular network. The trafdic (including DNS) between the terminal and
+      the cellular network is encrypted.
 
       The recursive resolver can be a public DNS service.  Some machines
       may be configured to use public DNS resolvers such as those
-      operated today by Google Public DNS or OpenDNS.  The end user may
+      operated by Google Public DNS or OpenDNS.  The end user may
       have configured their machine to use these DNS recursive resolvers
       themselves -- or their IAP may have chosen to use the public DNS
       resolvers rather than operating their own resolvers.  In this
@@ -382,13 +385,13 @@ features. These issues are not specific to DNS, but DNS traffic is susceptible
 to these attacks when using specific transports.
 
 There are some general examples, for example, certain studies have highlighted
-that IP TTL or TCP Window sizes [os-fingerprint](http://netres.ec/?b=11B99BD)
+that IPv4 TTL, IPv6 Hop Limit, or TCP Window sizes [os-fingerprint](http://netres.ec/?b=11B99BD)
 values can be used to fingerprint client OS's or that various techniques can be
 used to de-NAT DNS queries
 [dns-de-nat](https://www.researchgate.net/publication/320322146_DNS-DNS_DNS-based_De-NAT_Scheme).
 
-The use of clear text transport options to decrease latency may also identify a
-user e.g., using TCP Fast Open with TLS 1.2 [@RFC7413].
+The use of clear text transport options to optimize latency may also identify a
+user, e.g., using TCP Fast Open with TLS 1.2 [@RFC7413].
 
 More specifically, (since the deployment of encrypted transports is not
 widespread at the time of writing) users wishing to use encrypted transports for
@@ -458,14 +461,14 @@ of a recursive resolver.
    Given all the above considerations, the choice of recursive resolver has
    direct privacy considerations for end users. Historically, end user devices
    have used the DHCP-provided local network recursive resolver, which may have
-   strong, medium or weak privacy policies depending on the network. Privacy
+   strong, medium, or weak privacy policies depending on the network. Privacy
    policies for these servers may or may not be available and users need to be
    aware that privacy guarantees will vary with network.
 
    More recently some networks and end users have actively chosen to use a large
-   public resolver instead e.g., [Google Public
+   public resolver instead, e.g., [Google Public
    DNS](https://developers.google.com/speed/public-dns),
-   [Cloudflare](https://developers.cloudflare.com/1.1.1.1/setting-up-1.1.1.1/)
+   [Cloudflare](https://developers.cloudflare.com/1.1.1.1/setting-up-1.1.1.1/), 
    or [Quad9](https://www.quad9.net). There can be many reasons: cost
    considerations for network operators, better reliability or anti-censorship
    considerations are just a few. Such services typically do provide a privacy
@@ -560,7 +563,7 @@ of a recursive resolver.
   encrypted DNS and good data handling policies) the block can serve to further
   protect user privacy by ensuring such security precautions.
 
-  It is also noted that attacks on remote resolver services e.g., DDoS could
+  It is also noted that attacks on remote resolver services, e.g., DDoS could
   force users to switch to other services that do not offer encrypted transports
   for DNS.
 
