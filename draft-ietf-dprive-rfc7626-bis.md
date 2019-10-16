@@ -455,49 +455,52 @@ of a recursive resolver.
 
 #### Resolver Selection
 
-   Given all the above considerations the choice of recursive resolver has
-   direct privacy considerations for end users. Historically end user devices
-   have used the DHCP provided local network recursive resolver which may have
+   Given all the above considerations, the choice of recursive resolver has
+   direct privacy considerations for end users. Historically, end user devices
+   have used the DHCP-provided local network recursive resolver, which may have
    strong, medium or weak privacy policies depending on the network. Privacy
    policies for these servers may or may not be available and users need to be
    aware that privacy guarantees will vary with network.
 
    More recently some networks and end users have actively chosen to use a large
-   public resolver instead e.g., Google Public DNS, Cloudflare or Quad9 (need
-   refs). There can be many reasons: cost considerations for network operators,
-   better reliability or anti-censorship considerations are just a few. Such
-   services typically do provide a privacy policy and the end user can get an
-   idea of the data collected by such operators by reading one e.g.,
-   [Google Public DNS - Your Privacy](https://developers.google.com/speed/public-dns/privacy).
+   public resolver instead e.g., [Google Public
+   DNS](https://developers.google.com/speed/public-dns),
+   [Cloudflare](https://developers.cloudflare.com/1.1.1.1/setting-up-1.1.1.1/)
+   or [Quad9](https://www.quad9.net). There can be many reasons: cost
+   considerations for network operators, better reliability or anti-censorship
+   considerations are just a few. Such services typically do provide a privacy
+   policy and the end user can get an idea of the data collected by such
+   operators by reading one e.g., [Google Public DNS - Your
+   Privacy](https://developers.google.com/speed/public-dns/privacy).
 
    Even more recently some applications have announced plans to deploy
    application-specific DNS settings which might be enabled by default. For
-   example current proposals by Firefox [@firefox] revolve around a default
-   based on geographic region using a pre-configured list of large public
+   example, current proposals by Firefox [@firefox] revolve around a default
+   based on the geographic region, using a pre-configured list of large public
    resolver services which offer DoH, combined with non-standard probing and
    signalling mechanism to disable DoH in particular networks. Whereas Chrome
-   [@chrome] is experimenting with using DoH to the DHCP provided resolver if it
-   is on a list of DoH-compatible providers. At the time of writing efforts
+   [@chrome] is experimenting with using DoH to the DHCP-provided resolver if it
+   is on a list of DoH-compatible providers. At the time of writing, efforts
    to provide standardized signalling mechanisms for applications to discover
    the services offered by local resolvers are in progress
    [@I-D.ietf-dnsop-resolver-information].
 
    If applications enable application-specific DNS settings without properly
    informing the user of the change (or do not provide an option for user
-   configuration of the application recursive resolver) there is a potential
-   privacy issue; depending on the network context and the application default
+   configuration of the application's recursive resolver) there is a potential
+   privacy issue; depending on the network context and the application default,
    the application might use a recursive server that provides less privacy
-   protection than the default network provided server without the users' full
-   knowledge. Users that are fully aware of an application-specific DNS setting
+   protection than the default network-provided server without the user's full
+   knowledge. Users that are fully aware of an application specific DNS setting
    may want to actively override any default in favour of their chosen recursive
    resolver.
 
-   There are also concerns that should the trend towards using large public
-   resolvers increase, this will itself provide a privacy concern due to a small
+   There are also concerns that, should the trend towards using large public
+   resolvers increase, this will itself provide a privacy concern, due to a small
    number of operators having visibility of the majority of DNS requests
    globally and the potential for aggregating data across services about a user.
    Additionally the operating organisation of the resolver may be in a different
-   legal jurisdiction to the user which creates further privacy concerns around
+   legal jurisdiction than the user, which creates further privacy concerns around
    legal protections of and access to the data collected by the operator.
 
    At the time of writing the deployment models for DNS are evolving, their
@@ -546,7 +549,7 @@ of a recursive resolver.
   2606:4700:4700::1111) could restrict the resolvers available to the user. The
   extent of the risk to end user privacy is highly dependent on the specific
   network and user context; a user on a network that is known to perform
-  surveillance would be compromised if they could not access such services
+  surveillance would be compromised if they could not access such services,
   whereas a user on a trusted network might have no privacy motivation to do
   so.
 
