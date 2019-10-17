@@ -373,7 +373,7 @@ implemented at the resolver (e.g., parental filtering).
   
   * directly configured with only the recursive resolvers of the IAP and
   * all traffic (including DNS) between the device and the cellular network is
-    encrypted following an encryption profile edited by the IPv6 for Third
+    encrypted following an encryption profile edited by the Third
     Generation Partnership Project ([3GPP](https://www.3gpp.org)).
   
   The attack surface for this specific scenario is not considered here.
