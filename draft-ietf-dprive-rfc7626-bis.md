@@ -2,13 +2,13 @@
     Title = "DNS Privacy Considerations"
     abbrev = "DNS Privacy Considerations"
     category = "info"
-    docName= "draft-ietf-dprive-rfc7626-bis-02"
+    docName= "draft-ietf-dprive-rfc7626-bis-03"
     ipr = "trust200902"
     area = "Internet Area"
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2019-10-16T00:00:00Z
+    date = 2019-11-06T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -796,6 +796,9 @@ implementations that provide clear guidance on what identifiers they add.
    many to all be mentioned); see, for instance, 'Recommendations for DNS
    Privacy Operators' [@I-D.ietf-dprive-bcp-op].
 
+# IANA Considerations
+
+This document makes no requests of the IANA.
 
 # Acknowledgments
 
@@ -811,6 +814,10 @@ implementations that provide clear guidance on what identifiers they add.
    members for the last remarks.
 
 # Changelog
+
+draft-ietf-dprive-rfc7626-bis-02
+
+* Address 2 minor nits (typo and add IANA section)
 
 draft-ietf-dprive-rfc7626-bis-02
 
