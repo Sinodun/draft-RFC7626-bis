@@ -8,7 +8,7 @@
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2019-11-06T00:00:00Z
+    date = 2019-11-13T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -222,7 +222,7 @@
    IP address" is used in a loose sense of "source IP address + maybe source
    port number", because the port number is also in the request and can be used to
    differentiate between several users sharing an IP address (behind a
-   Carrier-Grade NAT (CGN) or a NPTv6, for instance [@RFC6269]).
+   Carrier-Grade NAT (CGN), for instance [@RFC6269]).
 
    The QNAME is the full name sent by the user.  It gives information
    about what the user does ("What are the MX records of example.net?"
@@ -261,18 +261,18 @@
    Sometimes the end user has a personal recursive resolver on her machine. In
    both cases, the IP address is as sensitive as it is for HTTP [@sidn-entrada].
 
-   A note about IP addresses: there is currently no IETF document that
-   describes in detail all the privacy issues around IP addressing.  In
-   the meantime, the discussion here is intended to include both IPv4
-   and IPv6 source addresses.  For a number of reasons, their assignment
-   and utilization characteristics are different, which may have
-   implications for details of information leakage associated with the
-   collection of source addresses.  (For example, a specific IPv6 source
-   address seen on the public Internet is less likely than an IPv4
-   address to originate behind an address sharing scheme.)  However, for both
-   IPv4 and IPv6 addresses, it is important to note that source addresses
-   are propagated with queries and comprise metadata about the host,
-   user, or application that originated them.
+   A note about IP addresses: there is currently no IETF document that describes
+   in detail all the privacy issues around IP addressing in general, although
+   [@RFC7721] does discuss privacy considerations for IPv6 address generation
+   mechanisms. In the meantime, the discussion here is intended to include both
+   IPv4 and IPv6 source addresses. For a number of reasons, their assignment and
+   utilization characteristics are different, which may have implications for
+   details of information leakage associated with the collection of source
+   addresses. (For example, a specific IPv6 source address seen on the public
+   Internet is less likely than an IPv4 address to originate behind an address
+   sharing scheme.) However, for both IPv4 and IPv6 addresses, it is important
+   to note that source addresses are propagated with queries and comprise
+   metadata about the host, user, or application that originated them.
 
 ### Data in the DNS payload
 
@@ -533,7 +533,8 @@ of a recursive resolver.
   recursive resolver also controlled by that attacker. Most of the time, it
   seems to be done to divert traffic in order to also direct the user to a web
   server controlled by the attacker. However it could be used just to capture
-  the traffic and gather information about you.
+  the traffic and gather information about you. Similarly, attacks on NDP/ARP
+  might be used to re-direct DNS queries to attacker controlled servers.
 
   Other attacks, besides using DHCP, are possible. The cleartext traffic from a
   DNS client to a DNS server can be intercepted along its way from originator
@@ -555,13 +556,12 @@ of a recursive resolver.
   operators or more general mechanisms) of access to remote recursive servers
   that offer encrypted transports when the local resolver does not offer
   encryption and/or has very poor privacy policies. For example, active blocking
-  of port 853 for DoT or of specific IP addresses (e.g., 1.1.1.1 or
-  2606:4700:4700::1111) could restrict the resolvers available to the user. The
-  extent of the risk to end user privacy is highly dependent on the specific
-  network and user context; a user on a network that is known to perform
-  surveillance would be compromised if they could not access such services,
-  whereas a user on a trusted network might have no privacy motivation to do
-  so.
+  of port 853 for DoT or of specific IP addresses could restrict the resolvers
+  available to the user. The extent of the risk to end user privacy is highly
+  dependent on the specific network and user context; a user on a network that
+  is known to perform surveillance would be compromised if they could not access
+  such services, whereas a user on a trusted network might have no privacy
+  motivation to do so.
 
   In some cases, networks might block access to remote resolvers for security
   reasons, for example to cripple malware and bots or to prevent data
@@ -693,13 +693,13 @@ implementations that provide clear guidance on what identifiers they add.
    outside of the ccTLD's country.  End users may not anticipate that,
    when doing a security analysis.
 
-   Also, it seems (see the survey described in [@aeris-dns]) that there
-   is a strong concentration of authoritative name servers among
-   "popular" domains (such as the Alexa Top N list).  For instance,
-   among the Alexa Top 100K, one DNS provider hosts today 10% of the
-   domains.  The ten most important DNS providers host together one
-   third of the domains.  With the control (or the ability to sniff the
-   traffic) of a few name servers, you can gather a lot of information.
+   Also, it seems (see the survey described in [@aeris-dns]) that there is a
+   strong concentration of authoritative name servers among "popular" domains
+   (such as the Alexa Top N list). For instance, among the [Alexa Top
+   100K](https://www.alexa.com/topsites), one DNS provider hosts today 10% of
+   the domains. The ten most important DNS providers host together one third of
+   the domains. With the control (or the ability to sniff the traffic) of a few
+   name servers, you can gather a lot of information.
 
 
 ##  Re-identification and Other Inferences
@@ -767,14 +767,15 @@ implementations that provide clear guidance on what identifiers they add.
    And there is still the potential problems with revealing QNAMEs.
 
    The revelations from the Edward Snowden documents, which were leaked from the
-   National Security Agency (NSA) provide evidence of the use of
-   the DNS in mass surveillance operations [@morecowbell]. For example the
-   MORECOWBELL surveillance program, which uses a dedicated covert monitoring
-   infrastructure to actively query DNS servers and perform HTTP requests to
-   obtain meta information about services and to check their availability.
-   Also the QUANTUMTHEORY project which includes detecting lookups for certain
-   addresses and injecting bogus replies is another good example showing that
-   the lack of privacy protections in the DNS is actively exploited.
+   National Security Agency (NSA) provide evidence of the use of the DNS in mass
+   surveillance operations [@morecowbell]. For example the MORECOWBELL
+   surveillance program, which uses a dedicated covert monitoring infrastructure
+   to actively query DNS servers and perform HTTP requests to obtain meta
+   information about services and to check their availability. Also the
+   [QUANTUMTHEORY](https://theintercept.com/document/2014/03/12/nsa-gchqs-quantumtheory-hacking-tactics/)
+   project which includes detecting lookups for certain addresses and injecting
+   bogus replies is another good example showing that the lack of privacy
+   protections in the DNS is actively exploited.
 
 
 #  Legalities
@@ -815,9 +816,10 @@ This document makes no requests of the IANA.
 
 # Changelog
 
-draft-ietf-dprive-rfc7626-bis-02
+draft-ietf-dprive-rfc7626-bis-03
 
-* Address 2 minor nits (typo and add IANA section)
+* Address 2 minor nits (typo in section 3.4.1 and adding an IANA section)
+* Minor updates from AD review
 
 draft-ietf-dprive-rfc7626-bis-02
 
