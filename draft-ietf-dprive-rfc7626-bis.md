@@ -121,7 +121,7 @@
    Today, almost all DNS queries are sent over UDP [@thomas-ditl-tcp]. This has
    practical consequences when considering encryption of the traffic as a
    possible privacy technique. Some encryption solutions are only designed for
-   TCP, not UDP and new solutions are still emerging [@I-D.ietf-quic-transport].
+   TCP, not UDP and new solutions are still emerging [@I-D.ietf-quic-transport] [@I-D.huitema-quic-dnsoquic].
 
    Another important point to keep in mind when analyzing the privacy
    issues of DNS is the fact that DNS requests received by a server are
@@ -187,6 +187,18 @@
    are not considered here.
 
 # Risks
+
+This section outlines the privacy considerations associated with different
+aspects of the DNS for the end user. When reading this section it needs to be
+kept in mind that many of the considerations (for example, recursive resolver
+and transport protocol) can be specific to the network context that a device is
+using at a given point in time. A user may have many devices and each device
+might utilise many different networks (e.g. home, work, public or cellular) over
+a period of time or even concurrently. An exhaustive analysis of the privacy
+considerations for an individual user would need to take into account the set of
+devices used and the multiple dynamic contexts of each device. This document
+does not attempt such a complex analysis, instead it presents an overview of the
+various considerations that could form the basis of such an analysis.
 
 ##  The Alleged Public Nature of DNS Data
 
@@ -368,13 +380,13 @@ implemented at the resolver (e.g., parental filtering).
   case, the attack surface is the entire public Internet between the
   end user's connection and the public DNS service.
 
-  It is also noted that typically a device connected *only* to a modern cellular network
-  is 
+  It is also noted that typically a device connected *only* to a modern cellular
+  network is
   
   * directly configured with only the recursive resolvers of the IAP and
-  * all traffic (including DNS) between the device and the cellular network is
-    encrypted following an encryption profile edited by the Third
-    Generation Partnership Project ([3GPP](https://www.3gpp.org)).
+  * afforded some level of protection against some types of eavesdropping
+   for all traffic (including DNS traffic) due to the cellular network
+   link-layer encryption.
   
   The attack surface for this specific scenario is not considered here.
 
@@ -423,7 +435,7 @@ recommendations [@RFC7525] and developments [@RFC8446] in this
 area largely mitigate those.
 
 Traffic analysis of unpadded encrypted traffic is also possible
-[@pitfalls-of-dns-encrption] because the sizes and timing of encrypted DNS
+[@pitfalls-of-dns-encryption] because the sizes and timing of encrypted DNS
 requests and responses can be correlated to unencrypted DNS requests upstream
 of a recursive resolver.
 
@@ -818,6 +830,11 @@ This document makes no requests of the IANA.
 
 draft-ietf-dprive-rfc7626-bis-03
 
+* Brian Trammel: Add reference to DNS-over-QUIC, fix typo.
+* Secdir review: Add text in Section 3 on devices using many networks. Update bullet in 3.4.1 on cellular encryption.
+
+draft-ietf-dprive-rfc7626-bis-03
+
 * Address 2 minor nits (typo in section 3.4.1 and adding an IANA section)
 * Minor updates from AD review
 
@@ -888,7 +905,7 @@ Initial commit.  Differences to RFC7626:
 </front>
 </reference>
 
-<reference anchor="pitfalls-of-dns-encrption" target="https://dl.acm.org/citation.cfm?id=2665959">
+<reference anchor="pitfalls-of-dns-encryption" target="https://dl.acm.org/citation.cfm?id=2665959">
 <front>
 <title>Pretty Bad Privacy:Pitfalls of DNS Encryption</title>
 <author fullname="Haya Shulman" surname="Shulman" initials="H"/>
