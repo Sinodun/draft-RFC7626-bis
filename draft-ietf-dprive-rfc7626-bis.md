@@ -179,7 +179,7 @@
    operators in enterprise networks) such as leakage of private namespaces or
    blocklists are out of scope for this document.
    
-   Non-privacy risks (e.g security related concerns such as cache poisoning) are
+   Non-privacy risks (e.g security related considerations such as cache poisoning) are
    also out of scope.
 
    The privacy risks associated with the use of other protocols, e.g.,
@@ -484,10 +484,10 @@ of a recursive resolver.
    policies for these servers may or may not be available and users need to be
    aware that privacy guarantees will vary with network.
 
-   More recently some networks and end users have actively chosen to use a large
-   public resolver instead, e.g., [Google Public
+   More recently, some networks and end users have actively chosen
+   to use a large public resolver, e.g., [Google Public
    DNS](https://developers.google.com/speed/public-dns),
-   [Cloudflare](https://developers.cloudflare.com/1.1.1.1/setting-up-1.1.1.1/), 
+   [Cloudflare](https://developers.cloudflare.com/1.1.1.1/setting-up-1.1.1.1/),
    or [Quad9](https://www.quad9.net). There can be many reasons: cost
    considerations for network operators, better reliability or anti-censorship
    considerations are just a few. Such services typically do provide a privacy
@@ -495,42 +495,53 @@ of a recursive resolver.
    operators by reading one e.g., [Google Public DNS - Your
    Privacy](https://developers.google.com/speed/public-dns/privacy).
 
-   Even more recently some applications have announced plans to deploy
-   application-specific DNS settings which might be enabled by default. For
-   example, current proposals by Firefox [@firefox] revolve around a default
-   based on the geographic region, using a pre-configured list of large public
-   resolver services which offer DoH, combined with non-standard probing and
-   signalling mechanism to disable DoH in particular networks. Whereas Chrome
-   [@chrome] is experimenting with using DoH to the DHCP-provided resolver if it
-   is on a list of DoH-compatible providers. At the time of writing, efforts
-   to provide standardized signalling mechanisms for applications to discover
-   the services offered by local resolvers are in progress
-   [@I-D.ietf-dnsop-resolver-information].
+   In general, as with many other protocols, issues around centralisation also
+   arise with DNS. The picture is fluid with several competing factors
+   contributing which can also vary by geographic region. These include:
+   
+   * ISP outsourcing, including to third party and public resolvers
+   * regional market domination by one or only a few ISPs
 
-   If applications enable application-specific DNS settings without properly
-   informing the user of the change (or do not provide an option for user
-   configuration of the application's recursive resolver) there is a potential
-   privacy issue; depending on the network context and the application default,
-   the application might use a recursive server that provides less privacy
-   protection than the default network-provided server without the user's full
-   knowledge. Users that are fully aware of an application specific DNS setting
-   may want to actively override any default in favour of their chosen recursive
-   resolver.
+  An increased proportion of the global DNS resolution traffic being served by
+  only a few entities means that the privacy considerations for end users are
+  highly dependant on the privacy policies and practices of those entities.
 
-   There are also concerns that, should the trend towards using large public
-   resolvers increase, this will itself provide a privacy concern, due to a small
-   number of operators having visibility of the majority of DNS requests
-   globally and the potential for aggregating data across services about a user.
-   Additionally the operating organisation of the resolver may be in a different
-   legal jurisdiction than the user, which creates further privacy concerns around
-   legal protections of and access to the data collected by the operator.
+##### Dynamic Discovery of DoH and Strict DoT
 
-   At the time of writing the deployment models for DNS are evolving, their
-   implications are complex and extend beyond the scope of this document. They
-   are the subject of much other work including
-   [@I-D.livingood-doh-implementation-risks-issues], the [IETF ADD mailing
-   list](https://mailarchive.ietf.org/arch/browse/static/add) and the [Encrypted
-   DNS Deployment Initiative](https://www.encrypted-dns.org).
+Whilst support for opportunistic DoT can be determined by probing a resolver on
+port 853, there is currently no standardized discovery mechanism for DoH and
+Strict DoT servers.
+
+This means that clients which might want to dynamically discover such encrypted
+services, and where users are willing to trust such services, are not able to do
+so. At the time of writing, efforts to provide standardized signalling
+mechanisms to discover the services offered by local resolvers are in progress
+[I-D.ietf-dnsop-resolver-information]. Note that an increasing numbers of ISPs
+are deploying encrypted DNS and publishing DNS privacy polices, for example see
+the Encrypted DNS Deployment Initiative [EDDI].
+
+##### Application-specific Resolver Selection
+
+  An increasing number of applications are offering application-specific
+  encrypted DNS resolution settings, rather than defaulting to using only the
+  system resolver. A variety of heuristics and resolvers are available in
+  different applications including hard-coded lists of recognised DoH/DoT
+  servers.
+
+Users will only be aware of and have the ability to control such settings if applications provide the following functions:
+
+  * communicate clearly the change in default to users
+  * provide configuration options to change the default
+  * provide configuration options to always use the system resolver
+
+  Application-specific changes to default destinations for users' DNS queries
+  might increase or decrease user privacy - it is highly dependant on the
+  network context and the application-specific default. This is an area of
+  active debate.
+
+  The IETF is working on a number of issues related to application-specific DNS
+  settings. For example there have been discussions on the IETF ADD mailing list
+  [ADD] and a proposal for a new ABCD working group [ABCD].
 
 ####  Active Attacks on Resolver Configuration
 
@@ -601,7 +612,7 @@ of a recursive resolver.
 Use of encrypted transports does not reduce the data available in the recursive
 resolver and ironically can actually expose more information about users to
 operators. As mentioned in (#on-the-wire) use of session based encrypted
-transports (TCP/TLS) can expose correlation data about users. Such concerns in
+transports (TCP/TLS) can expose correlation data about users. Such considerations in
 the TCP/TLS layers apply equally to DoT and DoH which both use TLS as
 the underlying transport, some examples are:
 
@@ -612,7 +623,7 @@ the underlying transport, some examples are:
 
 Section 8 of [@RFC8484] highlights some of the privacy consideration differences between
 HTTP and DNS. As a deliberate design choice DoH inherits the privacy properties
-of the HTTPS stack and as a consequence introduces new privacy concerns when
+of the HTTPS stack and as a consequence introduces new privacy considerations when
 compared with DNS over UDP, TCP or TLS [@RFC7858]. The rationale for this
 decision is that retaining the ability to leverage the full functionality of
 the HTTP ecosystem is more important than placing specific constraints on this
@@ -832,6 +843,7 @@ draft-ietf-dprive-rfc7626-bis-03
 
 * Brian Trammel: Add reference to DNS-over-QUIC, fix typo.
 * Secdir review: Add text in Section 3 on devices using many networks. Update bullet in 3.4.1 on cellular encryption.
+* Section 3.5.1.1 - re-work the section to try to address multiple comments.
 
 draft-ietf-dprive-rfc7626-bis-03
 
