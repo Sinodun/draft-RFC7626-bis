@@ -2,13 +2,13 @@
     Title = "DNS Privacy Considerations"
     abbrev = "DNS Privacy Considerations"
     category = "info"
-    docName= "draft-ietf-dprive-rfc7626-bis-03"
+    docName= "draft-ietf-dprive-rfc7626-bis-04"
     ipr = "trust200902"
     area = "Internet Area"
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2019-11-18T00:00:00Z
+    date = 2020-01-14T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
