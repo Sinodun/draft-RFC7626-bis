@@ -8,7 +8,7 @@
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2020-01-14T00:00:00Z
+    date = 2020-01-16T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -508,7 +508,9 @@ of a recursive resolver.
 
   An increased proportion of the global DNS resolution traffic being served by
   only a few entities means that the privacy considerations for end users are
-  highly dependant on the privacy policies and practices of those entities.
+  highly dependant on the privacy policies and practices of those entities. Many
+  of the issues around centralisation are discussed in
+  [@centralisation-and-data-sovereignty].
 
 ##### Dynamic Discovery of DoH and Strict DoT
 
@@ -532,7 +534,8 @@ the Encrypted DNS Deployment Initiative [EDDI].
   different applications including hard-coded lists of recognised DoH/DoT
   servers.
 
-Users will only be aware of and have the ability to control such settings if applications provide the following functions:
+Users will only be aware of and have the ability to control such settings if
+applications provide the following functions:
 
   * communicate clearly the change in default to users
   * provide configuration options to change the default
@@ -541,11 +544,8 @@ Users will only be aware of and have the ability to control such settings if app
   Application-specific changes to default destinations for users' DNS queries
   might increase or decrease user privacy - it is highly dependant on the
   network context and the application-specific default. This is an area of
-  active debate.
-
-  The IETF is working on a number of issues related to application-specific DNS
-  settings. For example there have been discussions on the IETF ADD mailing list
-  [ADD] and a proposal for a new ABCD working group [ABCD].
+  active debate and the IETF is working on a number of issues related to
+  application-specific DNS settings.
 
 ####  Active Attacks on Resolver Configuration
 
@@ -805,7 +805,8 @@ draft-ietf-dprive-rfc7626-bis-03
 
 * Brian Trammel: Add reference to DNS-over-QUIC, fix typo.
 * Secdir review: Add text in Section 3 on devices using many networks. Update bullet in 3.4.1 on cellular encryption.
-* Section 3.5.1.1 - re-work the section to try to address multiple comments.
+* Section 3.5.1.1 - re-work the section to try to address multiple comments. 
+* Section 3.5.1.4 - remove this section as now covered by 3.5.1.1.
 * Section 3.5.1.5.2 - Remove several paragraphs and more directly reference
   RFC8484 by including bullet points quoting text from Section 8.2 of RFC8484.
   Retain the last 2 paragraphs as they are information for users, not
@@ -1198,6 +1199,16 @@ of users, i. e. link multiple sessions of them. </t>
   measurements showing that, "for the great majority of resolvers, therefore,
 the associated IP address is personal data", and a privacy policy for
 big data analysis.</t></abstract>
+</front>
+</reference>
+
+
+<reference anchor="centralisation-and-data-sovereignty" target="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2167372">
+<front>
+<title>Cloud Computing: Centralization and Data Sovereignty</title>
+<author fullname="Primavera De Filippi" surname="De Filippi" initials="P."/>
+<author fullname="Smari McCarthy" surname="McCarthy" initials="S."/>
+<date month="October" year="2012"/>
 </front>
 </reference>
 
