@@ -169,7 +169,7 @@
    focused surveillance.
 
    This document does not attempt a comparison of specific privacy protections
-   provided by individual networks or organisations, it makes only general
+   provided by individual networks or organizations, it makes only general
    observations about typical current practices.
    
    Privacy risks for the holder of a zone (the risk that someone gets the data)
@@ -192,7 +192,7 @@ aspects of the DNS for the end user. When reading this section it needs to be
 kept in mind that many of the considerations (for example, recursive resolver
 and transport protocol) can be specific to the network context that a device is
 using at a given point in time. A user may have many devices and each device
-might utilise many different networks (e.g. home, work, public or cellular) over
+might utilize many different networks (e.g. home, work, public or cellular) over
 a period of time or even concurrently. An exhaustive analysis of the privacy
 considerations for an individual user would need to take into account the set of
 devices used and the multiple dynamic contexts of each device. This document
@@ -499,7 +499,7 @@ of a recursive resolver.
    operators by reading one e.g., [Google Public DNS - Your
    Privacy](https://developers.google.com/speed/public-dns/privacy).
 
-   In general, as with many other protocols, issues around centralisation also
+   In general, as with many other protocols, issues around centralization also
    arise with DNS. The picture is fluid with several competing factors
    contributing which can also vary by geographic region. These include:
    
@@ -508,8 +508,8 @@ of a recursive resolver.
 
   An increased proportion of the global DNS resolution traffic being served by
   only a few entities means that the privacy considerations for end users are
-  highly dependant on the privacy policies and practices of those entities. Many
-  of the issues around centralisation are discussed in
+  highly dependent on the privacy policies and practices of those entities. Many
+  of the issues around centralization are discussed in
   [@centralisation-and-data-sovereignty].
 
 ##### Dynamic Discovery of DoH and Strict DoT
@@ -520,18 +520,18 @@ Strict DoT servers.
 
 This means that clients which might want to dynamically discover such encrypted
 services, and where users are willing to trust such services, are not able to do
-so. At the time of writing, efforts to provide standardized signalling
+so. At the time of writing, efforts to provide standardized signaling
 mechanisms to discover the services offered by local resolvers are in progress
 [@I-D.ietf-dnsop-resolver-information]. Note that an increasing numbers of ISPs
 are deploying encrypted DNS and publishing DNS privacy polices, for example see
-the Encrypted DNS Deployment Initiative [EDDI].
+the Encrypted DNS Deployment Initiative [@EDDI].
 
 ##### Application-specific Resolver Selection
 
   An increasing number of applications are offering application-specific
   encrypted DNS resolution settings, rather than defaulting to using only the
   system resolver. A variety of heuristics and resolvers are available in
-  different applications including hard-coded lists of recognised DoH/DoT
+  different applications including hard-coded lists of recognized DoH/DoT
   servers.
 
 Users will only be aware of and have the ability to control such settings if
@@ -542,7 +542,7 @@ applications provide the following functions:
   * provide configuration options to always use the system resolver
 
   Application-specific changes to default destinations for users' DNS queries
-  might increase or decrease user privacy - it is highly dependant on the
+  might increase or decrease user privacy - it is highly dependent on the
   network context and the application-specific default. This is an area of
   active debate and the IETF is working on a number of issues related to
   application-specific DNS settings.
@@ -801,9 +801,9 @@ This document makes no requests of the IANA.
 
 # Changelog
 
-draft-ietf-dprive-rfc7626-bis-03
+draft-ietf-dprive-rfc7626-bis-04
 
-* Brian Trammel: Add reference to DNS-over-QUIC, fix typo.
+* Tsvart review: Add reference to DNS-over-QUIC, fix typo.
 * Secdir review: Add text in Section 3 on devices using many networks. Update bullet in 3.4.1 on cellular encryption.
 * Section 3.5.1.1 - re-work the section to try to address multiple comments. 
 * Section 3.5.1.4 - remove this section as now covered by 3.5.1.1.
@@ -861,21 +861,6 @@ Initial commit.  Differences to RFC7626:
 *  Add section on authentication of servers
 *  Add section on blocking of services
 
-<reference anchor="chrome" target="https://blog.chromium.org/2019/09/experimenting-with-same-provider-dns.html">
-<front>
-<title>Experimenting with same-provider DNS-over-HTTPS upgrade</title>
-<author fullname="Kenji Baheux" surname="Baheux"/>
-<date month="September" year="2019"/>
-</front>
-</reference>
-
-<reference anchor="firefox" target="https://blog.mozilla.org/futurereleases/2019/09/06/whats-next-in-making-dns-over-https-the-default/">
-<front>
-<title>What’s next in making Encrypted DNS-over-HTTPS the Default</title>
-<author fullname="Selena Deckelmann" surname="Deckelmann"/>
-<date month="September" year="2019"/>
-</front>
-</reference>
 
 <reference anchor="os-fingerprint" target="http://www.netresec.com/?page=Blog&month=2011-11&post=Passive-OS-Fingerprinting">
 <front>
@@ -1029,14 +1014,6 @@ years, we have come to refer to this project and related activities as
 <seriesInfo name="DOI" value="10.1145/1452335.1452341"/>
 </reference>
 
-<reference anchor="ripe-atlas-turkey" target="https://labs.ripe.net/Members/emileaben/a-ripe-atlas-view-of-internet-meddling-in-turkey">
-<front>
-<title>A RIPE Atlas View of Internet Meddling in Turkey</title>
-<author fullname="Emile Aben" initials="E." surname="Aben"><organization>RIPE NCC</organization></author>
-<date month="March" year="2014"/>
-</front>
-</reference>
-
 <reference anchor="ripe-qname-measurements" target="https://labs.ripe.net/Members/wouter_de_vries/make-dns-a-bit-more-private-with-qname-minimisation">
 <front>
 <title>Making the DNS More Private with QNAME Minimisation</title>
@@ -1048,7 +1025,7 @@ years, we have come to refer to this project and related activities as
 
 <reference anchor="data-protection-directive" target="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:31995L0046:EN:HTML">
 <front>
-<title>Directive 95/46/EC of the European Pariament and of the council on the protection of individuals
+<title>Directive 95/46/EC of the European Parliament and of the council on the protection of individuals
 with regard to the processing of personal data and on the free
 movement of such data</title>
 <author><organization>European Parliament</organization></author>
@@ -1143,11 +1120,9 @@ international conference on, IEEE, Piscataway, NJ, USA, 25 August 2010
 <t>Privacy is improved by broadcasting of the most common names plus mixes (a Tor-like routing system).</t>
 </abstract>
 </front>
-
 <seriesInfo name="Computer Security ESORICS 2011," value="Springer"/>
 <seriesInfo name="page(s)" value="665-683"/>
 <seriesInfo name="ISBN" value="978-3-642-23821-5"/>
-
 </reference>
 
 <reference anchor="aeris-dns" target="https://blog.imirhil.fr/vie-privee-et-le-dns-alors.html">
@@ -1209,6 +1184,14 @@ big data analysis.</t></abstract>
 <author fullname="Primavera De Filippi" surname="De Filippi" initials="P."/>
 <author fullname="Smari McCarthy" surname="McCarthy" initials="S."/>
 <date month="October" year="2012"/>
+</front>
+</reference>
+
+<reference anchor="EDDI" target="https://www.encrypted-dns.org">
+<front>
+<title>Encrypted DNS Deployment Initiative</title>
+<author><organization>EDDI</organization></author>
+<date year="2020"/>
 </front>
 </reference>
 

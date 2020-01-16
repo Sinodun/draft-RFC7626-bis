@@ -185,7 +185,7 @@ tertiary requests to verify the IP addresses of those records.</t>
    focused surveillance.
 </t>
 <t>This document does not attempt a comparison of specific privacy protections
-   provided by individual networks or organisations, it makes only general
+   provided by individual networks or organizations, it makes only general
    observations about typical current practices.
 </t>
 <t>Privacy risks for the holder of a zone (the risk that someone gets the data)
@@ -209,7 +209,7 @@ aspects of the DNS for the end user. When reading this section it needs to be
 kept in mind that many of the considerations (for example, recursive resolver
 and transport protocol) can be specific to the network context that a device is
 using at a given point in time. A user may have many devices and each device
-might utilise many different networks (e.g. home, work, public or cellular) over
+might utilize many different networks (e.g. home, work, public or cellular) over
 a period of time or even concurrently. An exhaustive analysis of the privacy
 considerations for an individual user would need to take into account the set of
 devices used and the multiple dynamic contexts of each device. This document
@@ -529,7 +529,7 @@ of a recursive resolver.
    operators by reading one e.g., <eref target="https://developers.google.com/speed/public-dns/privacy">Google Public DNS - Your
    Privacy</eref>.
 </t>
-<t>In general, as with many other protocols, issues around centralisation also
+<t>In general, as with many other protocols, issues around centralization also
    arise with DNS. The picture is fluid with several competing factors
    contributing which can also vary by geographic region. These include:
 </t>
@@ -541,8 +541,8 @@ of a recursive resolver.
 </t>
 <t>An increased proportion of the global DNS resolution traffic being served by
   only a few entities means that the privacy considerations for end users are
-  highly dependant on the privacy policies and practices of those entities. Many
-  of the issues around centralisation are discussed in
+  highly dependent on the privacy policies and practices of those entities. Many
+  of the issues around centralization are discussed in
   <xref target="centralisation-and-data-sovereignty"/>.
 </t>
 
@@ -553,11 +553,11 @@ Strict DoT servers.
 </t>
 <t>This means that clients which might want to dynamically discover such encrypted
 services, and where users are willing to trust such services, are not able to do
-so. At the time of writing, efforts to provide standardized signalling
+so. At the time of writing, efforts to provide standardized signaling
 mechanisms to discover the services offered by local resolvers are in progress
 <xref target="I-D.ietf-dnsop-resolver-information"/>. Note that an increasing numbers of ISPs
 are deploying encrypted DNS and publishing DNS privacy polices, for example see
-the Encrypted DNS Deployment Initiative [EDDI].
+the Encrypted DNS Deployment Initiative <xref target="EDDI"/>.
 </t>
 </section>
 
@@ -565,7 +565,7 @@ the Encrypted DNS Deployment Initiative [EDDI].
 <t>An increasing number of applications are offering application-specific
   encrypted DNS resolution settings, rather than defaulting to using only the
   system resolver. A variety of heuristics and resolvers are available in
-  different applications including hard-coded lists of recognised DoH/DoT
+  different applications including hard-coded lists of recognized DoH/DoT
   servers.
 </t>
 <t>Users will only be aware of and have the ability to control such settings if
@@ -579,7 +579,7 @@ applications provide the following functions:
 </list>
 </t>
 <t>Application-specific changes to default destinations for users' DNS queries
-  might increase or decrease user privacy - it is highly dependant on the
+  might increase or decrease user privacy - it is highly dependent on the
   network context and the application-specific default. This is an area of
   active debate and the IETF is working on a number of issues related to
   application-specific DNS settings.
@@ -856,11 +856,11 @@ implementations that provide clear guidance on what identifiers they add.
 </section>
 
 <section anchor="changelog" title="Changelog">
-<t>draft-ietf-dprive-rfc7626-bis-03
+<t>draft-ietf-dprive-rfc7626-bis-04
 </t>
 <t>
 <list style="symbols">
-<t>Brian Trammel: Add reference to DNS-over-QUIC, fix typo.</t>
+<t>Tsvart review: Add reference to DNS-over-QUIC, fix typo.</t>
 <t>Secdir review: Add text in Section 3 on devices using many networks. Update bullet in 3.4.1 on cellular encryption.</t>
 <t>Section 3.5.1.1 - re-work the section to try to address multiple comments.</t>
 <t>Section 3.5.1.4 - remove this section as now covered by 3.5.1.1.</t>
@@ -955,6 +955,13 @@ implementors.</t>
 <?rfc include="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7258.xml"?>
 </references>
 <references title="Informative References">
+<reference anchor="EDDI" target="https://www.encrypted-dns.org">
+<front>
+<title>Encrypted DNS Deployment Initiative</title>
+<author><organization>EDDI</organization></author>
+<date year="2020"/>
+</front>
+</reference>
 <?rfc include="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.huitema-quic-dnsoquic.xml"?>
 <?rfc include="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-dnsop-resolver-information.xml"?>
 <?rfc include="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-dprive-bcp-op.xml"?>
@@ -1035,7 +1042,7 @@ network problems and potential malware infections.</t>
 </reference>
 <reference anchor="data-protection-directive" target="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:31995L0046:EN:HTML">
 <front>
-<title>Directive 95/46/EC of the European Pariament and of the council on the protection of individuals
+<title>Directive 95/46/EC of the European Parliament and of the council on the protection of individuals
 with regard to the processing of personal data and on the free
 movement of such data</title>
 <author><organization>European Parliament</organization></author>
@@ -1122,11 +1129,9 @@ years, we have come to refer to this project and related activities as
 <t>Privacy is improved by broadcasting of the most common names plus mixes (a Tor-like routing system).</t>
 </abstract>
 </front>
-
 <seriesInfo name="Computer Security ESORICS 2011," value="Springer"/>
 <seriesInfo name="page(s)" value="665-683"/>
 <seriesInfo name="ISBN" value="978-3-642-23821-5"/>
-
 </reference>
 <reference anchor="getdns" target="https://getdnsapi.net">
 <front>

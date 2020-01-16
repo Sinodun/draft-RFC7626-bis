@@ -518,13 +518,13 @@
 <p id="rfc.section.1.p.11">For privacy-related terms, we will use the terminology from <a href="#RFC6973">[RFC6973]</a>.  </p>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#scope" id="scope">Scope</a></h1>
 <p id="rfc.section.2.p.1">This document focuses mostly on the study of privacy risks for the end user (the one performing DNS requests).  We consider the risks of pervasive surveillance <a href="#RFC7258">[RFC7258]</a> as well as risks coming from a more focused surveillance.  </p>
-<p id="rfc.section.2.p.2">This document does not attempt a comparison of specific privacy protections provided by individual networks or organisations, it makes only general observations about typical current practices.  </p>
+<p id="rfc.section.2.p.2">This document does not attempt a comparison of specific privacy protections provided by individual networks or organizations, it makes only general observations about typical current practices.  </p>
 <p id="rfc.section.2.p.3">Privacy risks for the holder of a zone (the risk that someone gets the data) are discussed in <a href="#RFC5936">[RFC5936]</a> and <a href="#RFC5155">[RFC5155]</a>.  </p>
 <p id="rfc.section.2.p.4">Privacy risks for recursive operators (including access providers and operators in enterprise networks) such as leakage of private namespaces or blocklists are out of scope for this document.  </p>
 <p id="rfc.section.2.p.5">Non-privacy risks (e.g security related considerations such as cache poisoning) are also out of scope.  </p>
 <p id="rfc.section.2.p.6">The privacy risks associated with the use of other protocols that make use of DNS information are not considered here.  </p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#risks" id="risks">Risks</a></h1>
-<p id="rfc.section.3.p.1">This section outlines the privacy considerations associated with different aspects of the DNS for the end user. When reading this section it needs to be kept in mind that many of the considerations (for example, recursive resolver and transport protocol) can be specific to the network context that a device is using at a given point in time. A user may have many devices and each device might utilise many different networks (e.g. home, work, public or cellular) over a period of time or even concurrently. An exhaustive analysis of the privacy considerations for an individual user would need to take into account the set of devices used and the multiple dynamic contexts of each device. This document does not attempt such a complex analysis, instead it presents an overview of the various considerations that could form the basis of such an analysis.  </p>
+<p id="rfc.section.3.p.1">This section outlines the privacy considerations associated with different aspects of the DNS for the end user. When reading this section it needs to be kept in mind that many of the considerations (for example, recursive resolver and transport protocol) can be specific to the network context that a device is using at a given point in time. A user may have many devices and each device might utilize many different networks (e.g. home, work, public or cellular) over a period of time or even concurrently. An exhaustive analysis of the privacy considerations for an individual user would need to take into account the set of devices used and the multiple dynamic contexts of each device. This document does not attempt such a complex analysis, instead it presents an overview of the various considerations that could form the basis of such an analysis.  </p>
 <h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#the-alleged-public-nature-of-dns-data" id="the-alleged-public-nature-of-dns-data">The Alleged Public Nature of DNS Data</a></h1>
 <p id="rfc.section.3.1.p.1">It has long been claimed that "the data in the DNS is public".  While this sentence makes sense for an Internet-wide lookup system, there are multiple facets to the data and metadata involved that deserve a more detailed look.  First, access control lists (ACLs) and private namespaces notwithstanding, the DNS operates under the assumption that public-facing authoritative name servers will respond to "usual" DNS queries for any zone they are authoritative for without further authentication or authorization of the client (resolver).  Due to the lack of search capabilities, only a given QNAME will reveal the resource records associated with that name (or that name's non- existence).  In other words: one needs to know what to ask for, in order to receive a response.  The zone transfer QTYPE <a href="#RFC5936">[RFC5936]</a> is often blocked or restricted to authenticated/authorized access to enforce this difference (and maybe for other reasons).  </p>
 <p id="rfc.section.3.1.p.2">Another differentiation to be considered is between the DNS data itself and a particular transaction (i.e., a DNS name lookup).  DNS data and the results of a DNS query are public, within the boundaries described above, and may not have any confidentiality requirements.  However, the same is not true of a single transaction or a sequence of transactions; that transaction is not / should not be public.  A typical example from outside the DNS world is: the web site of Alcoholics Anonymous is public; the fact that you visit it should not be.  </p>
@@ -595,7 +595,7 @@
 <h1 id="rfc.section.3.5.1.1"><a href="#rfc.section.3.5.1.1">3.5.1.1.</a> <a href="#resolver-selection" id="resolver-selection">Resolver Selection</a></h1>
 <p id="rfc.section.3.5.1.1.p.1">Given all the above considerations, the choice of recursive resolver has direct privacy considerations for end users. Historically, end user devices have used the DHCP-provided local network recursive resolver, which may have strong, medium, or weak privacy policies depending on the network. Privacy policies for these servers may or may not be available and users need to be aware that privacy guarantees will vary with network.  </p>
 <p id="rfc.section.3.5.1.1.p.2">More recently, some networks and end users have actively chosen to use a large public resolver, e.g., <a href="https://developers.google.com/speed/public-dns">Google Public DNS</a>, <a href="https://developers.cloudflare.com/1.1.1.1/setting-up-1.1.1.1/">Cloudflare</a>, or <a href="https://www.quad9.net">Quad9</a>. There can be many reasons: cost considerations for network operators, better reliability or anti-censorship considerations are just a few. Such services typically do provide a privacy policy and the end user can get an idea of the data collected by such operators by reading one e.g., <a href="https://developers.google.com/speed/public-dns/privacy">Google Public DNS - Your Privacy</a>.  </p>
-<p id="rfc.section.3.5.1.1.p.3">In general, as with many other protocols, issues around centralisation also arise with DNS. The picture is fluid with several competing factors contributing which can also vary by geographic region. These include: </p>
+<p id="rfc.section.3.5.1.1.p.3">In general, as with many other protocols, issues around centralization also arise with DNS. The picture is fluid with several competing factors contributing which can also vary by geographic region. These include: </p>
 <p/>
 
 <ul>
@@ -604,12 +604,12 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.3.5.1.1.p.5">An increased proportion of the global DNS resolution traffic being served by only a few entities means that the privacy considerations for end users are highly dependant on the privacy policies and practices of those entities. Many of the issues around centralisation are discussed in <a href="#centralisation-and-data-sovereignty">[centralisation-and-data-sovereignty]</a>.  </p>
+<p id="rfc.section.3.5.1.1.p.5">An increased proportion of the global DNS resolution traffic being served by only a few entities means that the privacy considerations for end users are highly dependent on the privacy policies and practices of those entities. Many of the issues around centralization are discussed in <a href="#centralisation-and-data-sovereignty">[centralisation-and-data-sovereignty]</a>.  </p>
 <h1 id="rfc.section.3.5.1.1.1"><a href="#rfc.section.3.5.1.1.1">3.5.1.1.1.</a> <a href="#dynamic-discovery-of-doh-and-strict-dot" id="dynamic-discovery-of-doh-and-strict-dot">Dynamic Discovery of DoH and Strict DoT</a></h1>
 <p id="rfc.section.3.5.1.1.1.p.1">Whilst support for opportunistic DoT can be determined by probing a resolver on port 853, there is currently no standardized discovery mechanism for DoH and Strict DoT servers.  </p>
-<p id="rfc.section.3.5.1.1.1.p.2">This means that clients which might want to dynamically discover such encrypted services, and where users are willing to trust such services, are not able to do so. At the time of writing, efforts to provide standardized signalling mechanisms to discover the services offered by local resolvers are in progress <a href="#I-D.ietf-dnsop-resolver-information">[I-D.ietf-dnsop-resolver-information]</a>. Note that an increasing numbers of ISPs are deploying encrypted DNS and publishing DNS privacy polices, for example see the Encrypted DNS Deployment Initiative [EDDI].  </p>
+<p id="rfc.section.3.5.1.1.1.p.2">This means that clients which might want to dynamically discover such encrypted services, and where users are willing to trust such services, are not able to do so. At the time of writing, efforts to provide standardized signaling mechanisms to discover the services offered by local resolvers are in progress <a href="#I-D.ietf-dnsop-resolver-information">[I-D.ietf-dnsop-resolver-information]</a>. Note that an increasing numbers of ISPs are deploying encrypted DNS and publishing DNS privacy polices, for example see the Encrypted DNS Deployment Initiative <a href="#EDDI">[EDDI]</a>.  </p>
 <h1 id="rfc.section.3.5.1.1.2"><a href="#rfc.section.3.5.1.1.2">3.5.1.1.2.</a> <a href="#applicationspecific-resolver-selection" id="applicationspecific-resolver-selection">Application-specific Resolver Selection</a></h1>
-<p id="rfc.section.3.5.1.1.2.p.1">An increasing number of applications are offering application-specific encrypted DNS resolution settings, rather than defaulting to using only the system resolver. A variety of heuristics and resolvers are available in different applications including hard-coded lists of recognised DoH/DoT servers.  </p>
+<p id="rfc.section.3.5.1.1.2.p.1">An increasing number of applications are offering application-specific encrypted DNS resolution settings, rather than defaulting to using only the system resolver. A variety of heuristics and resolvers are available in different applications including hard-coded lists of recognized DoH/DoT servers.  </p>
 <p id="rfc.section.3.5.1.1.2.p.2">Users will only be aware of and have the ability to control such settings if applications provide the following functions: </p>
 <p/>
 
@@ -620,7 +620,7 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.3.5.1.1.2.p.4">Application-specific changes to default destinations for users' DNS queries might increase or decrease user privacy - it is highly dependant on the network context and the application-specific default. This is an area of active debate and the IETF is working on a number of issues related to application-specific DNS settings.  </p>
+<p id="rfc.section.3.5.1.1.2.p.4">Application-specific changes to default destinations for users' DNS queries might increase or decrease user privacy - it is highly dependent on the network context and the application-specific default. This is an area of active debate and the IETF is working on a number of issues related to application-specific DNS settings.  </p>
 <h1 id="rfc.section.3.5.1.2"><a href="#rfc.section.3.5.1.2">3.5.1.2.</a> <a href="#active-attacks-on-resolver-configuration" id="active-attacks-on-resolver-configuration">Active Attacks on Resolver Configuration</a></h1>
 <p id="rfc.section.3.5.1.2.p.1">The previous section discussed DNS privacy, assuming that all the traffic was directed to the intended servers (i.e those that would be used in the absence of an active attack) and that the potential attacker was purely passive. But, in reality, we can have active attackers in the network.  </p>
 <p id="rfc.section.3.5.1.2.p.2">The Internet Threat model, as described in <a href="#RFC3552">[RFC3552]</a>, assumes that the attacker controls the network. Such an attacker can completely control any insecure DNS resolution, both passively monitoring the queries and responses and substituting their own responses. Even if encrypted DNS such as DoH or DoT is used, unless the client has been configured in a secure way with the server identity, an active attacker can impersonate the server. This implies that opportunistic modes of DoH/DoT as well as modes where the client learns of the DoH/DoT server via in-network mechanisms such as DHCP are vulnerable to attack. In addition, if the client is compromised, the attacker can replace the DNS configuration with one of its own choosing.  </p>
@@ -675,11 +675,11 @@
 <h1 id="rfc.section.8"><a href="#rfc.section.8">8.</a> <a href="#acknowledgments" id="acknowledgments">Acknowledgments</a></h1>
 <p id="rfc.section.8.p.1">Thanks to Nathalie Boulvard and to the CENTR members for the original work that led to this document. Thanks to Ondrej Sury for the interesting discussions. Thanks to Mohsen Souissi and John Heidemann for proofreading and to Paul Hoffman, Matthijs Mekking, Marcos Sanz, Tim Wicinski, Francis Dupont, Allison Mankin, and Warren Kumari for proofreading, providing technical remarks, and making many readability improvements. Thanks to Dan York, Suzanne Woolf, Tony Finch, Stephen Farrell, Peter Koch, Simon Josefsson, and Frank Denis for good written contributions. Thanks to Vittorio Bertola and Mohamed Boucadair for a detailed review of the -bis. And thanks to the IESG members for the last remarks.  </p>
 <h1 id="rfc.section.9"><a href="#rfc.section.9">9.</a> <a href="#changelog" id="changelog">Changelog</a></h1>
-<p id="rfc.section.9.p.1">draft-ietf-dprive-rfc7626-bis-03 </p>
+<p id="rfc.section.9.p.1">draft-ietf-dprive-rfc7626-bis-04 </p>
 <p/>
 
 <ul>
-  <li>Brian Trammel: Add reference to DNS-over-QUIC, fix typo.</li>
+  <li>Tsvart review: Add reference to DNS-over-QUIC, fix typo.</li>
   <li>Secdir review: Add text in Section 3 on devices using many networks. Update bullet in 3.4.1 on cellular encryption.</li>
   <li>Section 3.5.1.1 - re-work the section to try to address multiple comments.</li>
   <li>Section 3.5.1.4 - remove this section as now covered by 3.5.1.1.</li>
@@ -825,7 +825,7 @@
       <td class="reference">
         <b id="data-protection-directive">[data-protection-directive]</b>
       </td>
-      <td class="top"><a>European Parliament</a>, "<a href="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:31995L0046:EN:HTML">Directive 95/46/EC of the European Pariament and of the council on the protection of individuals with regard to the processing of personal data and on the free movement of such data</a>", Official Journal L 281, pp. 0031 - 0050, November 1995.</td>
+      <td class="top"><a>European Parliament</a>, "<a href="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:31995L0046:EN:HTML">Directive 95/46/EC of the European Parliament and of the council on the protection of individuals with regard to the processing of personal data and on the free movement of such data</a>", Official Journal L 281, pp. 0031 - 0050, November 1995.</td>
     </tr>
     <tr>
       <td class="reference">
@@ -856,6 +856,12 @@
         <b id="dnsmezzo">[dnsmezzo]</b>
       </td>
       <td class="top"><a>Bortzmeyer, S.</a>, "<a href="http://www.dnsmezzo.net/">DNSmezzo</a>", 2009.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="EDDI">[EDDI]</b>
+      </td>
+      <td class="top"><a>EDDI</a>, "<a href="https://www.encrypted-dns.org">Encrypted DNS Deployment Initiative</a>", 2020.</td>
     </tr>
     <tr>
       <td class="reference">
