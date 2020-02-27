@@ -204,18 +204,22 @@ tertiary requests to verify the IP addresses of those records.</t>
 </section>
 
 <section anchor="risks" title="Risks">
-<t>This section outlines the privacy considerations associated with different
-aspects of the DNS for the end user. When reading this section it needs to be
-kept in mind that many of the considerations (for example, recursive resolver
-and transport protocol) can be specific to the network context that a device is
-using at a given point in time. A user may have many devices and each device
-might utilize many different networks (e.g. home, work, public or cellular) over
-a period of time or even concurrently. An exhaustive analysis of the privacy
-considerations for an individual user would need to take into account the set of
-devices used and the multiple dynamic contexts of each device. This document
-does not attempt such a complex analysis, instead it presents an overview of the
-various considerations that could form the basis of such an analysis.
+<t>The following four sections outline the privacy considerations associated with
+different aspects of the DNS for the end user. When reading these sections it
+needs to be kept in mind that many of the considerations (for example, recursive
+resolver and transport protocol) can be specific to the network context that a
+device is using at a given point in time. A user may have many devices and each
+device might utilize many different networks (e.g. home, work, public or
+cellular) over a period of time or even concurrently. An exhaustive analysis of
+the privacy considerations for an individual user would need to take into
+account the set of devices used and the multiple dynamic contexts of each
+device. This document does not attempt such a complex analysis, instead it
+presents an overview of the various considerations that could form the basis of
+such an analysis.
 </t>
+</section>
+
+<section anchor="risks-in-the-dns-data" title="Risks in the DNS Data">
 
 <section anchor="the-alleged-public-nature-of-dns-data" title="The Alleged Public Nature of DNS Data">
 <t>It has long been claimed that &quot;the data in the DNS is public&quot;.  While
@@ -305,7 +309,7 @@ various considerations that could form the basis of such an analysis.
    metadata about the host, user, or application that originated them.
 </t>
 
-<section anchor="data-in-the-dns-payload" title="Data in the DNS payload">
+<section anchor="data-in-the-dns-payload" title="Data in the DNS Payload">
 <t>At the time of writing there are no standardized client identifiers contained in
 the DNS payload itself (ECS <xref target="RFC7871"/> while widely used is only of Category
 Informational).
@@ -336,8 +340,9 @@ implemented at the resolver (e.g., parental filtering).
    measures have already been developed and deployed <xref target="cache-snooping-defence"/>.
 </t>
 </section>
+</section>
 
-<section anchor="on-the-wire" title="On the Wire">
+<section anchor="risks-on-the-wire" title="Risks On the Wire">
 
 <section anchor="unencrypted-transports" title="Unencrypted Transports">
 <t>For unencrypted transports, DNS traffic can be seen by an eavesdropper like
@@ -476,7 +481,7 @@ of a recursive resolver.
 </section>
 </section>
 
-<section anchor="in-the-servers" title="In the Servers">
+<section anchor="risks-in-the-servers" title="Risks in the Servers">
 <t>Using the terminology of <xref target="RFC6973"/>, the DNS servers (recursive
    resolvers and authoritative servers) are enablers: they facilitate
    communication between an initiator and a recipient without being
@@ -740,6 +745,8 @@ implementations that provide clear guidance on what identifiers they add.
 </section>
 </section>
 
+<section anchor="other-risks" title="Other risks">
+
 <section anchor="reidentification-and-other-inferences" title="Re-identification and Other Inferences">
 <t>An observer has access not only to the data he/she directly collects but also
    to the results of various inferences about this data. The term 'observer'
@@ -784,13 +791,12 @@ implementations that provide clear guidance on what identifiers they add.
 </section>
 
 <section anchor="actual-attacks" title="Actual &quot;Attacks&quot;">
-<t>A very quick examination of DNS traffic may lead to the false
-   conclusion that extracting the needle from the haystack is difficult.
-   &quot;Interesting&quot; primary DNS requests are mixed with useless (for the
-   eavesdropper) secondary and tertiary requests (see the terminology in
-   Section 1).  But, in this time of &quot;big data&quot; processing, powerful
-   techniques now exist to get from the raw data to what the
-   eavesdropper is actually interested in.
+<t>A very quick examination of DNS traffic may lead to the false conclusion that
+   extracting the needle from the haystack is difficult. &quot;Interesting&quot; primary
+   DNS requests are mixed with useless (for the eavesdropper) secondary and
+   tertiary requests (see the terminology in <xref target="introduction"/>). But, in
+   this time of &quot;big data&quot; processing, powerful techniques now exist to get from
+   the raw data to what the eavesdropper is actually interested in.
 </t>
 <t>Many research papers about malware detection use DNS traffic to
    detect &quot;abnormal&quot; behavior that can be traced back to the activity of
@@ -864,6 +870,7 @@ implementations that provide clear guidance on what identifiers they add.
 <t>
 <list style="symbols">
 <t>Editorial updates from second IESG last call</t>
+<t>Section renumbering as suggested by Vittorio Bertola</t>
 </list>
 </t>
 <t>draft-ietf-dprive-rfc7626-bis-04

@@ -187,17 +187,20 @@
 
 # Risks
 
-This section outlines the privacy considerations associated with different
-aspects of the DNS for the end user. When reading this section it needs to be
-kept in mind that many of the considerations (for example, recursive resolver
-and transport protocol) can be specific to the network context that a device is
-using at a given point in time. A user may have many devices and each device
-might utilize many different networks (e.g. home, work, public or cellular) over
-a period of time or even concurrently. An exhaustive analysis of the privacy
-considerations for an individual user would need to take into account the set of
-devices used and the multiple dynamic contexts of each device. This document
-does not attempt such a complex analysis, instead it presents an overview of the
-various considerations that could form the basis of such an analysis.
+The following four sections outline the privacy considerations associated with
+different aspects of the DNS for the end user. When reading these sections it
+needs to be kept in mind that many of the considerations (for example, recursive
+resolver and transport protocol) can be specific to the network context that a
+device is using at a given point in time. A user may have many devices and each
+device might utilize many different networks (e.g. home, work, public or
+cellular) over a period of time or even concurrently. An exhaustive analysis of
+the privacy considerations for an individual user would need to take into
+account the set of devices used and the multiple dynamic contexts of each
+device. This document does not attempt such a complex analysis, instead it
+presents an overview of the various considerations that could form the basis of
+such an analysis.
+
+# Risks in the DNS Data
 
 ##  The Alleged Public Nature of DNS Data
 
@@ -286,7 +289,7 @@ various considerations that could form the basis of such an analysis.
    to note that source addresses are propagated with queries and comprise
    metadata about the host, user, or application that originated them.
 
-### Data in the DNS payload
+### Data in the DNS Payload
 
 At the time of writing there are no standardized client identifiers contained in
 the DNS payload itself (ECS [@RFC7871] while widely used is only of Category
@@ -316,9 +319,9 @@ implemented at the resolver (e.g., parental filtering).
    technique for subsequent cache poisoning attacks, some counter
    measures have already been developed and deployed [@cache-snooping-defence].
 
-##  On the Wire
+#  Risks On the Wire
 
-### Unencrypted Transports
+## Unencrypted Transports
 
    For unencrypted transports, DNS traffic can be seen by an eavesdropper like
    any other traffic. (DNSSEC, specified in [@RFC4033], explicitly excludes
@@ -391,7 +394,7 @@ implemented at the resolver (e.g., parental filtering).
   The attack surface for this specific scenario is not considered here.
 
 
-### Encrypted Transports
+## Encrypted Transports
 
 The use of encrypted transports directly mitigates passive surveillance of the
 DNS payload, however there are still some privacy attacks possible. This section
@@ -445,7 +448,7 @@ Traffic analysis of unpadded encrypted traffic is also possible
 requests and responses can be correlated to unencrypted DNS requests upstream
 of a recursive resolver.
 
-##  In the Servers
+# Risks in the Servers
 
    Using the terminology of [@!RFC6973], the DNS servers (recursive
    resolvers and authoritative servers) are enablers: they facilitate
@@ -474,14 +477,14 @@ of a recursive resolver.
    make it accessible to third parties for research or security purposes
    ("passive DNS" [@passive-dns]).
 
-###  In the Recursive Resolvers
+##  In the Recursive Resolvers
 
    Recursive Resolvers see all the traffic since there is typically no
    caching before them.  To summarize: your recursive resolver knows a
    lot about you.  The resolver of a large IAP, or a large public
    resolver, can collect data from many users.
 
-#### Resolver Selection
+### Resolver Selection
 
    Given all the above considerations, the choice of recursive resolver has
    direct privacy considerations for end users. Historically, end user devices
@@ -515,7 +518,7 @@ of a recursive resolver.
   entities. Many of the issues around centralization are discussed in
   [@centralisation-and-data-sovereignty].
 
-##### Dynamic Discovery of DoH and Strict DoT
+#### Dynamic Discovery of DoH and Strict DoT
 
 Whilst support for opportunistic DoT can be determined by probing a resolver on
 port 853, there is currently no standardized discovery mechanism for DoH and
@@ -529,7 +532,7 @@ to discover the services offered by local resolvers are in progress
 are deploying encrypted DNS, for example see the Encrypted DNS Deployment
 Initiative [@EDDI].
 
-##### Application-specific Resolver Selection
+#### Application-specific Resolver Selection
 
   An increasing number of applications are offering application-specific
   encrypted DNS resolution settings, rather than defaulting to using only the
@@ -550,7 +553,7 @@ applications provide the following functions:
   active debate and the IETF is working on a number of issues related to
   application-specific DNS settings.
 
-####  Active Attacks on Resolver Configuration
+###  Active Attacks on Resolver Configuration
 
   The previous section discussed DNS privacy, assuming that all the traffic
   was directed to the intended servers (i.e those that would be used in the
@@ -568,7 +571,7 @@ applications provide the following functions:
   the client is compromised, the attacker can replace the DNS configuration with
   one of its own choosing.
 
-#### Blocking of User Selected DNS Resolution Services
+### Blocking of User Selected DNS Resolution Services
 
   User privacy can also be at risk if there is blocking (by local network
   operators or more general mechanisms) of access to remote recursive servers
@@ -592,16 +595,16 @@ applications provide the following functions:
   force users to switch to other services that do not offer encrypted transports
   for DNS.
 
-#### Encrypted Transports and Recursive Resolvers
+### Encrypted Transports and Recursive Resolvers
 
-##### DoT and DoH
+#### DoT and DoH
 
 Use of encrypted transports does not reduce the data available in the recursive
 resolver and ironically can actually expose more information about users to
 operators. As described in (#encrypted-transports) use of session based encrypted
 transports (TCP/TLS) can expose correlation data about users.
 
-##### DoH Specific Considerations
+#### DoH Specific Considerations
 
 DoH inherits the full privacy properties of the HTTPS stack and as a consequence
 introduces new privacy considerations when compared with DNS over UDP, TCP or
@@ -634,7 +637,7 @@ Privacy focused users should be aware of the potential for additional client
 identifiers in DoH compared to DoT and may want to only use DoH client
 implementations that provide clear guidance on what identifiers they add.
 
-###  In the Authoritative Name Servers
+##  In the Authoritative Name Servers
 
    Unlike what happens for recursive resolvers, observation capabilities of
    authoritative name servers are limited by caching; they see only the requests
@@ -689,6 +692,7 @@ implementations that provide clear guidance on what identifiers they add.
    the domains. With the control (or the ability to sniff the traffic) of a few
    name servers, you can gather a lot of information.
 
+# Other risks
 
 ##  Re-identification and Other Inferences
 
@@ -732,13 +736,12 @@ implementations that provide clear guidance on what identifiers they add.
 
 #  Actual "Attacks"
 
-   A very quick examination of DNS traffic may lead to the false
-   conclusion that extracting the needle from the haystack is difficult.
-   "Interesting" primary DNS requests are mixed with useless (for the
-   eavesdropper) secondary and tertiary requests (see the terminology in
-   Section 1).  But, in this time of "big data" processing, powerful
-   techniques now exist to get from the raw data to what the
-   eavesdropper is actually interested in.
+   A very quick examination of DNS traffic may lead to the false conclusion that
+   extracting the needle from the haystack is difficult. "Interesting" primary
+   DNS requests are mixed with useless (for the eavesdropper) secondary and
+   tertiary requests (see the terminology in (#introduction)). But, in
+   this time of "big data" processing, powerful techniques now exist to get from
+   the raw data to what the eavesdropper is actually interested in.
 
    Many research papers about malware detection use DNS traffic to
    detect "abnormal" behavior that can be traced back to the activity of
@@ -807,6 +810,7 @@ This document makes no requests of the IANA.
 draft-ietf-dprive-rfc7626-bis-04
 
 * Editorial updates from second IESG last call
+* Section renumbering as suggested by Vittorio Bertola
 
 draft-ietf-dprive-rfc7626-bis-04
 
