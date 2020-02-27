@@ -88,7 +88,7 @@
    which will only send the relevant part of the question to the upstream name
    server.
 
-   Because DNS relies on caching heavily, the algorithm described
+   DNS relies on caching heavily, so the algorithm described
    above is actually a bit more complicated, and not all questions are
    sent to the authoritative name servers.  If a few seconds later the
    stub resolver asks the recursive resolver, "What are the SRV records
@@ -270,7 +270,8 @@ various considerations that could form the basis of such an analysis.
    However, hiding does not always work. Sometimes EDNS(0) Client subnet
    [@RFC7871] is used (see its privacy analysis in [@denis-edns-client-subnet]).
    Sometimes the end user has a personal recursive resolver on her machine. In
-   both cases, the IP address is as sensitive as it is for HTTP [@sidn-entrada].
+   both cases, the IP address originating queries to the authoritative server is
+   as sensitive as it is for HTTP [@sidn-entrada].
 
    A note about IP addresses: there is currently no IETF document that describes
    in detail all the privacy issues around IP addressing in general, although
@@ -300,8 +301,8 @@ not designed to actively track users (like HTTP cookies).
 
 There are anecdotal accounts of [MAC
 addresses]
-(https://lists.dns-oarc.net/pipermail/dns-operations/2016-January/014141.html) 
-and even user names being inserted in non-standard EDNS(0) options
+(https://lists.dns-oarc.net/pipermail/dns-operations/2016-January/014143.html) 
+and even user names being inserted in non-standard EDNS(0) options [@RFC6891]
 for stub to resolver communications to support proprietary functionality
 implemented at the resolver (e.g., parental filtering).
 
@@ -313,7 +314,7 @@ implemented at the resolver (e.g., parental filtering).
    with RD=0 to inspect cache content, particularly looking at the DNS
    TTLs [@grangeia.snooping].  Since this also is a reconnaissance
    technique for subsequent cache poisoning attacks, some counter
-   measures have already been developed and deployed.
+   measures have already been developed and deployed [@cache-snooping-defence].
 
 ##  On the Wire
 
@@ -410,7 +411,7 @@ used to de-NAT DNS queries
 
 Note that even when using encrypted transports the use of clear text transport
 options to decrease latency can provide correlation of a users' connections e.g.
-using TCP Fast Open [@RFC7413] with TLS 1.2.
+using TCP Fast Open [@RFC7413].
 
 More specifically, (since the deployment of encrypted transports is not
 widespread at the time of writing) users wishing to use encrypted transports for
@@ -420,10 +421,11 @@ resolvers) and an encrypted transport to use in all network environments can
 actually serve to identify the user as one that desires privacy and can provide
 an added mechanism to track them as they move across network environments.
 
-Implementations that support encrypted transports also commonly re-use sessions
-for multiple DNS queries to optimize performance (e.g. via DNS pipelining or
-HTTPS multiplexing). Default configuration options for encrypted transports
-could in principle fingerprint a specific client application. For example:
+Implementations that support encrypted transports also commonly re-use
+connections for multiple DNS queries to optimize performance (e.g. via DNS
+pipelining or HTTPS multiplexing). Default configuration options for encrypted
+transports could in principle fingerprint a specific client application. For
+example:
 
 * TLS version or cipher suite selection
 * session resumption
@@ -505,11 +507,12 @@ of a recursive resolver.
    
    * ISP outsourcing, including to third party and public resolvers
    * regional market domination by one or only a few ISPs
+   * popular applications directing DNS traffic by default to specific dominant resolvers, see (#applicationspecific-resolver-selection)
 
   An increased proportion of the global DNS resolution traffic being served by
   only a few entities means that the privacy considerations for end users are
-  highly dependent on the privacy policies and practices of those entities. Many
-  of the issues around centralization are discussed in
+  additionally highly dependent on the privacy policies and practices of those
+  entities. Many of the issues around centralization are discussed in
   [@centralisation-and-data-sovereignty].
 
 ##### Dynamic Discovery of DoH and Strict DoT
@@ -520,11 +523,11 @@ Strict DoT servers.
 
 This means that clients which might want to dynamically discover such encrypted
 services, and where users are willing to trust such services, are not able to do
-so. At the time of writing, efforts to provide standardized signaling
-mechanisms to discover the services offered by local resolvers are in progress
+so. At the time of writing, efforts to provide standardized signaling mechanisms
+to discover the services offered by local resolvers are in progress
 [@I-D.ietf-dnsop-resolver-information]. Note that an increasing numbers of ISPs
-are deploying encrypted DNS and publishing DNS privacy polices, for example see
-the Encrypted DNS Deployment Initiative [@EDDI].
+are deploying encrypted DNS, for example see the Encrypted DNS Deployment
+Initiative [@EDDI].
 
 ##### Application-specific Resolver Selection
 
@@ -643,7 +646,7 @@ implementations that provide clear guidance on what identifiers they add.
    of the traffic, and this subset may be sufficient to violate some privacy
    expectations.
 
-   Also, the end user typically has some legal/contractual link with the
+   Also, the end user often has some legal/contractual link with the
    recursive resolver (he has chosen the IAP, or he has chosen to use a
    given public resolver), while having no control and perhaps no
    awareness of the role of the authoritative name servers and their
@@ -803,6 +806,10 @@ This document makes no requests of the IANA.
 
 draft-ietf-dprive-rfc7626-bis-04
 
+* Editorial updates from second IESG last call
+
+draft-ietf-dprive-rfc7626-bis-04
+
 * Tsvart review: Add reference to DNS-over-QUIC, fix typo.
 * Secdir review: Add text in Section 3 on devices using many networks. Update bullet in 3.4.1 on cellular encryption.
 * Section 3.5.1.1 - re-work the section to try to address multiple comments. 
@@ -867,6 +874,14 @@ Initial commit.  Differences to RFC7626:
 <title>Passive OS Fingerprinting</title>
 <author fullname="netresec" surname="netresec"/>
 <date/>
+</front>
+</reference>
+
+<reference anchor="cache-snooping-defence" target="https://kb.isc.org/docs/aa-00482">
+<front>
+<title>ISC Knowledge Database: DNS Cache snooping - should I be concerned?</title>
+<author fullname="ISC" surname="ISC"/>
+<date year="2018" />
 </front>
 </reference>
 

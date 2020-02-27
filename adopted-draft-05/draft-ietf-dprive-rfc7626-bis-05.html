@@ -500,7 +500,7 @@
 <p id="rfc.section.1.p.1">This document is an analysis of the DNS privacy issues, in the spirit of Section 8 of <a href="#RFC6973">[RFC6973]</a>.  </p>
 <p id="rfc.section.1.p.2">The Domain Name System (DNS) is specified in <a href="#RFC1034">[RFC1034]</a>, <a href="#RFC1035">[RFC1035]</a>, and many later RFCs, which have never been consolidated. It is one of the most important infrastructure components of the Internet and often ignored or misunderstood by Internet users (and even by many professionals). Almost every activity on the Internet starts with a DNS query (and often several).  Its use has many privacy implications and this document is an attempt at a comprehensive and accurate list.  </p>
 <p id="rfc.section.1.p.3">Let us begin with a simplified reminder of how the DNS works (See also <a href="#RFC8499">[RFC8499]</a>). A client, the stub resolver, issues a DNS query to a server, called the recursive resolver (also called caching resolver or full resolver or recursive name server). Let's use the query "What are the AAAA records for www.example.com?" as an example. AAAA is the QTYPE (Query Type), and www.example.com is the QNAME (Query Name). (The description that follows assumes a cold cache, for instance, because the server just started.) The recursive resolver will first query the root name servers. In most cases, the root name servers will send a referral. In this example, the referral will be to the .com name servers. The resolver repeats the query to one of the .com name servers. The .com name servers, in turn, will refer to the example.com name servers. The example.com name server will then return the answer. The root name servers, the name servers of .com, and the name servers of example.com are called authoritative name servers. It is important, when analyzing the privacy issues, to remember that the question asked to all these name servers is always the original question, not a derived question. The question sent to the root name servers is "What are the AAAA records for www.example.com?", not "What are the name servers of .com?". By repeating the full question, instead of just the relevant part of the question to the next in line, the DNS provides more information than necessary to the name server. In this simplified description, recursive resolvers do not implement QNAME minimization as described in <a href="#RFC7816">[RFC7816]</a>, which will only send the relevant part of the question to the upstream name server.  </p>
-<p id="rfc.section.1.p.4">Because DNS relies on caching heavily, the algorithm described above is actually a bit more complicated, and not all questions are sent to the authoritative name servers.  If a few seconds later the stub resolver asks the recursive resolver, "What are the SRV records of _xmpp-server._tcp.example.com?", the recursive resolver will remember that it knows the name servers of example.com and will just query them, bypassing the root and .com.  Because there is typically no caching in the stub resolver, the recursive resolver, unlike the authoritative servers, sees all the DNS traffic.  (Applications, like web browsers, may have some form of caching that does not follow DNS rules, for instance, because it may ignore the TTL.  So, the recursive resolver does not see all the name resolution activity.) </p>
+<p id="rfc.section.1.p.4">DNS relies on caching heavily, so the algorithm described above is actually a bit more complicated, and not all questions are sent to the authoritative name servers.  If a few seconds later the stub resolver asks the recursive resolver, "What are the SRV records of _xmpp-server._tcp.example.com?", the recursive resolver will remember that it knows the name servers of example.com and will just query them, bypassing the root and .com.  Because there is typically no caching in the stub resolver, the recursive resolver, unlike the authoritative servers, sees all the DNS traffic.  (Applications, like web browsers, may have some form of caching that does not follow DNS rules, for instance, because it may ignore the TTL.  So, the recursive resolver does not see all the name resolution activity.) </p>
 <p id="rfc.section.1.p.5">It should be noted that DNS recursive resolvers sometimes forward requests to other recursive resolvers, typically bigger machines, with a larger and more shared cache (and the query hierarchy can be even deeper, with more than two levels of recursive resolvers).  From the point of view of privacy, these forwarders are like resolvers, except that they do not see all of the requests being made (due to caching in the first resolver).  </p>
 <p id="rfc.section.1.p.6">At the time of writing, almost all this DNS traffic is currently sent in clear (i.e., unencrypted). However there is increasing deployment of DNS-over-TLS (DoT) <a href="#RFC7858">[RFC7858]</a> and DNS-over-HTTPS (DoH) <a href="#RFC8484">[RFC8484]</a>, particularly in mobile devices, browsers, and by providers of anycast recursive DNS resolution services. There are a few cases where there is some alternative channel encryption, for instance, in an IPsec VPN tunnel, at least between the stub resolver and the resolver.  </p>
 <p id="rfc.section.1.p.7">Today, almost all DNS queries are sent over UDP <a href="#thomas-ditl-tcp">[thomas-ditl-tcp]</a>. This has practical consequences when considering encryption of the traffic as a possible privacy technique. Some encryption solutions are only designed for TCP, not UDP and new solutions are still emerging <a href="#I-D.ietf-quic-transport">[I-D.ietf-quic-transport]</a> <a href="#I-D.huitema-quic-dnsoquic">[I-D.huitema-quic-dnsoquic]</a>.  </p>
@@ -532,14 +532,14 @@
 <p id="rfc.section.3.2.p.1">The DNS request includes many fields, but two of them seem particularly relevant for the privacy issues: the QNAME and the source IP address. "source IP address" is used in a loose sense of "source IP address + maybe source port number", because the port number is also in the request and can be used to differentiate between several users sharing an IP address (behind a Carrier-Grade NAT (CGN), for instance <a href="#RFC6269">[RFC6269]</a>).  </p>
 <p id="rfc.section.3.2.p.2">The QNAME is the full name sent by the user.  It gives information about what the user does ("What are the MX records of example.net?" means he probably wants to send email to someone at example.net, which may be a domain used by only a few persons and is therefore very revealing about communication relationships).  Some QNAMEs are more sensitive than others.  For instance, querying the A record of a well-known web statistics domain reveals very little (everybody visits web sites that use this analytics service), but querying the A record of www.verybad.example where verybad.example is the domain of an organization that some people find offensive or objectionable may create more problems for the user.  Also, sometimes, the QNAME embeds the software one uses, which could be a privacy issue.  For instance, _ldap._tcp.Default-First-Site-Name._sites.gc._msdcs.example.org.  There are also some BitTorrent clients that query an SRV record for _bittorrent-tracker._tcp.domain.example.  </p>
 <p id="rfc.section.3.2.p.3">Another important thing about the privacy of the QNAME is the future usages.  Today, the lack of privacy is an obstacle to putting potentially sensitive or personally identifiable data in the DNS.  At the moment, your DNS traffic might reveal that you are doing email but not with whom.  If your Mail User Agent (MUA) starts looking up Pretty Good Privacy (PGP) keys in the DNS <a href="#RFC7929">[RFC7929]</a>, then privacy becomes a lot more important.  And email is just an example; there would be other really interesting uses for a more privacy-friendly DNS.  </p>
-<p id="rfc.section.3.2.p.4">For the communication between the stub resolver and the recursive resolver, the source IP address is the address of the user's machine. Therefore, all the issues and warnings about collection of IP addresses apply here. For the communication between the recursive resolver and the authoritative name servers, the source IP address has a different meaning; it does not have the same status as the source address in an HTTP connection. It is typically the IP address of the recursive resolver that, in a way, "hides" the real user.  However, hiding does not always work. Sometimes EDNS(0) Client subnet <a href="#RFC7871">[RFC7871]</a> is used (see its privacy analysis in <a href="#denis-edns-client-subnet">[denis-edns-client-subnet]</a>).  Sometimes the end user has a personal recursive resolver on her machine. In both cases, the IP address is as sensitive as it is for HTTP <a href="#sidn-entrada">[sidn-entrada]</a>.  </p>
+<p id="rfc.section.3.2.p.4">For the communication between the stub resolver and the recursive resolver, the source IP address is the address of the user's machine. Therefore, all the issues and warnings about collection of IP addresses apply here. For the communication between the recursive resolver and the authoritative name servers, the source IP address has a different meaning; it does not have the same status as the source address in an HTTP connection. It is typically the IP address of the recursive resolver that, in a way, "hides" the real user.  However, hiding does not always work. Sometimes EDNS(0) Client subnet <a href="#RFC7871">[RFC7871]</a> is used (see its privacy analysis in <a href="#denis-edns-client-subnet">[denis-edns-client-subnet]</a>).  Sometimes the end user has a personal recursive resolver on her machine. In both cases, the IP address originating queries to the authoritative server is as sensitive as it is for HTTP <a href="#sidn-entrada">[sidn-entrada]</a>.  </p>
 <p id="rfc.section.3.2.p.5">A note about IP addresses: there is currently no IETF document that describes in detail all the privacy issues around IP addressing in general, although <a href="#RFC7721">[RFC7721]</a> does discuss privacy considerations for IPv6 address generation mechanisms. In the meantime, the discussion here is intended to include both IPv4 and IPv6 source addresses. For a number of reasons, their assignment and utilization characteristics are different, which may have implications for details of information leakage associated with the collection of source addresses. (For example, a specific IPv6 source address seen on the public Internet is less likely than an IPv4 address to originate behind an address sharing scheme.) However, for both IPv4 and IPv6 addresses, it is important to note that source addresses are propagated with queries and comprise metadata about the host, user, or application that originated them.  </p>
 <h1 id="rfc.section.3.2.1"><a href="#rfc.section.3.2.1">3.2.1.</a> <a href="#data-in-the-dns-payload" id="data-in-the-dns-payload">Data in the DNS payload</a></h1>
 <p id="rfc.section.3.2.1.p.1">At the time of writing there are no standardized client identifiers contained in the DNS payload itself (ECS <a href="#RFC7871">[RFC7871]</a> while widely used is only of Category Informational).  </p>
 <p id="rfc.section.3.2.1.p.2">DNS Cookies <a href="#RFC7873">[RFC7873]</a> are a lightweight DNS transaction security mechanism that provides limited protection against a variety of increasingly common denial-of-service and amplification/forgery or cache poisoning attacks by off-path attackers. It is noted, however, that they are designed to just verify IP addresses (and should change once a client's IP address changes), they are not designed to actively track users (like HTTP cookies).  </p>
-<p id="rfc.section.3.2.1.p.3">There are anecdotal accounts of <a href="https://lists.dns-oarc.net/pipermail/dns-operations/2016-January/014141.html">MAC addresses</a> and even user names being inserted in non-standard EDNS(0) options for stub to resolver communications to support proprietary functionality implemented at the resolver (e.g., parental filtering).  </p>
+<p id="rfc.section.3.2.1.p.3">There are anecdotal accounts of <a href="https://lists.dns-oarc.net/pipermail/dns-operations/2016-January/014143.html">MAC addresses</a> and even user names being inserted in non-standard EDNS(0) options <a href="#RFC6891">[RFC6891]</a> for stub to resolver communications to support proprietary functionality implemented at the resolver (e.g., parental filtering).  </p>
 <h1 id="rfc.section.3.3"><a href="#rfc.section.3.3">3.3.</a> <a href="#cache-snooping" id="cache-snooping">Cache Snooping</a></h1>
-<p id="rfc.section.3.3.p.1">The content of recursive resolvers' caches can reveal data about the clients using it (the privacy risks depend on the number of clients).  This information can sometimes be examined by sending DNS queries with RD=0 to inspect cache content, particularly looking at the DNS TTLs <a href="#grangeia.snooping">[grangeia.snooping]</a>.  Since this also is a reconnaissance technique for subsequent cache poisoning attacks, some counter measures have already been developed and deployed.  </p>
+<p id="rfc.section.3.3.p.1">The content of recursive resolvers' caches can reveal data about the clients using it (the privacy risks depend on the number of clients).  This information can sometimes be examined by sending DNS queries with RD=0 to inspect cache content, particularly looking at the DNS TTLs <a href="#grangeia.snooping">[grangeia.snooping]</a>.  Since this also is a reconnaissance technique for subsequent cache poisoning attacks, some counter measures have already been developed and deployed <a href="#cache-snooping-defence">[cache-snooping-defence]</a>.  </p>
 <h1 id="rfc.section.3.4"><a href="#rfc.section.3.4">3.4.</a> <a href="#on-the-wire" id="on-the-wire">On the Wire</a></h1>
 <h1 id="rfc.section.3.4.1"><a href="#rfc.section.3.4.1">3.4.1.</a> <a href="#unencrypted-transports" id="unencrypted-transports">Unencrypted Transports</a></h1>
 <p id="rfc.section.3.4.1.p.1">For unencrypted transports, DNS traffic can be seen by an eavesdropper like any other traffic. (DNSSEC, specified in <a href="#RFC4033">[RFC4033]</a>, explicitly excludes confidentiality from its goals.) So, if an initiator starts an HTTPS communication with a recipient, while the HTTP traffic will be encrypted, the DNS exchange prior to it will not be. When other protocols will become more and more privacy-aware and secured against surveillance (e.g., <a href="#RFC8446">[RFC8446]</a>, <a href="#I-D.ietf-quic-transport">[I-D.ietf-quic-transport]</a>), the use of unencrypted transports for DNS may become "the weakest link" in privacy. It is noted that at the time of writing there is on-going work attempting to encrypt the SNI in the TLS handshake <a href="#I-D.ietf-tls-sni-encryption">[I-D.ietf-tls-sni-encryption]</a>.  </p>
@@ -570,9 +570,9 @@
 <p id="rfc.section.3.4.2.p.1">The use of encrypted transports directly mitigates passive surveillance of the DNS payload, however there are still some privacy attacks possible. This section enumerates the residual privacy risks to an end user when an attacker can passively monitor encrypted DNS traffic flows on the wire.  </p>
 <p id="rfc.section.3.4.2.p.2">These are cases where user identification, fingerprinting or correlations may be possible due to the use of certain transport layers or clear text/observable features. These issues are not specific to DNS, but DNS traffic is susceptible to these attacks when using specific transports.  </p>
 <p id="rfc.section.3.4.2.p.3">There are some general examples, for example, certain studies have highlighted that IPv4 TTL, IPv6 Hop Limit, or TCP Window sizes <a href="http://netres.ec/?b=11B99BD">os-fingerprint</a> values can be used to fingerprint client OS's or that various techniques can be used to de-NAT DNS queries <a href="https://www.researchgate.net/publication/320322146_DNS-DNS_DNS-based_De-NAT_Scheme">dns-de-nat</a>.  </p>
-<p id="rfc.section.3.4.2.p.4">Note that even when using encrypted transports the use of clear text transport options to decrease latency can provide correlation of a users' connections e.g.  using TCP Fast Open <a href="#RFC7413">[RFC7413]</a> with TLS 1.2.  </p>
+<p id="rfc.section.3.4.2.p.4">Note that even when using encrypted transports the use of clear text transport options to decrease latency can provide correlation of a users' connections e.g.  using TCP Fast Open <a href="#RFC7413">[RFC7413]</a>.  </p>
 <p id="rfc.section.3.4.2.p.5">More specifically, (since the deployment of encrypted transports is not widespread at the time of writing) users wishing to use encrypted transports for DNS may in practice be limited in the resolver services available. Given this, the choice of a user to configure a single resolver (or a fixed set of resolvers) and an encrypted transport to use in all network environments can actually serve to identify the user as one that desires privacy and can provide an added mechanism to track them as they move across network environments.  </p>
-<p id="rfc.section.3.4.2.p.6">Implementations that support encrypted transports also commonly re-use sessions for multiple DNS queries to optimize performance (e.g. via DNS pipelining or HTTPS multiplexing). Default configuration options for encrypted transports could in principle fingerprint a specific client application. For example: </p>
+<p id="rfc.section.3.4.2.p.6">Implementations that support encrypted transports also commonly re-use connections for multiple DNS queries to optimize performance (e.g. via DNS pipelining or HTTPS multiplexing). Default configuration options for encrypted transports could in principle fingerprint a specific client application. For example: </p>
 <p/>
 
 <ul>
@@ -601,13 +601,14 @@
 <ul>
   <li>ISP outsourcing, including to third party and public resolvers</li>
   <li>regional market domination by one or only a few ISPs</li>
+  <li>popular applications directing DNS traffic by default to specific dominant resolvers, see <a href="#applicationspecific-resolver-selection">Section 3.5.1.1.2</a></li>
 </ul>
 
 <p> </p>
-<p id="rfc.section.3.5.1.1.p.5">An increased proportion of the global DNS resolution traffic being served by only a few entities means that the privacy considerations for end users are highly dependent on the privacy policies and practices of those entities. Many of the issues around centralization are discussed in <a href="#centralisation-and-data-sovereignty">[centralisation-and-data-sovereignty]</a>.  </p>
+<p id="rfc.section.3.5.1.1.p.5">An increased proportion of the global DNS resolution traffic being served by only a few entities means that the privacy considerations for end users are additionally highly dependent on the privacy policies and practices of those entities. Many of the issues around centralization are discussed in <a href="#centralisation-and-data-sovereignty">[centralisation-and-data-sovereignty]</a>.  </p>
 <h1 id="rfc.section.3.5.1.1.1"><a href="#rfc.section.3.5.1.1.1">3.5.1.1.1.</a> <a href="#dynamic-discovery-of-doh-and-strict-dot" id="dynamic-discovery-of-doh-and-strict-dot">Dynamic Discovery of DoH and Strict DoT</a></h1>
 <p id="rfc.section.3.5.1.1.1.p.1">Whilst support for opportunistic DoT can be determined by probing a resolver on port 853, there is currently no standardized discovery mechanism for DoH and Strict DoT servers.  </p>
-<p id="rfc.section.3.5.1.1.1.p.2">This means that clients which might want to dynamically discover such encrypted services, and where users are willing to trust such services, are not able to do so. At the time of writing, efforts to provide standardized signaling mechanisms to discover the services offered by local resolvers are in progress <a href="#I-D.ietf-dnsop-resolver-information">[I-D.ietf-dnsop-resolver-information]</a>. Note that an increasing numbers of ISPs are deploying encrypted DNS and publishing DNS privacy polices, for example see the Encrypted DNS Deployment Initiative <a href="#EDDI">[EDDI]</a>.  </p>
+<p id="rfc.section.3.5.1.1.1.p.2">This means that clients which might want to dynamically discover such encrypted services, and where users are willing to trust such services, are not able to do so. At the time of writing, efforts to provide standardized signaling mechanisms to discover the services offered by local resolvers are in progress <a href="#I-D.ietf-dnsop-resolver-information">[I-D.ietf-dnsop-resolver-information]</a>. Note that an increasing numbers of ISPs are deploying encrypted DNS, for example see the Encrypted DNS Deployment Initiative <a href="#EDDI">[EDDI]</a>.  </p>
 <h1 id="rfc.section.3.5.1.1.2"><a href="#rfc.section.3.5.1.1.2">3.5.1.1.2.</a> <a href="#applicationspecific-resolver-selection" id="applicationspecific-resolver-selection">Application-specific Resolver Selection</a></h1>
 <p id="rfc.section.3.5.1.1.2.p.1">An increasing number of applications are offering application-specific encrypted DNS resolution settings, rather than defaulting to using only the system resolver. A variety of heuristics and resolvers are available in different applications including hard-coded lists of recognized DoH/DoT servers.  </p>
 <p id="rfc.section.3.5.1.1.2.p.2">Users will only be aware of and have the ability to control such settings if applications provide the following functions: </p>
@@ -648,7 +649,7 @@
 <p id="rfc.section.3.5.1.4.2.p.5">Privacy focused users should be aware of the potential for additional client identifiers in DoH compared to DoT and may want to only use DoH client implementations that provide clear guidance on what identifiers they add.  </p>
 <h1 id="rfc.section.3.5.2"><a href="#rfc.section.3.5.2">3.5.2.</a> <a href="#in-the-authoritative-name-servers" id="in-the-authoritative-name-servers">In the Authoritative Name Servers</a></h1>
 <p id="rfc.section.3.5.2.p.1">Unlike what happens for recursive resolvers, observation capabilities of authoritative name servers are limited by caching; they see only the requests for which the answer was not in the cache. For aggregated statistics ("What is the percentage of LOC queries?"), this is sufficient, but it prevents an observer from seeing everything. Similarly the increasing deployment of QNAME minimisation <a href="#ripe-qname-measurements">[ripe-qname-measurements]</a> reduces the data visible at the authoritative name server. Still, the authoritative name servers see a part of the traffic, and this subset may be sufficient to violate some privacy expectations.  </p>
-<p id="rfc.section.3.5.2.p.2">Also, the end user typically has some legal/contractual link with the recursive resolver (he has chosen the IAP, or he has chosen to use a given public resolver), while having no control and perhaps no awareness of the role of the authoritative name servers and their observation abilities.  </p>
+<p id="rfc.section.3.5.2.p.2">Also, the end user often has some legal/contractual link with the recursive resolver (he has chosen the IAP, or he has chosen to use a given public resolver), while having no control and perhaps no awareness of the role of the authoritative name servers and their observation abilities.  </p>
 <p id="rfc.section.3.5.2.p.3">As noted before, using a local resolver or a resolver close to the machine decreases the attack surface for an on-the-wire eavesdropper.  But it may decrease privacy against an observer located on an authoritative name server.  This authoritative name server will see the IP address of the end client instead of the address of a big recursive resolver shared by many users.  </p>
 <p id="rfc.section.3.5.2.p.4">This "protection", when using a large resolver with many clients, is no longer present if ECS <a href="#RFC7871">[RFC7871]</a> is used because, in this case, the authoritative name server sees the original IP address (or prefix, depending on the setup).  </p>
 <p id="rfc.section.3.5.2.p.5">As of today, all the instances of one root name server, L-root, receive together around 50,000 queries per second.  While most of it is "junk" (errors on the Top-Level Domain (TLD) name), it gives an idea of the amount of big data that pours into name servers.  (And even "junk" can leak information; for instance, if there is a typing error in the TLD, the user will send data to a TLD that is not the usual one.) </p>
@@ -679,6 +680,14 @@
 <p/>
 
 <ul>
+  <li>Editorial updates from second IESG last call</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.9.p.3">draft-ietf-dprive-rfc7626-bis-04 </p>
+<p/>
+
+<ul>
   <li>Tsvart review: Add reference to DNS-over-QUIC, fix typo.</li>
   <li>Secdir review: Add text in Section 3 on devices using many networks. Update bullet in 3.4.1 on cellular encryption.</li>
   <li>Section 3.5.1.1 - re-work the section to try to address multiple comments.</li>
@@ -688,7 +697,7 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.9.p.3">draft-ietf-dprive-rfc7626-bis-03 </p>
+<p id="rfc.section.9.p.5">draft-ietf-dprive-rfc7626-bis-03 </p>
 <p/>
 
 <ul>
@@ -697,7 +706,7 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.9.p.5">draft-ietf-dprive-rfc7626-bis-02 </p>
+<p id="rfc.section.9.p.7">draft-ietf-dprive-rfc7626-bis-02 </p>
 <p/>
 
 <ul>
@@ -706,7 +715,7 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.9.p.7">draft-ietf-dprive-rfc7626-bis-01 </p>
+<p id="rfc.section.9.p.9">draft-ietf-dprive-rfc7626-bis-01 </p>
 <p/>
 
 <ul>
@@ -719,7 +728,7 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.9.p.9">draft-ietf-dprive-rfc7626-bis-00 </p>
+<p id="rfc.section.9.p.11">draft-ietf-dprive-rfc7626-bis-00 </p>
 <p/>
 
 <ul>
@@ -729,7 +738,7 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.9.p.11">draft-bortzmeyer-dprive-rfc7626-bis-02 </p>
+<p id="rfc.section.9.p.13">draft-bortzmeyer-dprive-rfc7626-bis-02 </p>
 <p/>
 
 <ul>
@@ -737,7 +746,7 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.9.p.13">draft-bortzmeyer-dprive-rfc7626-bis-01 </p>
+<p id="rfc.section.9.p.15">draft-bortzmeyer-dprive-rfc7626-bis-01 </p>
 <p/>
 
 <ul>
@@ -745,8 +754,8 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.9.p.15">draft-borztmeyer-dprive-rfc7626-bis-00: </p>
-<p id="rfc.section.9.p.16">Initial commit.  Differences to RFC7626: </p>
+<p id="rfc.section.9.p.17">draft-borztmeyer-dprive-rfc7626-bis-00: </p>
+<p id="rfc.section.9.p.18">Initial commit.  Differences to RFC7626: </p>
 <p/>
 
 <ul>
@@ -796,6 +805,12 @@
         <b id="aeris-dns">[aeris-dns]</b>
       </td>
       <td class="top"><a>Vinot, N.</a>, "<a href="https://blog.imirhil.fr/vie-privee-et-le-dns-alors.html">Vie privee: et le DNS alors?</a>", (In French), 2015.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="cache-snooping-defence">[cache-snooping-defence]</b>
+      </td>
+      <td class="top"><a>ISC, </a>, "<a href="https://kb.isc.org/docs/aa-00482">ISC Knowledge Database: DNS Cache snooping - should I be concerned?</a>", 2018.</td>
     </tr>
     <tr>
       <td class="reference">
@@ -982,6 +997,12 @@
         <b id="RFC6269">[RFC6269]</b>
       </td>
       <td class="top"><a>Ford, M.</a>, <a>Boucadair, M.</a>, <a>Durand, A.</a>, <a>Levis, P.</a> and <a>P. Roberts</a>, "<a href="http://tools.ietf.org/html/rfc6269">Issues with IP Address Sharing</a>", RFC 6269, DOI 10.17487/RFC6269, June 2011.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC6891">[RFC6891]</b>
+      </td>
+      <td class="top"><a>Damas, J.</a>, <a>Graff, M.</a> and <a>P. Vixie</a>, "<a href="http://tools.ietf.org/html/rfc6891">Extension Mechanisms for DNS (EDNS(0))</a>", STD 75, RFC 6891, DOI 10.17487/RFC6891, April 2013.</td>
     </tr>
     <tr>
       <td class="reference">
