@@ -8,7 +8,7 @@
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2020-02-27T00:00:00Z
+    date = 2020-05-04T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -223,11 +223,14 @@ such an analysis.
    itself and a particular transaction (i.e., a DNS name lookup).  DNS
    data and the results of a DNS query are public, within the boundaries
    described above, and may not have any confidentiality requirements.
-   However, the same is not true of a single transaction or a sequence
-   of transactions; that transaction is not / should not be public.  A
-   typical example from outside the DNS world is: the web site of
-   Alcoholics Anonymous is public; the fact that you visit it should not
-   be.
+   However, the same is not true of a single transaction or a sequence of
+   transactions; those transaction are not / should not be public. A single 
+   transactions reveals both the originator of the query and the query contents
+   which potentially leaks sensitive information about a specific user. A
+   typical example from outside the DNS world is: the web site of Alcoholics
+   Anonymous is public; the fact that you visit it should not be. Furthermore,
+   the ability to link queries reveals information about individual use
+   patterns.
 
 ##  Data in the DNS Request
 
@@ -374,14 +377,18 @@ implemented at the resolver (e.g., parental filtering).
   on-the-wire attacks is therefore from the end user system across the
   local network and across the IAP network to the IAP's recursive resolvers.
 
-  * The recursive resolver can be a public DNS service.  Some machines
+  * The recursive resolver can be a public DNS service (or a privately run DNS
+  resolver hosted on the public internet).  Some machines
   may be configured to use public DNS resolvers such as those
   operated by Google Public DNS or OpenDNS.  The end user may
   have configured their machine to use these DNS recursive resolvers
   themselves -- or their IAP may have chosen to use the public DNS
   resolvers rather than operating their own resolvers.  In this
   case, the attack surface is the entire public Internet between the
-  end user's connection and the public DNS service.
+  end user's connection and the public DNS service. It can be noted that if the
+  user selects a single resolver with a small client population (even when using
+  an encrypted transport) it can actually serve to aid tracking of that user as
+  they move across network environment.
 
   It is also noted that typically a device connected *only* to a modern cellular
   network is
@@ -415,14 +422,6 @@ used to de-NAT DNS queries
 Note that even when using encrypted transports the use of clear text transport
 options to decrease latency can provide correlation of a users' connections e.g.
 using TCP Fast Open [@RFC7413].
-
-More specifically, (since the deployment of encrypted transports is not
-widespread at the time of writing) users wishing to use encrypted transports for
-DNS may in practice be limited in the resolver services available. Given this,
-the choice of a user to configure a single resolver (or a fixed set of
-resolvers) and an encrypted transport to use in all network environments can
-actually serve to identify the user as one that desires privacy and can provide
-an added mechanism to track them as they move across network environments.
 
 Implementations that support encrypted transports also commonly re-use
 connections for multiple DNS queries to optimize performance (e.g. via DNS
@@ -486,12 +485,28 @@ of a recursive resolver.
 
 ### Resolver Selection
 
-   Given all the above considerations, the choice of recursive resolver has
-   direct privacy considerations for end users. Historically, end user devices
-   have used the DHCP-provided local network recursive resolver, which may have
-   strong, medium, or weak privacy policies depending on the network. Privacy
-   policies for these servers may or may not be available and users need to be
-   aware that privacy guarantees will vary with network.
+  Given all the above considerations, the choice of recursive resolver has
+  direct privacy considerations for end users. Historically, end user devices
+  have used the DHCP-provided local network recursive resolver. The choice by a
+  user to join a particular network (e.g. by physically plugging in a cable or
+  selecting a network in a OS dialogue) typically updates a number of system
+  resources - these can include IP addresses, availability of IPv4/IPv6, DHCP
+  server, and DNS resolver. These individual changes, including the change in
+  DNS resolver, are not normally communicated directly to the user by the OS
+  when the network is joined. The choice of network has historically determined
+  the default system DNS resolver selection; the two are directly coupled in
+  this model.
+  
+  The vast majority of users do not change their default system DNS settings
+  and so implicitly accept the network settings for DNS. The network resolvers
+  have therefore historically been the sole destination for all of the DNS
+  queries from a device. These resolvers may have strong, medium, or weak
+  privacy policies depending on the network. Privacy policies for these servers
+  may or may not be available and users need to be aware that privacy guarantees
+  will vary with network.
+  
+  All major OS’s expose the system DNS settings and allow users to manually
+  override them if desired.
 
    More recently, some networks and end users have actively chosen
    to use a large public resolver, e.g., [Google Public
@@ -539,13 +554,30 @@ Initiative [@EDDI].
   system resolver. A variety of heuristics and resolvers are available in
   different applications including hard-coded lists of recognized DoH/DoT
   servers.
-
-Users will only be aware of and have the ability to control such settings if
-applications provide the following functions:
-
-  * communicate clearly the change in default to users
-  * provide configuration options to change the default
-  * provide configuration options to always use the system resolver
+  
+  For users to have the ability to manage the DNS resolver settings for each
+  individual application in a similar fashion to the OS DNS settings, each
+  application would need to expose the default settings to the user, provide a
+  configuration interface to change them, and support configuration of user
+  specified resolvers.
+  
+  The system resolver resolution path is sometimes used to configure additional
+  DNS controls e.g. query logging, domain based query re-direction or filtering.
+  If all of the applications used on a given device can be configured to use the
+  system resolver, such controls need only be configured on the system resolver
+  resolution path. However if applications offer neither the option to use the
+  system resolver nor equivalent application-specific DNS controls then users
+  should take note that for queries generated by such an application they may
+  not be able to 
+  
+  * directly inspect the DNS queries (e.g. if they are
+  encrypted), or 
+  * manage them to set DNS controls across the device which are
+  consistent with the system resolver controls.
+  
+   Note that if a client device is compromised by a malicious application, the
+  attacker can use application-specific DNS resolvers, transport and controls of
+  its own choosing.
 
   Application-specific changes to default destinations for users' DNS queries
   might increase or decrease user privacy - it is highly dependent on the
@@ -629,7 +661,7 @@ implementation choice. At the extremes, there may be implementations that
 attempt to achieve parity with DoT from a privacy perspective at the cost of
 using no identifiable HTTP headers, there might be others that provide feature
 rich data flows where the low-level origin of the DNS query is easily
-identifiable. Some implementations have, in fact, chosen restrict the use of the
+identifiable. Some implementations have, in fact, chosen to restrict the use of the
 'User-Agent' header so that resolver operators cannot identify the specific
 application that is originating the DNS queries.
 
@@ -807,7 +839,7 @@ This document makes no requests of the IANA.
 
 # Changelog
 
-draft-ietf-dprive-rfc7626-bis-04
+draft-ietf-dprive-rfc7626-bis-05
 
 * Editorial updates from second IESG last call
 * Section renumbering as suggested by Vittorio Bertola

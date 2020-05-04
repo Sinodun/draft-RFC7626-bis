@@ -6,7 +6,7 @@ dprive                                                     S. Bortzmeyer
 Internet-Draft                                                     AFNIC
 Obsoletes: 7626 (if approved)                               S. Dickinson
 Intended status: Informational                                Sinodun IT
-Expires: August 30, 2020                               February 27, 2020
+Expires: November 5, 2020                                    May 4, 2020
 
 
                        DNS Privacy Considerations
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 30, 2020.
+   This Internet-Draft will expire on November 5, 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Bortzmeyer & Dickinson   Expires August 30, 2020                [Page 1]
+Bortzmeyer & Dickinson  Expires November 5, 2020                [Page 1]
 
-Internet-Draft         DNS Privacy Considerations          February 2020
+Internet-Draft         DNS Privacy Considerations               May 2020
 
 
 Table of Contents
@@ -74,24 +74,24 @@ Table of Contents
    6.  Risks in the Servers  . . . . . . . . . . . . . . . . . . . .  11
      6.1.  In the Recursive Resolvers  . . . . . . . . . . . . . . .  12
        6.1.1.  Resolver Selection  . . . . . . . . . . . . . . . . .  12
-       6.1.2.  Active Attacks on Resolver Configuration  . . . . . .  13
-       6.1.3.  Blocking of User Selected DNS Resolution Services . .  14
-       6.1.4.  Encrypted Transports and Recursive Resolvers  . . . .  14
-     6.2.  In the Authoritative Name Servers . . . . . . . . . . . .  15
+       6.1.2.  Active Attacks on Resolver Configuration  . . . . . .  14
+       6.1.3.  Blocking of User Selected DNS Resolution Services . .  15
+       6.1.4.  Encrypted Transports and Recursive Resolvers  . . . .  15
+     6.2.  In the Authoritative Name Servers . . . . . . . . . . . .  16
    7.  Other risks . . . . . . . . . . . . . . . . . . . . . . . . .  17
      7.1.  Re-identification and Other Inferences  . . . . . . . . .  17
-     7.2.  More Information  . . . . . . . . . . . . . . . . . . . .  17
+     7.2.  More Information  . . . . . . . . . . . . . . . . . . . .  18
    8.  Actual "Attacks"  . . . . . . . . . . . . . . . . . . . . . .  18
-   9.  Legalities  . . . . . . . . . . . . . . . . . . . . . . . . .  18
+   9.  Legalities  . . . . . . . . . . . . . . . . . . . . . . . . .  19
    10. Security Considerations . . . . . . . . . . . . . . . . . . .  19
    11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  19
    12. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  19
-   13. Changelog . . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  21
-     14.1.  Normative References . . . . . . . . . . . . . . . . . .  21
+   13. Changelog . . . . . . . . . . . . . . . . . . . . . . . . . .  20
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  22
+     14.1.  Normative References . . . . . . . . . . . . . . . . . .  22
      14.2.  Informative References . . . . . . . . . . . . . . . . .  22
      14.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  28
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  28
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  29
 
 1.  Introduction
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Bortzmeyer & Dickinson   Expires August 30, 2020                [Page 2]
+Bortzmeyer & Dickinson  Expires November 5, 2020                [Page 2]
 
-Internet-Draft         DNS Privacy Considerations          February 2020
+Internet-Draft         DNS Privacy Considerations               May 2020
 
 
    Let us begin with a simplified reminder of how the DNS works (See
@@ -165,9 +165,9 @@ Internet-Draft         DNS Privacy Considerations          February 2020
 
 
 
-Bortzmeyer & Dickinson   Expires August 30, 2020                [Page 3]
+Bortzmeyer & Dickinson  Expires November 5, 2020                [Page 3]
 
-Internet-Draft         DNS Privacy Considerations          February 2020
+Internet-Draft         DNS Privacy Considerations               May 2020
 
 
    At the time of writing, almost all this DNS traffic is currently sent
@@ -221,9 +221,9 @@ Internet-Draft         DNS Privacy Considerations          February 2020
 
 
 
-Bortzmeyer & Dickinson   Expires August 30, 2020                [Page 4]
+Bortzmeyer & Dickinson  Expires November 5, 2020                [Page 4]
 
-Internet-Draft         DNS Privacy Considerations          February 2020
+Internet-Draft         DNS Privacy Considerations               May 2020
 
 
    For privacy-related terms, we will use the terminology from
@@ -277,9 +277,9 @@ Internet-Draft         DNS Privacy Considerations          February 2020
 
 
 
-Bortzmeyer & Dickinson   Expires August 30, 2020                [Page 5]
+Bortzmeyer & Dickinson  Expires November 5, 2020                [Page 5]
 
-Internet-Draft         DNS Privacy Considerations          February 2020
+Internet-Draft         DNS Privacy Considerations               May 2020
 
 
 4.  Risks in the DNS Data
@@ -306,10 +306,13 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    data and the results of a DNS query are public, within the boundaries
    described above, and may not have any confidentiality requirements.
    However, the same is not true of a single transaction or a sequence
-   of transactions; that transaction is not / should not be public.  A
-   typical example from outside the DNS world is: the web site of
-   Alcoholics Anonymous is public; the fact that you visit it should not
-   be.
+   of transactions; those transaction are not / should not be public.  A
+   single transactions reveals both the originator of the query and the
+   query contents which potentially leaks sensitive information about a
+   specific user.  A typical example from outside the DNS world is: the
+   web site of Alcoholics Anonymous is public; the fact that you visit
+   it should not be.  Furthermore, the ability to link queries reveals
+   information about individual use patterns.
 
 4.2.  Data in the DNS Request
 
@@ -327,17 +330,17 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    which may be a domain used by only a few persons and is therefore
    very revealing about communication relationships).  Some QNAMEs are
    more sensitive than others.  For instance, querying the A record of a
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020                [Page 6]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
+
    well-known web statistics domain reveals very little (everybody
    visits web sites that use this analytics service), but querying the A
    record of www.verybad.example where verybad.example is the domain of
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020                [Page 6]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    an organization that some people find offensive or objectionable may
    create more problems for the user.  Also, sometimes, the QNAME embeds
    the software one uses, which could be a privacy issue.  For instance,
@@ -382,17 +385,17 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    is less likely than an IPv4 address to originate behind an address
    sharing scheme.)  However, for both IPv4 and IPv6 addresses, it is
    important to note that source addresses are propagated with queries
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020                [Page 7]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
+
    and comprise metadata about the host, user, or application that
    originated them.
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020                [Page 7]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
 
 4.2.1.  Data in the DNS Payload
 
@@ -440,16 +443,15 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    time of writing there is on-going work attempting to encrypt the SNI
    in the TLS handshake [I-D.ietf-tls-sni-encryption].
 
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020                [Page 8]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
+
    An important specificity of the DNS traffic is that it may take a
    different path than the communication between the initiator and the
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020                [Page 8]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    recipient.  For instance, an eavesdropper may be unable to tap the
    wire between the initiator and the recipient but may have access to
    the wire going to the recursive resolver, or to the authoritative
@@ -490,21 +492,27 @@ Internet-Draft         DNS Privacy Considerations          February 2020
       local network and across the IAP network to the IAP's recursive
       resolvers.
 
-   o  The recursive resolver can be a public DNS service.  Some machines
+   o  The recursive resolver can be a public DNS service (or a privately
+      run DNS resolver hosted on the public internet).  Some machines
       may be configured to use public DNS resolvers such as those
       operated by Google Public DNS or OpenDNS.  The end user may have
       configured their machine to use these DNS recursive resolvers
       themselves -- or their IAP may have chosen to use the public DNS
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020                [Page 9]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
+
       resolvers rather than operating their own resolvers.  In this
       case, the attack surface is the entire public Internet between the
-      end user's connection and the public DNS service.
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020                [Page 9]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
+      end user's connection and the public DNS service.  It can be noted
+      that if the user selects a single resolver with a small client
+      population (even when using an encrypted transport) it can
+      actually serve to aid tracking of that user as they move across
+      network environment.
 
    It is also noted that typically a device connected _only_ to a modern
    cellular network is
@@ -541,29 +549,18 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    transport options to decrease latency can provide correlation of a
    users' connections e.g.  using TCP Fast Open [RFC7413].
 
-   More specifically, (since the deployment of encrypted transports is
-   not widespread at the time of writing) users wishing to use encrypted
-   transports for DNS may in practice be limited in the resolver
-   services available.  Given this, the choice of a user to configure a
-   single resolver (or a fixed set of resolvers) and an encrypted
-   transport to use in all network environments can actually serve to
-   identify the user as one that desires privacy and can provide an
-   added mechanism to track them as they move across network
-   environments.
-
    Implementations that support encrypted transports also commonly re-
    use connections for multiple DNS queries to optimize performance
    (e.g. via DNS pipelining or HTTPS multiplexing).  Default
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 10]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    configuration options for encrypted transports could in principle
    fingerprint a specific client application.  For example:
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 10]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    o  TLS version or cipher suite selection
 
@@ -610,17 +607,17 @@ Internet-Draft         DNS Privacy Considerations          February 2020
 
    Sometimes, this data is kept for a long time and/or distributed to
    third parties for research purposes [ditl] [day-at-root], security
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 11]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    analysis, or surveillance tasks.  These uses are sometimes under some
    sort of contract, with various limitations, for instance, on
    redistribution, given the sensitive nature of the data.  Also, there
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 11]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
+
    are observation points in the network that gather DNS data and then
    make it accessible to third parties for research or security purposes
    ("passive DNS" [passive-dns]).
@@ -637,10 +634,27 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    Given all the above considerations, the choice of recursive resolver
    has direct privacy considerations for end users.  Historically, end
    user devices have used the DHCP-provided local network recursive
-   resolver, which may have strong, medium, or weak privacy policies
-   depending on the network.  Privacy policies for these servers may or
-   may not be available and users need to be aware that privacy
-   guarantees will vary with network.
+   resolver.  The choice by a user to join a particular network (e.g. by
+   physically plugging in a cable or selecting a network in a OS
+   dialogue) typically updates a number of system resources - these can
+   include IP addresses, availability of IPv4/IPv6, DHCP server, and DNS
+   resolver.  These individual changes, including the change in DNS
+   resolver, are not normally communicated directly to the user by the
+   OS when the network is joined.  The choice of network has
+   historically determined the default system DNS resolver selection;
+   the two are directly coupled in this model.
+
+   The vast majority of users do not change their default system DNS
+   settings and so implicitly accept the network settings for DNS.  The
+   network resolvers have therefore historically been the sole
+   destination for all of the DNS queries from a device.  These
+   resolvers may have strong, medium, or weak privacy policies depending
+   on the network.  Privacy policies for these servers may or may not be
+   available and users need to be aware that privacy guarantees will
+   vary with network.
+
+   All major OS's expose the system DNS settings and allow users to
+   manually override them if desired.
 
    More recently, some networks and end users have actively chosen to
    use a large public resolver, e.g., Google Public DNS [4], Cloudflare
@@ -650,6 +664,15 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    privacy policy and the end user can get an idea of the data collected
    by such operators by reading one e.g., Google Public DNS - Your
    Privacy [7].
+
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 12]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    In general, as with many other protocols, issues around
    centralization also arise with DNS.  The picture is fluid with
@@ -666,14 +689,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    An increased proportion of the global DNS resolution traffic being
    served by only a few entities means that the privacy considerations
    for end users are additionally highly dependent on the privacy
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 12]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    policies and practices of those entities.  Many of the issues around
    centralization are discussed in
    [centralisation-and-data-sovereignty].
@@ -701,14 +716,38 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    resolvers are available in different applications including hard-
    coded lists of recognized DoH/DoT servers.
 
-   Users will only be aware of and have the ability to control such
-   settings if applications provide the following functions:
+   For users to have the ability to manage the DNS resolver settings for
+   each individual application in a similar fashion to the OS DNS
+   settings, each application would need to expose the default settings
+   to the user, provide a configuration interface to change them, and
+   support configuration of user specified resolvers.
 
-   o  communicate clearly the change in default to users
 
-   o  provide configuration options to change the default
 
-   o  provide configuration options to always use the system resolver
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 13]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
+
+   The system resolver resolution path is sometimes used to configure
+   additional DNS controls e.g. query logging, domain based query re-
+   direction or filtering.  If all of the applications used on a given
+   device can be configured to use the system resolver, such controls
+   need only be configured on the system resolver resolution path.
+   However if applications offer neither the option to use the system
+   resolver nor equivalent application-specific DNS controls then users
+   should take note that for queries generated by such an application
+   they may not be able to
+
+   o  directly inspect the DNS queries (e.g. if they are encrypted), or
+
+   o  manage them to set DNS controls across the device which are
+      consistent with the system resolver controls.
+
+   Note that if a client device is compromised by a malicious
+   application, the attacker can use application-specific DNS resolvers,
+   transport and controls of its own choosing.
 
    Application-specific changes to default destinations for users' DNS
    queries might increase or decrease user privacy - it is highly
@@ -721,15 +760,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    The previous section discussed DNS privacy, assuming that all the
    traffic was directed to the intended servers (i.e those that would be
    used in the absence of an active attack) and that the potential
-
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 13]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    attacker was purely passive.  But, in reality, we can have active
    attackers in the network.
 
@@ -744,6 +774,17 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    DoT server via in-network mechanisms such as DHCP are vulnerable to
    attack.  In addition, if the client is compromised, the attacker can
    replace the DNS configuration with one of its own choosing.
+
+
+
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 14]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
 6.1.3.  Blocking of User Selected DNS Resolution Services
 
@@ -778,14 +819,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    Use of encrypted transports does not reduce the data available in the
    recursive resolver and ironically can actually expose more
    information about users to operators.  As described in Section 5.2
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 14]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    use of session based encrypted transports (TCP/TLS) can expose
    correlation data about users.
 
@@ -798,6 +831,16 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    protocol.
 
    A brief summary of some of the issues includes:
+
+
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 15]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    o  HTTPS presents new considerations for correlation, such as
       explicit HTTP cookies and implicit fingerprinting of the unique
@@ -819,7 +862,7 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    privacy perspective at the cost of using no identifiable HTTP
    headers, there might be others that provide feature rich data flows
    where the low-level origin of the DNS query is easily identifiable.
-   Some implementations have, in fact, chosen restrict the use of the
+   Some implementations have, in fact, chosen to restrict the use of the
    'User-Agent' header so that resolver operators cannot identify the
    specific application that is originating the DNS queries.
 
@@ -834,14 +877,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    of authoritative name servers are limited by caching; they see only
    the requests for which the answer was not in the cache.  For
    aggregated statistics ("What is the percentage of LOC queries?"),
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 15]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    this is sufficient, but it prevents an observer from seeing
    everything.  Similarly the increasing deployment of QNAME
    minimisation [ripe-qname-measurements] reduces the data visible at
@@ -854,6 +889,14 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    given public resolver), while having no control and perhaps no
    awareness of the role of the authoritative name servers and their
    observation abilities.
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 16]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    As noted before, using a local resolver or a resolver close to the
    machine decreases the attack surface for an on-the-wire eavesdropper.
@@ -889,15 +932,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    "popular" domains (such as the Alexa Top N list).  For instance,
    among the Alexa Top 100K [8], one DNS provider hosts today 10% of the
    domains.  The ten most important DNS providers host together one
-
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 16]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    third of the domains.  With the control (or the ability to sniff the
    traffic) of a few name servers, you can gather a lot of information.
 
@@ -911,6 +945,14 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    passively observing cleartext DNS traffic, one in the network that is
    actively attacking the user by re-directing DNS resolution, or it
    might be a local or remote resolver operator.
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 17]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    For instance, a user can be re-identified via DNS queries.  If the
    adversary knows a user's identity and can watch their DNS queries for
@@ -943,17 +985,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    [yanbin-tsudik], [castillo-garcia], [fangming-hori-sakurai], and
    [federrath-fuchs-herrmann-piosecny].
 
-
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 17]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
 8.  Actual "Attacks"
 
    A very quick examination of DNS traffic may lead to the false
@@ -970,6 +1001,14 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    good, but technically it is a privacy attack and it demonstrates the
    power of the observation of DNS traffic.  See [dns-footprint],
    [dagon-malware], and [darkreading-dns].
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 18]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    Passive DNS systems [passive-dns] allow reconstruction of the data of
    sometimes an entire zone.  They are used for many reasons -- some
@@ -998,18 +1037,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    do not know a court precedent here.  See an interesting analysis in
    [sidn-entrada].
 
-
-
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 18]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
 10.  Security Considerations
 
    This document is entirely about security, more precisely privacy.  It
@@ -1031,6 +1058,14 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    interesting discussions.  Thanks to Mohsen Souissi and John Heidemann
    for proofreading and to Paul Hoffman, Matthijs Mekking, Marcos Sanz,
    Tim Wicinski, Francis Dupont, Allison Mankin, and Warren Kumari for
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 19]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
+
    proofreading, providing technical remarks, and making many
    readability improvements.  Thanks to Dan York, Suzanne Woolf, Tony
    Finch, Stephen Farrell, Peter Koch, Simon Josefsson, and Frank Denis
@@ -1040,7 +1075,7 @@ Internet-Draft         DNS Privacy Considerations          February 2020
 
 13.  Changelog
 
-   draft-ietf-dprive-rfc7626-bis-04
+   draft-ietf-dprive-rfc7626-bis-05
 
    o  Editorial updates from second IESG last call
 
@@ -1057,14 +1092,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
       comments.
 
    o  Section 3.5.1.4 - remove this section as now covered by 3.5.1.1.
-
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 19]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
 
    o  Section 3.5.1.5.2 - Remove several paragraphs and more directly
       reference RFC8484 by including bullet points quoting text from
@@ -1086,6 +1113,14 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    o  Numerous editorial corrections thanks to Mohamed Boucadair and
 
       *  Minor additions to Scope section
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 20]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
       *  New text on cellular network DNS
 
@@ -1114,14 +1149,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
 
    o  Clarify what risks are considered in section 3.4.2
 
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 20]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    draft-ietf-dprive-rfc7626-bis-00
 
    o  Rename after WG adoption
@@ -1142,6 +1169,14 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    draft-borztmeyer-dprive-rfc7626-bis-00:
 
    Initial commit.  Differences to RFC7626:
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 21]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    o  Update many references
 
@@ -1171,13 +1206,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
               DOI 10.17487/RFC6973, July 2013, <https://www.rfc-
               editor.org/info/rfc6973>.
 
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 21]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
               Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May
               2014, <https://www.rfc-editor.org/info/rfc7258>.
@@ -1198,6 +1226,13 @@ Internet-Draft         DNS Privacy Considerations          February 2020
               Castillo-Perez, S. and J. Garcia-Alfaro, "Anonymous
               Resolution of DNS Queries", 2008,
               <http://deic.uab.es/~joaquin/papers/is08.pdf>.
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 22]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    [centralisation-and-data-sovereignty]
               De Filippi, P. and S. McCarthy, "Cloud Computing:
@@ -1227,13 +1262,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
               lex.europa.eu/LexUriServ/
               LexUriServ.do?uri=CELEX:31995L0046:EN:HTML>.
 
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 22]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    [day-at-root]
               Castro, S., Wessels, D., Fomenkov, M., and K. Claffy, "A
               Day at the Root of the Internet", ACM SIGCOMM Computer
@@ -1254,6 +1282,13 @@ Internet-Draft         DNS Privacy Considerations          February 2020
               Stoner, E., "DNS Footprint of Malware", OARC Workshop,
               October 2010, <https://www.dns-oarc.net/files/workshop-
               201010/OARC-ers-20101012.pdf>.
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 23]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    [dnsmezzo]
               Bortzmeyer, S., "DNSmezzo", 2009,
@@ -1282,14 +1317,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
    [getdns]   getdns, "getdns - A modern asynchronous DNS API", January
               2020, <https://getdnsapi.net>.
 
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 23]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    [grangeia.snooping]
               Grangeia, L., "DNS Cache Snooping or Snooping the Cache
               for Fun and Profit", 2005,
@@ -1309,6 +1336,15 @@ Internet-Draft         DNS Privacy Considerations          February 2020
               Iyengar, "Specification of DNS over Dedicated QUIC
               Connections", draft-huitema-quic-dnsoquic-07 (work in
               progress), September 2019.
+
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 24]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    [I-D.ietf-dnsop-resolver-information]
               Sood, P., Arends, R., and P. Hoffman, "DNS Resolver
@@ -1337,15 +1373,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
               2015, <https://pdfs.semanticscholar.org/2610/2b99bdd6a258a
               98740af8217ba8da8a1e4fa.pdf>.
 
-
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 24]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    [packetq]  DNS-OARC, "PacketQ, a simple tool to make SQL-queries
               against PCAP-files", 2011, <https://github.com/DNS-OARC/
               PacketQ>.
@@ -1367,6 +1394,13 @@ Internet-Draft         DNS Privacy Considerations          February 2020
               Text on Security Considerations", BCP 72, RFC 3552,
               DOI 10.17487/RFC3552, July 2003, <https://www.rfc-
               editor.org/info/rfc3552>.
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 25]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    [RFC4033]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
               Rose, "DNS Security Introduction and Requirements",
@@ -1392,16 +1426,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
               DOI 10.17487/RFC6891, April 2013, <https://www.rfc-
               editor.org/info/rfc6891>.
 
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 25]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    [RFC7413]  Cheng, Y., Chu, J., Radhakrishnan, S., and A. Jain, "TCP
               Fast Open", RFC 7413, DOI 10.17487/RFC7413, December 2014,
               <https://www.rfc-editor.org/info/rfc7413>.
@@ -1423,6 +1447,16 @@ Internet-Draft         DNS Privacy Considerations          February 2020
               Considerations for IPv6 Address Generation Mechanisms",
               RFC 7721, DOI 10.17487/RFC7721, March 2016,
               <https://www.rfc-editor.org/info/rfc7721>.
+
+
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 26]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    [RFC7754]  Barnes, R., Cooper, A., Kolkman, O., Thaler, D., and E.
               Nordmark, "Technical Considerations for Internet Service
@@ -1447,17 +1481,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
               Cookies", RFC 7873, DOI 10.17487/RFC7873, May 2016,
               <https://www.rfc-editor.org/info/rfc7873>.
 
-
-
-
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 26]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
    [RFC7929]  Wouters, P., "DNS-Based Authentication of Named Entities
               (DANE) Bindings for OpenPGP", RFC 7929,
               DOI 10.17487/RFC7929, August 2016, <https://www.rfc-
@@ -1480,6 +1503,16 @@ Internet-Draft         DNS Privacy Considerations          February 2020
               QNAME Minimisation", April 2019,
               <https://labs.ripe.net/Members/wouter_de_vries/make-dns-a-
               bit-more-private-with-qname-minimisation>.
+
+
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 27]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    [sidn-entrada]
               Hesselman, C., Jansen, J., Wullink, M., Vink, K., and M.
@@ -1506,14 +1539,6 @@ Internet-Draft         DNS Privacy Considerations          February 2020
               in the Domain Name System", October 2009,
               <http://arxiv.org/abs/0910.2472>.
 
-
-
-
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 27]
-
-Internet-Draft         DNS Privacy Considerations          February 2020
-
-
 14.3.  URIs
 
    [1] https://lists.dns-oarc.net/pipermail/dns-
@@ -1536,6 +1561,14 @@ Internet-Draft         DNS Privacy Considerations          February 2020
 
    [9] https://theintercept.com/document/2014/03/12/nsa-gchqs-
        quantumtheory-hacking-tactics/
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 28]
+
+Internet-Draft         DNS Privacy Considerations               May 2020
+
 
    [10] https://www.eugdpr.org/the-regulation.html
 
@@ -1565,4 +1598,27 @@ Authors' Addresses
 
 
 
-Bortzmeyer & Dickinson   Expires August 30, 2020               [Page 28]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Bortzmeyer & Dickinson  Expires November 5, 2020               [Page 29]
