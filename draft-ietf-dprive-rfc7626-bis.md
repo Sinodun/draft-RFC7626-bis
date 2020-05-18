@@ -2,13 +2,13 @@
     Title = "DNS Privacy Considerations"
     abbrev = "DNS Privacy Considerations"
     category = "info"
-    docName= "draft-ietf-dprive-rfc7626-bis-05"
+    docName= "draft-ietf-dprive-rfc7626-bis-06"
     ipr = "trust200902"
     area = "Internet Area"
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2020-05-04T00:00:00Z
+    date = 2020-05-18T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -27,18 +27,6 @@
       streets = ["1, rue Stephenson", "Montigny-le-Bretonneux"]
       city = "France"
       code = "78180"
-    [[author]]
-    initials="S."
-    surname="Dickinson"
-    fullname="Sara Dickinson"
-    organization = "Sinodun IT"
-        [author.address]
-        email = "sara@sinodun.com"
-        [author.address.postal]
-        streets = ["Magdalen Centre", "Oxford Science Park"]
-        city = "Oxford"
-        code = "OX4 4GA"
-        country = 'United Kingdom'
 %%%
 
 
@@ -836,8 +824,15 @@ This document makes no requests of the IANA.
    Frank Denis for good written contributions. Thanks to Vittorio Bertola and
    Mohamed Boucadair for a detailed review of the -bis. And thanks to the IESG
    members for the last remarks.
+   
+   Sara Dickinson was a contributing editor for the early versions of this
+   draft.
 
 # Changelog
+
+draft-ietf-dprive-rfc7626-bis-06
+
+* Change of editors
 
 draft-ietf-dprive-rfc7626-bis-05
 
