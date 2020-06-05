@@ -477,26 +477,10 @@ of a recursive resolver.
 
   Given all the above considerations, the choice of recursive resolver has
   direct privacy considerations for end users. Historically, end user devices
-  have used the DHCP-provided local network recursive resolver. The choice by a
-  user to join a particular network (e.g. by physically plugging in a cable or
-  selecting a network in a OS dialogue) typically updates a number of system
-  resources - these can include IP addresses, availability of IPv4/IPv6, DHCP
-  server, and DNS resolver. These individual changes, including the change in
-  DNS resolver, are not normally communicated directly to the user by the OS
-  when the network is joined. The choice of network has historically determined
-  the default system DNS resolver selection; the two are directly coupled in
-  this model.
-  
-  The vast majority of users do not change their default system DNS settings
-  and so implicitly accept the network settings for DNS. The network resolvers
-  have therefore historically been the sole destination for all of the DNS
-  queries from a device. These resolvers may have strong, medium, or weak
-  privacy policies depending on the network. Privacy policies for these servers
-  may or may not be available and users need to be aware that privacy guarantees
-  will vary with network.
-  
-  All major OS’s expose the system DNS settings and allow users to manually
-  override them if desired.
+  have used the DHCP-provided local network recursive resolver which may have
+  strong, medium, or weak privacy policies depending on the network. Privacy
+  policies for these servers may or may not be available and users need to be
+  aware that privacy guarantees will vary with network.
 
    More recently, some networks and end users have actively chosen
    to use a large public resolver, e.g., [Google Public
