@@ -399,18 +399,19 @@
 <link href="#rfc.section.9" rel="Chapter" title="9 Legalities">
 <link href="#rfc.section.10" rel="Chapter" title="10 Security Considerations">
 <link href="#rfc.section.11" rel="Chapter" title="11 IANA Considerations">
-<link href="#rfc.section.12" rel="Chapter" title="12 Acknowledgments">
-<link href="#rfc.section.13" rel="Chapter" title="13 Changelog">
-<link href="#rfc.references" rel="Chapter" title="14 References">
-<link href="#rfc.references.1" rel="Chapter" title="14.1 Normative References">
-<link href="#rfc.references.2" rel="Chapter" title="14.2 Informative References">
+<link href="#rfc.section.12" rel="Chapter" title="12 Contributions">
+<link href="#rfc.section.13" rel="Chapter" title="13 Acknowledgments">
+<link href="#rfc.section.14" rel="Chapter" title="14 Changelog">
+<link href="#rfc.references" rel="Chapter" title="15 References">
+<link href="#rfc.references.1" rel="Chapter" title="15.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="15.2 Informative References">
 <link href="#rfc.authors" rel="Chapter">
 
 
   <meta name="generator" content="xml2rfc version 2.47.0 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
-  <meta name="dct.creator" content="Bortzmeyer, S. and T. Wicinski, Ed." />
+  <meta name="dct.creator" content="Wicinski, T., Ed." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-dprive-rfc7626-bis-06" />
   <meta name="dct.issued" scheme="ISO8601" content="2020-08-08" />
   <meta name="dct.abstract" content="This document describes the privacy issues associated with the use of the DNS by Internet users. It is intended to be an analysis of the present situation and does not prescribe solutions. This document obsoletes RFC 7626.   " />
@@ -425,19 +426,19 @@
     
     	<tr>
 <td class="left">dprive</td>
-<td class="right">S. Bortzmeyer</td>
-</tr>
-<tr>
-<td class="left">Internet-Draft</td>
-<td class="right">AFNIC</td>
-</tr>
-<tr>
-<td class="left">Obsoletes: 7626 (if approved)</td>
 <td class="right">T. Wicinski, Ed.</td>
 </tr>
 <tr>
-<td class="left">Intended status: Informational</td>
+<td class="left">Internet-Draft</td>
 <td class="right">August 8, 2020</td>
+</tr>
+<tr>
+<td class="left">Obsoletes: 7626 (if approved)</td>
+<td class="right"></td>
+</tr>
+<tr>
+<td class="left">Intended status: Informational</td>
+<td class="right"></td>
 </tr>
 <tr>
 <td class="left">Expires: February 9, 2021</td>
@@ -517,17 +518,19 @@
 </li>
 <li>11.   <a href="#rfc.section.11">IANA Considerations</a>
 </li>
-<li>12.   <a href="#rfc.section.12">Acknowledgments</a>
+<li>12.   <a href="#rfc.section.12">Contributions</a>
 </li>
-<li>13.   <a href="#rfc.section.13">Changelog</a>
+<li>13.   <a href="#rfc.section.13">Acknowledgments</a>
 </li>
-<li>14.   <a href="#rfc.references">References</a>
+<li>14.   <a href="#rfc.section.14">Changelog</a>
 </li>
-<ul><li>14.1.   <a href="#rfc.references.1">Normative References</a>
+<li>15.   <a href="#rfc.references">References</a>
 </li>
-<li>14.2.   <a href="#rfc.references.2">Informative References</a>
+<ul><li>15.1.   <a href="#rfc.references.1">Normative References</a>
 </li>
-</ul><li><a href="#rfc.authors">Authors' Addresses</a>
+<li>15.2.   <a href="#rfc.references.2">Informative References</a>
+</li>
+</ul><li><a href="#rfc.authors">Author's Address</a>
 </li>
 
 
@@ -683,8 +686,12 @@
 <h1 id="rfc.section.6.1.1.2">
 <a href="#rfc.section.6.1.1.2">6.1.1.2.</a> <a href="#applicationspecific-resolver-selection" id="applicationspecific-resolver-selection">Application-specific Resolver Selection</a>
 </h1>
-<p id="rfc.section.6.1.1.2.p.1">An increasing number of applications are offering application-specific encrypted DNS resolution settings, rather than defaulting to using only the system resolver. A variety of heuristics and resolvers are available in different applications including hard-coded lists of recognized DoH/DoT servers.  </p>
-<p id="rfc.section.6.1.1.2.p.2">Application-specific changes to default destinations for users' DNS queries might increase or decrease user privacy - it is highly dependent on the network context and the application-specific default. This is an area of active debate and the IETF is working on a number of issues related to application-specific DNS settings.  </p>
+<p id="rfc.section.6.1.1.2.p.1">An increasing number of applications are offering application- specific encrypted DNS resolution settings, rather than defaulting to using only the system resolver.  A variety of heuristics and resolvers are available in different applications including hard- coded lists of recognized DoH/DoT servers.  </p>
+<p id="rfc.section.6.1.1.2.p.2">Users will only be aware of and have the ability to control such settings if applications provide the following functions: </p>
+<p id="rfc.section.6.1.1.2.p.3">o  communicate clearly the change in default to users </p>
+<p id="rfc.section.6.1.1.2.p.4">o  provide configuration options to change the default </p>
+<p id="rfc.section.6.1.1.2.p.5">o  provide configuration options to always use the system resolver </p>
+<p id="rfc.section.6.1.1.2.p.6">Application-specific changes to default destinations for users' DNS queries might increase or decrease user privacy - it is highly dependent on the network context and the application-specific default.  This is an area of active debate and the IETF is working on a number of issues related to application-specific DNS settings.  </p>
 <h1 id="rfc.section.6.1.2">
 <a href="#rfc.section.6.1.2">6.1.2.</a> <a href="#active-attacks-on-resolver-configuration" id="active-attacks-on-resolver-configuration">Active Attacks on Resolver Configuration</a>
 </h1>
@@ -764,13 +771,27 @@
 </h1>
 <p id="rfc.section.11.p.1">This document makes no requests of the IANA.  </p>
 <h1 id="rfc.section.12">
-<a href="#rfc.section.12">12.</a> <a href="#acknowledgments" id="acknowledgments">Acknowledgments</a>
+<a href="#rfc.section.12">12.</a> <a href="#contributions" id="contributions">Contributions</a>
 </h1>
-<p id="rfc.section.12.p.1">Thanks to Sara Dickinson for all her work on the initial version of this document.  Thanks to Nathalie Boulvard and to the CENTR members for the original work that led to this document. Thanks to Ondrej Sury for the interesting discussions. Thanks to Mohsen Souissi and John Heidemann for proofreading and to Paul Hoffman, Matthijs Mekking, Marcos Sanz, Tim Wicinski, Francis Dupont, Allison Mankin, and Warren Kumari for proofreading, providing technical remarks, and making many readability improvements. Thanks to Dan York, Suzanne Woolf, Tony Finch, Stephen Farrell, Peter Koch, Simon Josefsson, and Frank Denis for good written contributions. Thanks to Vittorio Bertola and Mohamed Boucadair for a detailed review of the -bis. And thanks to the IESG members for the last remarks.  </p>
+<p id="rfc.section.12.p.1">Sara Dickinson and Stephane Bortzmeyer were the original authors on the document, and their contribution on the initial version is greatly apprecriated.  </p>
 <h1 id="rfc.section.13">
-<a href="#rfc.section.13">13.</a> <a href="#changelog" id="changelog">Changelog</a>
+<a href="#rfc.section.13">13.</a> <a href="#acknowledgments" id="acknowledgments">Acknowledgments</a>
 </h1>
-<p id="rfc.section.13.p.1">draft-ietf-dprive-rfc7626-bis-05 </p>
+<p id="rfc.section.13.p.1">Thanks to Nathalie Boulvard and to the CENTR members for the original work that led to this document. Thanks to Ondrej Sury for the interesting discussions. Thanks to Mohsen Souissi and John Heidemann for proofreading and to Paul Hoffman, Matthijs Mekking, Marcos Sanz, Tim Wicinski, Francis Dupont, Allison Mankin, and Warren Kumari for proofreading, providing technical remarks, and making many readability improvements. Thanks to Dan York, Suzanne Woolf, Tony Finch, Stephen Farrell, Peter Koch, Simon Josefsson, and Frank Denis for good written contributions. Thanks to Vittorio Bertola and Mohamed Boucadair for a detailed review of the -bis. And thanks to the IESG members for the last remarks.  </p>
+<h1 id="rfc.section.14">
+<a href="#rfc.section.14">14.</a> <a href="#changelog" id="changelog">Changelog</a>
+</h1>
+<p id="rfc.section.14.p.1">draft-ietf-dprive-rfc7626-bis-06 </p>
+<p></p>
+
+<ul>
+<li>Removed Sara and Stephane as editors, made chairs as Editor.</li>
+<li>Replaced the text in 6.1.1.2 with the text from the -04 version.</li>
+<li>Clarified text about resolver selection in 6.1.1.</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.14.p.3">draft-ietf-dprive-rfc7626-bis-05 </p>
 <p></p>
 
 <ul>
@@ -779,7 +800,7 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.13.p.3">draft-ietf-dprive-rfc7626-bis-04 </p>
+<p id="rfc.section.14.p.5">draft-ietf-dprive-rfc7626-bis-04 </p>
 <p></p>
 
 <ul>
@@ -792,7 +813,7 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.13.p.5">draft-ietf-dprive-rfc7626-bis-03 </p>
+<p id="rfc.section.14.p.7">draft-ietf-dprive-rfc7626-bis-03 </p>
 <p></p>
 
 <ul>
@@ -801,7 +822,7 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.13.p.7">draft-ietf-dprive-rfc7626-bis-02 </p>
+<p id="rfc.section.14.p.9">draft-ietf-dprive-rfc7626-bis-02 </p>
 <p></p>
 
 <ul>
@@ -814,7 +835,7 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.13.p.9">draft-ietf-dprive-rfc7626-bis-01 </p>
+<p id="rfc.section.14.p.11">draft-ietf-dprive-rfc7626-bis-01 </p>
 <p></p>
 
 <ul>
@@ -832,7 +853,7 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.13.p.11">draft-ietf-dprive-rfc7626-bis-00 </p>
+<p id="rfc.section.14.p.13">draft-ietf-dprive-rfc7626-bis-00 </p>
 <p></p>
 
 <ul>
@@ -842,20 +863,20 @@
 </ul>
 
 <p> </p>
-<p id="rfc.section.13.p.13">draft-bortzmeyer-dprive-rfc7626-bis-02 </p>
+<p id="rfc.section.14.p.15">draft-bortzmeyer-dprive-rfc7626-bis-02 </p>
 <p></p>
 
 <ul><li>Update various references and fix some nits.</li></ul>
 
 <p> </p>
-<p id="rfc.section.13.p.15">draft-bortzmeyer-dprive-rfc7626-bis-01 </p>
+<p id="rfc.section.14.p.17">draft-bortzmeyer-dprive-rfc7626-bis-01 </p>
 <p></p>
 
 <ul><li>Update reference for dickinson-bcp-op to draft-dickinson-dprive-bcp-op</li></ul>
 
 <p> </p>
-<p id="rfc.section.13.p.17">draft-borztmeyer-dprive-rfc7626-bis-00: </p>
-<p id="rfc.section.13.p.18">Initial commit.  Differences to RFC7626: </p>
+<p id="rfc.section.14.p.19">draft-borztmeyer-dprive-rfc7626-bis-00: </p>
+<p id="rfc.section.14.p.20">Initial commit.  Differences to RFC7626: </p>
 <p></p>
 
 <ul>
@@ -868,9 +889,9 @@
 
 <p> </p>
 <h1 id="rfc.references">
-<a href="#rfc.references">14.</a> References</h1>
+<a href="#rfc.references">15.</a> References</h1>
 <h1 id="rfc.references.1">
-<a href="#rfc.references.1">14.1.</a> Normative References</h1>
+<a href="#rfc.references.1">15.1.</a> Normative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="RFC1034">[RFC1034]</b></td>
@@ -894,7 +915,7 @@
 </tr>
 </tbody></table>
 <h1 id="rfc.references.2">
-<a href="#rfc.references.2">14.2.</a> Informative References</h1>
+<a href="#rfc.references.2">15.2.</a> Informative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="aeris-dns">[aeris-dns]</b></td>
@@ -1157,31 +1178,8 @@
 <a>Yanbin, L.</a> and <a>G. Tsudik</a>, "<a href="http://arxiv.org/abs/0910.2472">Towards Plugging Privacy Leaks in the Domain Name System</a>", October 2009.</td>
 </tr>
 </tbody></table>
-<h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
+<h1 id="rfc.authors"><a href="#rfc.authors">Author's Address</a></h1>
 <div class="avoidbreak">
-  <address class="vcard">
-	<span class="vcardline">
-	  <span class="fn">Stephane Bortzmeyer</span> 
-	  <span class="n hidden">
-		<span class="family-name">Bortzmeyer</span>
-	  </span>
-	</span>
-	<span class="org vcardline">AFNIC</span>
-	<span class="adr">
-	  <span class="vcardline">1, rue Stephenson</span>
-<span class="vcardline">Montigny-le-Bretonneux</span>
-
-	  <span class="vcardline">
-		<span class="locality">France</span>,  
-		<span class="region"></span>
-		<span class="code">78180</span>
-	  </span>
-	  <span class="country-name vcardline"></span>
-	</span>
-	<span class="vcardline">EMail: <a href="mailto:bortzmeyer+ietf@nic.fr">bortzmeyer+ietf@nic.fr</a></span>
-
-  </address>
-</div><div class="avoidbreak">
   <address class="vcard">
 	<span class="vcardline">
 	  <span class="fn">Tim Wicinski</span> (editor)

@@ -2,10 +2,10 @@
 
 
 
-dprive                                                     S. Bortzmeyer
-Internet-Draft                                                     AFNIC
-Obsoletes: 7626 (if approved)                           T. Wicinski, Ed.
-Intended status: Informational                            August 8, 2020
+dprive                                                  T. Wicinski, Ed.
+Internet-Draft                                            August 8, 2020
+Obsoletes: 7626 (if approved)
+Intended status: Informational
 Expires: February 9, 2021
 
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Bortzmeyer & Wicinski   Expires February 9, 2021                [Page 1]
+Wicinski                Expires February 9, 2021                [Page 1]
 
 Internet-Draft         DNS Privacy Considerations            August 2020
 
@@ -80,18 +80,19 @@ Table of Contents
      6.2.  In the Authoritative Name Servers . . . . . . . . . . . .  16
    7.  Other risks . . . . . . . . . . . . . . . . . . . . . . . . .  17
      7.1.  Re-identification and Other Inferences  . . . . . . . . .  17
-     7.2.  More Information  . . . . . . . . . . . . . . . . . . . .  17
+     7.2.  More Information  . . . . . . . . . . . . . . . . . . . .  18
    8.  Actual "Attacks"  . . . . . . . . . . . . . . . . . . . . . .  18
-   9.  Legalities  . . . . . . . . . . . . . . . . . . . . . . . . .  18
+   9.  Legalities  . . . . . . . . . . . . . . . . . . . . . . . . .  19
    10. Security Considerations . . . . . . . . . . . . . . . . . . .  19
    11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  19
-   12. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  19
-   13. Changelog . . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  21
-     14.1.  Normative References . . . . . . . . . . . . . . . . . .  21
-     14.2.  Informative References . . . . . . . . . . . . . . . . .  22
-     14.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  28
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  28
+   12. Contributions . . . . . . . . . . . . . . . . . . . . . . . .  19
+   13. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  19
+   14. Changelog . . . . . . . . . . . . . . . . . . . . . . . . . .  19
+   15. References  . . . . . . . . . . . . . . . . . . . . . . . . .  22
+     15.1.  Normative References . . . . . . . . . . . . . . . . . .  22
+     15.2.  Informative References . . . . . . . . . . . . . . . . .  22
+     15.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  28
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  28
 
 1.  Introduction
 
@@ -108,8 +109,7 @@ Table of Contents
 
 
 
-
-Bortzmeyer & Wicinski   Expires February 9, 2021                [Page 2]
+Wicinski                Expires February 9, 2021                [Page 2]
 
 Internet-Draft         DNS Privacy Considerations            August 2020
 
@@ -165,7 +165,7 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Bortzmeyer & Wicinski   Expires February 9, 2021                [Page 3]
+Wicinski                Expires February 9, 2021                [Page 3]
 
 Internet-Draft         DNS Privacy Considerations            August 2020
 
@@ -221,7 +221,7 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Bortzmeyer & Wicinski   Expires February 9, 2021                [Page 4]
+Wicinski                Expires February 9, 2021                [Page 4]
 
 Internet-Draft         DNS Privacy Considerations            August 2020
 
@@ -277,7 +277,7 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Bortzmeyer & Wicinski   Expires February 9, 2021                [Page 5]
+Wicinski                Expires February 9, 2021                [Page 5]
 
 Internet-Draft         DNS Privacy Considerations            August 2020
 
@@ -333,7 +333,7 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Bortzmeyer & Wicinski   Expires February 9, 2021                [Page 6]
+Wicinski                Expires February 9, 2021                [Page 6]
 
 Internet-Draft         DNS Privacy Considerations            August 2020
 
@@ -389,7 +389,7 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Bortzmeyer & Wicinski   Expires February 9, 2021                [Page 7]
+Wicinski                Expires February 9, 2021                [Page 7]
 
 Internet-Draft         DNS Privacy Considerations            August 2020
 
@@ -445,7 +445,7 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Bortzmeyer & Wicinski   Expires February 9, 2021                [Page 8]
+Wicinski                Expires February 9, 2021                [Page 8]
 
 Internet-Draft         DNS Privacy Considerations            August 2020
 
@@ -501,7 +501,7 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Bortzmeyer & Wicinski   Expires February 9, 2021                [Page 9]
+Wicinski                Expires February 9, 2021                [Page 9]
 
 Internet-Draft         DNS Privacy Considerations            August 2020
 
@@ -557,7 +557,7 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 10]
+Wicinski                Expires February 9, 2021               [Page 10]
 
 Internet-Draft         DNS Privacy Considerations            August 2020
 
@@ -613,7 +613,7 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 11]
+Wicinski                Expires February 9, 2021               [Page 11]
 
 Internet-Draft         DNS Privacy Considerations            August 2020
 
@@ -669,7 +669,7 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 12]
+Wicinski                Expires February 9, 2021               [Page 12]
 
 Internet-Draft         DNS Privacy Considerations            August 2020
 
@@ -719,17 +719,26 @@ Internet-Draft         DNS Privacy Considerations            August 2020
    resolvers are available in different applications including hard-
    coded lists of recognized DoH/DoT servers.
 
-   Application-specific changes to default destinations for users' DNS
-   queries might increase or decrease user privacy - it is highly
-   dependent on the network context and the application-specific
+   Users will only be aware of and have the ability to control such
+   settings if applications provide the following functions:
 
 
 
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 13]
+
+Wicinski                Expires February 9, 2021               [Page 13]
 
 Internet-Draft         DNS Privacy Considerations            August 2020
 
 
+   o communicate clearly the change in default to users
+
+   o provide configuration options to change the default
+
+   o provide configuration options to always use the system resolver
+
+   Application-specific changes to default destinations for users' DNS
+   queries might increase or decrease user privacy - it is highly
+   dependent on the network context and the application-specific
    default.  This is an area of active debate and the IETF is working on
    a number of issues related to application-specific DNS settings.
 
@@ -769,6 +778,14 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
    As a matter of policy, some recursive resolvers use their position in
    the query path to selectively block access to certain DNS records.
+
+
+
+Wicinski                Expires February 9, 2021               [Page 14]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
    This is a form of Rendezvous-Based Blocking as described in
    Section 4.3 of [RFC7754].  Such blocklists often include servers know
    to be used for malware, bots or other security risks.  In order to
@@ -778,13 +795,6 @@ Internet-Draft         DNS Privacy Considerations            August 2020
    It is also noted that attacks on remote resolver services, e.g., DDoS
    could force users to switch to other services that do not offer
    encrypted transports for DNS.
-
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 14]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
 
 6.1.4.  Encrypted Transports and Recursive Resolvers
 
@@ -824,6 +834,14 @@ Internet-Draft         DNS Privacy Considerations            August 2020
    privacy an implementation choice.  At the extremes, there may be
    implementations that attempt to achieve parity with DoT from a
    privacy perspective at the cost of using no identifiable HTTP
+
+
+
+Wicinski                Expires February 9, 2021               [Page 15]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
    headers, there might be others that provide feature rich data flows
    where the low-level origin of the DNS query is easily identifiable.
    Some implementations have, in fact, chosen to restrict the use of the
@@ -834,13 +852,6 @@ Internet-Draft         DNS Privacy Considerations            August 2020
    client identifiers in DoH compared to DoT and may want to only use
    DoH client implementations that provide clear guidance on what
    identifiers they add.
-
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 15]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
 
 6.2.  In the Authoritative Name Servers
 
@@ -878,6 +889,15 @@ Internet-Draft         DNS Privacy Considerations            August 2020
    is "junk" (errors on the Top-Level Domain (TLD) name), it gives an
    idea of the amount of big data that pours into name servers.  (And
    even "junk" can leak information; for instance, if there is a typing
+
+
+
+
+Wicinski                Expires February 9, 2021               [Page 16]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
    error in the TLD, the user will send data to a TLD that is not the
    usual one.)
 
@@ -889,14 +909,6 @@ Internet-Draft         DNS Privacy Considerations            August 2020
    requests to a given ccTLD may go to servers managed by organizations
    outside of the ccTLD's country.  End users may not anticipate that,
    when doing a security analysis.
-
-
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 16]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
 
    Also, it seems (see the survey described in [aeris-dns]) that there
    is a strong concentration of authoritative name servers among
@@ -934,6 +946,14 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
    For instance, one could imagine that an intelligence agency
    identifies people going to a site by putting in a very long DNS name
+
+
+
+Wicinski                Expires February 9, 2021               [Page 17]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
    and looking for queries of a specific length.  Such traffic analysis
    could weaken some privacy solutions.
 
@@ -945,15 +965,6 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
    Useful background information can also be found in [tor-leak] (about
    the risk of privacy leak through DNS) and in a few academic papers:
-
-
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 17]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
-
    [yanbin-tsudik], [castillo-garcia], [fangming-hori-sakurai], and
    [federrath-fuchs-herrmann-piosecny].
 
@@ -992,6 +1003,13 @@ Internet-Draft         DNS Privacy Considerations            August 2020
    bogus replies is another good example showing that the lack of
    privacy protections in the DNS is actively exploited.
 
+
+
+Wicinski                Expires February 9, 2021               [Page 18]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
 9.  Legalities
 
    To our knowledge, there are no specific privacy laws for DNS data, in
@@ -1000,15 +1018,6 @@ Internet-Draft         DNS Privacy Considerations            August 2020
    Union in the context of DNS traffic data is not an easy task, and we
    do not know a court precedent here.  See an interesting analysis in
    [sidn-entrada].
-
-
-
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 18]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
 
 10.  Security Considerations
 
@@ -1024,22 +1033,42 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
    This document makes no requests of the IANA.
 
-12.  Acknowledgments
+12.  Contributions
 
-   Thanks to Sara Dickinson for all her work on the initial version of
-   this document.  Thanks to Nathalie Boulvard and to the CENTR members
-   for the original work that led to this document.  Thanks to Ondrej
-   Sury for the interesting discussions.  Thanks to Mohsen Souissi and
-   John Heidemann for proofreading and to Paul Hoffman, Matthijs
-   Mekking, Marcos Sanz, Tim Wicinski, Francis Dupont, Allison Mankin,
-   and Warren Kumari for proofreading, providing technical remarks, and
-   making many readability improvements.  Thanks to Dan York, Suzanne
-   Woolf, Tony Finch, Stephen Farrell, Peter Koch, Simon Josefsson, and
-   Frank Denis for good written contributions.  Thanks to Vittorio
-   Bertola and Mohamed Boucadair for a detailed review of the -bis.  And
-   thanks to the IESG members for the last remarks.
+   Sara Dickinson and Stephane Bortzmeyer were the original authors on
+   the document, and their contribution on the initial version is
+   greatly apprecriated.
 
-13.  Changelog
+13.  Acknowledgments
+
+   Thanks to Nathalie Boulvard and to the CENTR members for the original
+   work that led to this document.  Thanks to Ondrej Sury for the
+   interesting discussions.  Thanks to Mohsen Souissi and John Heidemann
+   for proofreading and to Paul Hoffman, Matthijs Mekking, Marcos Sanz,
+   Tim Wicinski, Francis Dupont, Allison Mankin, and Warren Kumari for
+   proofreading, providing technical remarks, and making many
+   readability improvements.  Thanks to Dan York, Suzanne Woolf, Tony
+   Finch, Stephen Farrell, Peter Koch, Simon Josefsson, and Frank Denis
+   for good written contributions.  Thanks to Vittorio Bertola and
+   Mohamed Boucadair for a detailed review of the -bis.  And thanks to
+   the IESG members for the last remarks.
+
+14.  Changelog
+
+   draft-ietf-dprive-rfc7626-bis-06
+
+   o  Removed Sara and Stephane as editors, made chairs as Editor.
+
+
+
+Wicinski                Expires February 9, 2021               [Page 19]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
+   o  Replaced the text in 6.1.1.2 with the text from the -04 version.
+
+   o  Clarified text about resolver selection in 6.1.1.
 
    draft-ietf-dprive-rfc7626-bis-05
 
@@ -1058,13 +1087,6 @@ Internet-Draft         DNS Privacy Considerations            August 2020
       comments.
 
    o  Section 3.5.1.4 - remove this section as now covered by 3.5.1.1.
-
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 19]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
 
    o  Section 3.5.1.5.2 - Remove several paragraphs and more directly
       reference RFC8484 by including bullet points quoting text from
@@ -1093,6 +1115,13 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
    draft-ietf-dprive-rfc7626-bis-01
 
+
+
+Wicinski                Expires February 9, 2021               [Page 20]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
    o  Re-structure section 3.5 (was 2.5)
 
       *  Collect considerations for recursive resolvers together
@@ -1113,14 +1142,6 @@ Internet-Draft         DNS Privacy Considerations            August 2020
    o  Clarify scope by adding a Scope section (was Risks overview)
 
    o  Clarify what risks are considered in section 3.4.2
-
-
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 20]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
 
    draft-ietf-dprive-rfc7626-bis-00
 
@@ -1149,13 +1170,21 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
    o  Add section on DNS payload
 
+
+
+
+Wicinski                Expires February 9, 2021               [Page 21]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
    o  Add section on authentication of servers
 
    o  Add section on blocking of services
 
-14.  References
+15.  References
 
-14.1.  Normative References
+15.1.  Normative References
 
    [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
               STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
@@ -1171,18 +1200,11 @@ Internet-Draft         DNS Privacy Considerations            August 2020
               DOI 10.17487/RFC6973, July 2013,
               <https://www.rfc-editor.org/info/rfc6973>.
 
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 21]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
-
    [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
               Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May
               2014, <https://www.rfc-editor.org/info/rfc7258>.
 
-14.2.  Informative References
+15.2.  Informative References
 
    [aeris-dns]
               Vinot, N., "Vie privee: et le DNS alors?", (In French),
@@ -1205,6 +1227,13 @@ Internet-Draft         DNS Privacy Considerations            August 2020
               <https://papers.ssrn.com/sol3/
               papers.cfm?abstract_id=2167372>.
 
+
+
+Wicinski                Expires February 9, 2021               [Page 22]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
    [dagon-malware]
               Dagon, D., "Corrupted DNS Resolution Paths: The Rise of a
               Malicious Resolution Authority", ISC/OARC Workshop, 2007,
@@ -1226,13 +1255,6 @@ Internet-Draft         DNS Privacy Considerations            August 2020
               281, pp. 0031 - 0050, November 1995, <http://eur-
               lex.europa.eu/LexUriServ/
               LexUriServ.do?uri=CELEX:31995L0046:EN:HTML>.
-
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 22]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
 
    [day-at-root]
               Castro, S., Wessels, D., Fomenkov, M., and K. Claffy, "A
@@ -1259,6 +1281,15 @@ Internet-Draft         DNS Privacy Considerations            August 2020
               Bortzmeyer, S., "DNSmezzo", 2009,
               <http://www.dnsmezzo.net/>.
 
+
+
+
+
+Wicinski                Expires February 9, 2021               [Page 23]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
    [EDDI]     EDDI, "Encrypted DNS Deployment Initiative", 2020,
               <https://www.encrypted-dns.org>.
 
@@ -1281,14 +1312,6 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
    [getdns]   getdns, "getdns - A modern asynchronous DNS API", January
               2020, <https://getdnsapi.net>.
-
-
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 23]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
 
    [grangeia.snooping]
               Grangeia, L., "DNS Cache Snooping or Snooping the Cache
@@ -1315,6 +1338,14 @@ Internet-Draft         DNS Privacy Considerations            August 2020
               Information Self-publication", draft-ietf-dnsop-resolver-
               information-01 (work in progress), February 2020.
 
+
+
+
+Wicinski                Expires February 9, 2021               [Page 24]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
    [I-D.ietf-dprive-bcp-op]
               Dickinson, S., Overeinder, B., Rijswijk-Deij, R., and A.
               Mankin, "Recommendations for DNS Privacy Service
@@ -1336,15 +1367,6 @@ Internet-Draft         DNS Privacy Considerations            August 2020
               "NSA's MORECOWBELL: Knell for DNS", GNUnet e.V., January
               2015, <https://pdfs.semanticscholar.org/2610/2b99bdd6a258a
               98740af8217ba8da8a1e4fa.pdf>.
-
-
-
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 24]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
 
    [packetq]  DNS-OARC, "PacketQ, a simple tool to make SQL-queries
               against PCAP-files", 2011,
@@ -1373,6 +1395,13 @@ Internet-Draft         DNS Privacy Considerations            August 2020
               RFC 4033, DOI 10.17487/RFC4033, March 2005,
               <https://www.rfc-editor.org/info/rfc4033>.
 
+
+
+Wicinski                Expires February 9, 2021               [Page 25]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
    [RFC5155]  Laurie, B., Sisson, G., Arends, R., and D. Blacka, "DNS
               Security (DNSSEC) Hashed Authenticated Denial of
               Existence", RFC 5155, DOI 10.17487/RFC5155, March 2008,
@@ -1391,16 +1420,6 @@ Internet-Draft         DNS Privacy Considerations            August 2020
               for DNS (EDNS(0))", STD 75, RFC 6891,
               DOI 10.17487/RFC6891, April 2013,
               <https://www.rfc-editor.org/info/rfc6891>.
-
-
-
-
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 25]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
 
    [RFC7413]  Cheng, Y., Chu, J., Radhakrishnan, S., and A. Jain, "TCP
               Fast Open", RFC 7413, DOI 10.17487/RFC7413, December 2014,
@@ -1429,6 +1448,16 @@ Internet-Draft         DNS Privacy Considerations            August 2020
               Blocking and Filtering", RFC 7754, DOI 10.17487/RFC7754,
               March 2016, <https://www.rfc-editor.org/info/rfc7754>.
 
+
+
+
+
+
+Wicinski                Expires February 9, 2021               [Page 26]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
    [RFC7816]  Bortzmeyer, S., "DNS Query Name Minimisation to Improve
               Privacy", RFC 7816, DOI 10.17487/RFC7816, March 2016,
               <https://www.rfc-editor.org/info/rfc7816>.
@@ -1446,17 +1475,6 @@ Internet-Draft         DNS Privacy Considerations            August 2020
    [RFC7873]  Eastlake 3rd, D. and M. Andrews, "Domain Name System (DNS)
               Cookies", RFC 7873, DOI 10.17487/RFC7873, May 2016,
               <https://www.rfc-editor.org/info/rfc7873>.
-
-
-
-
-
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 26]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
 
    [RFC7929]  Wouters, P., "DNS-Based Authentication of Named Entities
               (DANE) Bindings for OpenPGP", RFC 7929,
@@ -1489,6 +1507,13 @@ Internet-Draft         DNS Privacy Considerations            August 2020
               yBW6hBoaSZe4m6GJc_0b7w/2211058ab6330c7f3788141ea19d3db7/
               SIDN_Labs_Privacyraamwerk_Position_Paper_V1.4_ENG.pdf>.
 
+
+
+Wicinski                Expires February 9, 2021               [Page 27]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
+
+
    [thomas-ditl-tcp]
               Thomas, M. and D. Wessels, "An Analysis of TCP Traffic in
               Root Server DITL Data", DNS-OARC 2014 Fall Workshop,
@@ -1506,15 +1531,7 @@ Internet-Draft         DNS Privacy Considerations            August 2020
               in the Domain Name System", October 2009,
               <http://arxiv.org/abs/0910.2472>.
 
-
-
-
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 27]
-
-Internet-Draft         DNS Privacy Considerations            August 2020
-
-
-14.3.  URIs
+15.3.  URIs
 
    [1] https://lists.dns-oarc.net/pipermail/dns-
        operations/2016-January/014143.html
@@ -1539,15 +1556,18 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
    [10] https://www.eugdpr.org/the-regulation.html
 
-Authors' Addresses
+Author's Address
 
-   Stephane Bortzmeyer
-   AFNIC
-   1, rue Stephenson
-   Montigny-le-Bretonneux
-   France  78180
 
-   Email: bortzmeyer+ietf@nic.fr
+
+
+
+
+
+
+Wicinski                Expires February 9, 2021               [Page 28]
+
+Internet-Draft         DNS Privacy Considerations            August 2020
 
 
    Tim Wicinski (editor)
@@ -1565,4 +1585,40 @@ Authors' Addresses
 
 
 
-Bortzmeyer & Wicinski   Expires February 9, 2021               [Page 28]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Wicinski                Expires February 9, 2021               [Page 29]

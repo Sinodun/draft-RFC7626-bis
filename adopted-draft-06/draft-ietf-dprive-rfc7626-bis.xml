@@ -12,23 +12,6 @@
 <front>
 <title abbrev="DNS Privacy Considerations">DNS Privacy Considerations</title>
 
-<author initials="S." surname="Bortzmeyer" fullname="Stephane Bortzmeyer">
-<organization>AFNIC</organization>
-<address>
-<postal>
-<street></street>
-<street>1, rue Stephenson</street>
-<street>Montigny-le-Bretonneux</street>
-<city>France</city>
-<code>78180</code>
-<country></country>
-<region></region>
-</postal>
-<phone></phone>
-<email>bortzmeyer+ietf@nic.fr</email>
-<uri></uri>
-</address>
-</author>
 <author role="editor" initials="T." surname="Wicinski" fullname="Tim Wicinski">
 <organization></organization>
 <address>
@@ -584,17 +567,26 @@ Initiative <xref target="EDDI"/>.
 </section>
 
 <section anchor="applicationspecific-resolver-selection" title="Application-specific Resolver Selection">
-<t>An increasing number of applications are offering application-specific
-  encrypted DNS resolution settings, rather than defaulting to using only the
-  system resolver. A variety of heuristics and resolvers are available in
-  different applications including hard-coded lists of recognized DoH/DoT
-  servers.
+<t>An increasing number of applications are offering application-
+  specific encrypted DNS resolution settings, rather than defaulting to
+  using only the system resolver.  A variety of heuristics and
+  resolvers are available in different applications including hard-
+  coded lists of recognized DoH/DoT servers.
 </t>
-<t>Application-specific changes to default destinations for users' DNS queries
-  might increase or decrease user privacy - it is highly dependent on the
-  network context and the application-specific default. This is an area of
-  active debate and the IETF is working on a number of issues related to
-  application-specific DNS settings.
+<t>Users will only be aware of and have the ability to control such
+  settings if applications provide the following functions:
+</t>
+<t>o  communicate clearly the change in default to users
+</t>
+<t>o  provide configuration options to change the default
+</t>
+<t>o  provide configuration options to always use the system resolver
+</t>
+<t>Application-specific changes to default destinations for users' DNS
+  queries might increase or decrease user privacy - it is highly
+  dependent on the network context and the application-specific
+  default.  This is an area of active debate and the IETF is working on
+  a number of issues related to application-specific DNS settings.
 </t>
 </section>
 </section>
@@ -854,9 +846,13 @@ implementations that provide clear guidance on what identifiers they add.
 </t>
 </section>
 
+<section anchor="contributions" title="Contributions">
+<t>Sara Dickinson and Stephane Bortzmeyer were the original authors on the document, and their contribution on the initial version is greatly apprecriated.
+</t>
+</section>
+
 <section anchor="acknowledgments" title="Acknowledgments">
-<t>Thanks to Sara Dickinson for all her work on the initial version of this document.
-   Thanks to Nathalie Boulvard and to the CENTR members for the original work
+<t>Thanks to Nathalie Boulvard and to the CENTR members for the original work
    that led to this document. Thanks to Ondrej Sury for the interesting
    discussions. Thanks to Mohsen Souissi and John Heidemann for proofreading and
    to Paul Hoffman, Matthijs Mekking, Marcos Sanz, Tim Wicinski, Francis Dupont,
@@ -870,6 +866,15 @@ implementations that provide clear guidance on what identifiers they add.
 </section>
 
 <section anchor="changelog" title="Changelog">
+<t>draft-ietf-dprive-rfc7626-bis-06
+</t>
+<t>
+<list style="symbols">
+<t>Removed Sara and Stephane as editors, made chairs as Editor.</t>
+<t>Replaced the text in 6.1.1.2 with the text from the -04 version.</t>
+<t>Clarified text about resolver selection in 6.1.1.</t>
+</list>
+</t>
 <t>draft-ietf-dprive-rfc7626-bis-05
 </t>
 <t>

@@ -17,17 +17,6 @@
     sortrefs = "yes"
     subcompact = "no"
     [[author]]
-    initials="S."
-    surname="Bortzmeyer"
-    fullname="Stephane Bortzmeyer"
-    organization = "AFNIC"
-      [author.address]
-      email = "bortzmeyer+ietf@nic.fr"
-      [author.address.postal]
-      streets = ["1, rue Stephenson", "Montigny-le-Bretonneux"]
-      city = "France"
-      code = "78180"
-    [[author]]
     initials = "T."
     surname = "Wicinski"
     fullname = "Tim Wicinski"
@@ -549,17 +538,26 @@ Initiative [@EDDI].
 
 #### Application-specific Resolver Selection
 
-  An increasing number of applications are offering application-specific
-  encrypted DNS resolution settings, rather than defaulting to using only the
-  system resolver. A variety of heuristics and resolvers are available in
-  different applications including hard-coded lists of recognized DoH/DoT
-  servers.
-  
-  Application-specific changes to default destinations for users' DNS queries
-  might increase or decrease user privacy - it is highly dependent on the
-  network context and the application-specific default. This is an area of
-  active debate and the IETF is working on a number of issues related to
-  application-specific DNS settings.
+  An increasing number of applications are offering application-
+  specific encrypted DNS resolution settings, rather than defaulting to
+  using only the system resolver.  A variety of heuristics and
+  resolvers are available in different applications including hard-
+  coded lists of recognized DoH/DoT servers.
+
+  Users will only be aware of and have the ability to control such
+  settings if applications provide the following functions:
+
+  o  communicate clearly the change in default to users
+
+  o  provide configuration options to change the default
+
+  o  provide configuration options to always use the system resolver
+
+  Application-specific changes to default destinations for users' DNS
+  queries might increase or decrease user privacy - it is highly
+  dependent on the network context and the application-specific
+  default.  This is an area of active debate and the IETF is working on
+  a number of issues related to application-specific DNS settings.
 
 ###  Active Attacks on Resolver Configuration
 
@@ -800,8 +798,10 @@ implementations that provide clear guidance on what identifiers they add.
 
 This document makes no requests of the IANA.
 
+# Contributions 
+   Sara Dickinson and Stephane Bortzmeyer were the original authors on the document, and their contribution on the initial version is greatly apprecriated. 
+
 # Acknowledgments
-   Thanks to Sara Dickinson for all her work on the initial version of this document.
    Thanks to Nathalie Boulvard and to the CENTR members for the original work
    that led to this document. Thanks to Ondrej Sury for the interesting
    discussions. Thanks to Mohsen Souissi and John Heidemann for proofreading and
@@ -814,6 +814,14 @@ This document makes no requests of the IANA.
    members for the last remarks.
 
 # Changelog
+
+draft-ietf-dprive-rfc7626-bis-06
+
+* Removed Sara and Stephane as editors, made chairs as Editor. 
+
+* Replaced the text in 6.1.1.2 with the text from the -04 version.
+
+* Clarified text about resolver selection in 6.1.1. 
 
 draft-ietf-dprive-rfc7626-bis-05
 
