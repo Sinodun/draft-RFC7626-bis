@@ -3,10 +3,10 @@
 
 
 dprive                                                  T. Wicinski, Ed.
-Internet-Draft                                            August 8, 2020
+Internet-Draft                                        September 22, 2020
 Obsoletes: 7626 (if approved)
 Intended status: Informational
-Expires: February 9, 2021
+Expires: March 26, 2021
 
 
                        DNS Privacy Considerations
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 9, 2021.
+   This Internet-Draft will expire on March 26, 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Wicinski                Expires February 9, 2021                [Page 1]
+Wicinski                 Expires March 26, 2021                 [Page 1]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Wicinski                Expires February 9, 2021                [Page 2]
+Wicinski                 Expires March 26, 2021                 [Page 2]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    Let us begin with a simplified reminder of how the DNS works (See
@@ -165,9 +165,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021                [Page 3]
+Wicinski                 Expires March 26, 2021                 [Page 3]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    At the time of writing, almost all this DNS traffic is currently sent
@@ -221,9 +221,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021                [Page 4]
+Wicinski                 Expires March 26, 2021                 [Page 4]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    For privacy-related terms, we will use the terminology from
@@ -277,9 +277,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021                [Page 5]
+Wicinski                 Expires March 26, 2021                 [Page 5]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
 4.  Risks in the DNS Data
@@ -333,9 +333,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021                [Page 6]
+Wicinski                 Expires March 26, 2021                 [Page 6]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    well-known web statistics domain reveals very little (everybody
@@ -389,9 +389,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021                [Page 7]
+Wicinski                 Expires March 26, 2021                 [Page 7]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    and comprise metadata about the host, user, or application that
@@ -445,9 +445,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021                [Page 8]
+Wicinski                 Expires March 26, 2021                 [Page 8]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    An important specificity of the DNS traffic is that it may take a
@@ -501,9 +501,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021                [Page 9]
+Wicinski                 Expires March 26, 2021                 [Page 9]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
       themselves -- or their IAP may have chosen to use the public DNS
@@ -557,9 +557,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 10]
+Wicinski                 Expires March 26, 2021                [Page 10]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    configuration options for encrypted transports could in principle
@@ -613,9 +613,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 11]
+Wicinski                 Expires March 26, 2021                [Page 11]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    analysis, or surveillance tasks.  These uses are sometimes under some
@@ -669,9 +669,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 12]
+Wicinski                 Expires March 26, 2021                [Page 12]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    by such operators by reading one e.g., Google Public DNS - Your
@@ -725,9 +725,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 13]
+Wicinski                 Expires March 26, 2021                [Page 13]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    o communicate clearly the change in default to users
@@ -781,9 +781,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 14]
+Wicinski                 Expires March 26, 2021                [Page 14]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    This is a form of Rendezvous-Based Blocking as described in
@@ -837,9 +837,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 15]
+Wicinski                 Expires March 26, 2021                [Page 15]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    headers, there might be others that provide feature rich data flows
@@ -893,9 +893,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 16]
+Wicinski                 Expires March 26, 2021                [Page 16]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    error in the TLD, the user will send data to a TLD that is not the
@@ -949,9 +949,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 17]
+Wicinski                 Expires March 26, 2021                [Page 17]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    and looking for queries of a specific length.  Such traffic analysis
@@ -1005,9 +1005,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 18]
+Wicinski                 Expires March 26, 2021                [Page 18]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
 9.  Legalities
@@ -1061,9 +1061,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 19]
+Wicinski                 Expires March 26, 2021                [Page 19]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    o  Replaced the text in 6.1.1.2 with the text from the -04 version.
@@ -1117,9 +1117,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 20]
+Wicinski                 Expires March 26, 2021                [Page 20]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    o  Re-structure section 3.5 (was 2.5)
@@ -1173,9 +1173,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 21]
+Wicinski                 Expires March 26, 2021                [Page 21]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    o  Add section on authentication of servers
@@ -1229,9 +1229,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 22]
+Wicinski                 Expires March 26, 2021                [Page 22]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    [dagon-malware]
@@ -1285,9 +1285,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 23]
+Wicinski                 Expires March 26, 2021                [Page 23]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    [EDDI]     EDDI, "Encrypted DNS Deployment Initiative", 2020,
@@ -1341,9 +1341,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 24]
+Wicinski                 Expires March 26, 2021                [Page 24]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    [I-D.ietf-dprive-bcp-op]
@@ -1354,8 +1354,8 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
    [I-D.ietf-quic-transport]
               Iyengar, J. and M. Thomson, "QUIC: A UDP-Based Multiplexed
-              and Secure Transport", draft-ietf-quic-transport-29 (work
-              in progress), June 2020.
+              and Secure Transport", draft-ietf-quic-transport-30 (work
+              in progress), September 2020.
 
    [I-D.ietf-tls-sni-encryption]
               Huitema, C. and E. Rescorla, "Issues and Requirements for
@@ -1397,9 +1397,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 25]
+Wicinski                 Expires March 26, 2021                [Page 25]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    [RFC5155]  Laurie, B., Sisson, G., Arends, R., and D. Blacka, "DNS
@@ -1453,9 +1453,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 26]
+Wicinski                 Expires March 26, 2021                [Page 26]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    [RFC7816]  Bortzmeyer, S., "DNS Query Name Minimisation to Improve
@@ -1509,9 +1509,9 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 27]
+Wicinski                 Expires March 26, 2021                [Page 27]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    [thomas-ditl-tcp]
@@ -1565,9 +1565,9 @@ Author's Address
 
 
 
-Wicinski                Expires February 9, 2021               [Page 28]
+Wicinski                 Expires March 26, 2021                [Page 28]
 
-Internet-Draft         DNS Privacy Considerations            August 2020
+Internet-Draft         DNS Privacy Considerations         September 2020
 
 
    Tim Wicinski (editor)
@@ -1621,4 +1621,4 @@ Internet-Draft         DNS Privacy Considerations            August 2020
 
 
 
-Wicinski                Expires February 9, 2021               [Page 29]
+Wicinski                 Expires March 26, 2021                [Page 29]
