@@ -8,7 +8,7 @@
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2020-09-22T00:00:00Z
+    date = 2020-10-07T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -51,7 +51,7 @@
    Its use has many privacy implications and this document is an attempt at a
    comprehensive and accurate list.
 
-   Let us begin with a simplified reminder of how the DNS works (See also
+   Lets begin with a simplified reminder of how the DNS works (See also
    [@?RFC8499]). A client, the stub resolver, issues a
    DNS query to a server, called the recursive resolver (also called caching
    resolver or full resolver or recursive name server). Let's use the query
@@ -76,7 +76,7 @@
    which will only send the relevant part of the question to the upstream name
    server.
 
-   DNS relies on caching heavily, so the algorithm described
+   DNS relies heavily on caching, so the algorithm described
    above is actually a bit more complicated, and not all questions are
    sent to the authoritative name servers.  If a few seconds later the
    stub resolver asks the recursive resolver, "What are the SRV records
@@ -98,7 +98,7 @@
    caching in the first resolver).
 
   At the time of writing, almost all this DNS traffic is currently
-  sent in clear (i.e., unencrypted). However there is increasing deployment
+  sent unencrypted. However, there is increasing deployment
   of DNS-over-TLS (DoT) [@RFC7858] and DNS-over-HTTPS (DoH)
   [@RFC8484], particularly in mobile devices, browsers, and by
   providers of anycast recursive DNS resolution services. There are a
@@ -109,7 +109,7 @@
    Today, almost all DNS queries are sent over UDP [@thomas-ditl-tcp]. This has
    practical consequences when considering encryption of the traffic as a
    possible privacy technique. Some encryption solutions are only designed for
-   TCP, not UDP and new solutions are still emerging [@I-D.ietf-quic-transport] [@I-D.huitema-quic-dnsoquic].
+   TCP, not UDP, and new solutions are still emerging [@I-D.ietf-quic-transport] [@I-D.huitema-quic-dnsoquic].
 
    Another important point to keep in mind when analyzing the privacy
    issues of DNS is the fact that DNS requests received by a server are
@@ -138,22 +138,22 @@
   glue records are returned, a careful recursive server will do
   tertiary requests to verify the IP addresses of those records.
 
-   It can be noted also that, in the case of a typical web browser, more
+   It can also be noted that, in the case of a typical web browser, more
    DNS requests than strictly necessary are sent, for instance, to
    prefetch resources that the user may query later or when
-   autocompleting the URL in the address bar.  Both are a big privacy
+   autocompleting the URL in the address bar.  Both are a significant privacy
    concern since they may leak information even about non-explicit
    actions.  For instance, just reading a local HTML page, even without
    selecting the hyperlinks, may trigger DNS requests.
 
-   For privacy-related terms, we will use the terminology from
+   For privacy-related terms, the terminology is from
    [@!RFC6973].
 
 #   Scope
 
    This document focuses mostly on the study of privacy risks for the
-   end user (the one performing DNS requests).  We consider the risks of
-   pervasive surveillance [@!RFC7258] as well as risks coming from a more
+   end user (the one performing DNS requests).  The risks of
+   pervasive surveillance [@!RFC7258] are considered as well as risks coming from a more
    focused surveillance.
 
    This document does not attempt a comparison of specific privacy protections
@@ -190,10 +190,10 @@ such an analysis.
 
 # Risks in the DNS Data
 
-##  The Alleged Public Nature of DNS Data
+##  The Public Nature of DNS Data
 
-   It has long been claimed that "the data in the DNS is public".  While
-   this sentence makes sense for an Internet-wide lookup system, there
+  It is often stated that "the data in the DNS is public".  This sentence
+   makes sense for an Internet-wide lookup system,  and there
    are multiple facets to the data and metadata involved that deserve a
    more detailed look.  First, access control lists (ACLs) and private
    namespaces notwithstanding, the DNS operates under the assumption
@@ -203,7 +203,8 @@ such an analysis.
    lack of search capabilities, only a given QNAME will reveal the
    resource records associated with that name (or that name's non-
    existence).  In other words: one needs to know what to ask for, in
-   order to receive a response.  The zone transfer QTYPE [@RFC5936] is
+   order to receive a response. There are many ways in which supposed "private"
+   resources currently leak. A few  examples are  DNSSEC NSEC zone walking[REF]; passive-DNS services[REF]; etc. The zone transfer QTYPE [@RFC5936] is
    often blocked or restricted to authenticated/authorized access to
    enforce this difference (and maybe for other reasons).
 
@@ -212,7 +213,7 @@ such an analysis.
    data and the results of a DNS query are public, within the boundaries
    described above, and may not have any confidentiality requirements.
    However, the same is not true of a single transaction or a sequence of
-   transactions; those transaction are not / should not be public. A single 
+   transactions; those transactions are not / should not be public. A single 
    transactions reveals both the originator of the query and the query contents
    which potentially leaks sensitive information about a specific user. A
    typical example from outside the DNS world is: the web site of Alcoholics
@@ -361,7 +362,8 @@ implemented at the resolver (e.g., parental filtering).
   * The recursive resolver can be in the IAP network. For most residential
   users and potentially other networks, the typical case is for the end
   user's device to be configured (typically automatically through DHCP or
-  RA options) with the addresses of the DNS proxy in the CPE, which in turns
+  RA options) with the addresses of the DNS proxy in the Customer 
+  Premise Equipment (CPE), which in turns
   points to the DNS recursive resolvers at the IAP. The attack surface for
   on-the-wire attacks is therefore from the end user system across the
   local network and across the IAP network to the IAP's recursive resolvers.
@@ -406,11 +408,10 @@ There are some general examples, for example, certain studies have highlighted
 that IPv4 TTL, IPv6 Hop Limit, or TCP Window sizes [os-fingerprint](http://netres.ec/?b=11B99BD)
 values can be used to fingerprint client OS's or that various techniques can be
 used to de-NAT DNS queries
-[dns-de-nat](https://www.researchgate.net/publication/320322146_DNS-DNS_DNS-based_De-NAT_Scheme).
+[dns-de-nat].
 
-Note that even when using encrypted transports the use of clear text transport
-options to decrease latency can provide correlation of a users' connections e.g.
-using TCP Fast Open [@RFC7413].
+Note that even when using encrypted transports, the use of clear text transport
+options to decrease latency can provide correlation of a users' connections, e.g. using TCP Fast Open [@RFC7413].
 
 Implementations that support encrypted transports also commonly re-use
 connections for multiple DNS queries to optimize performance (e.g. via DNS
@@ -514,7 +515,7 @@ of a recursive resolver.
    
    * ISP outsourcing, including to third party and public resolvers
    * regional market domination by one or only a few ISPs
-   * applications directing DNS traffic by default to limited subset of resolvers, see (#applicationspecific-resolver-selection)
+   * applications directing DNS traffic by default to a limited subset of resolvers, see (#applicationspecific-resolver-selection)
 
   An increased proportion of the global DNS resolution traffic being served by
   only a few entities means that the privacy considerations for end users are
@@ -564,7 +565,7 @@ Initiative [@EDDI].
   The previous section discussed DNS privacy, assuming that all the traffic
   was directed to the intended servers (i.e those that would be used in the
   absence of an active attack) and that the potential attacker was purely
-  passive. But, in reality, we can have active attackers in the network.
+  passive. But, in reality, there can be active attackers in the network.
 
   The Internet Threat model, as described in [@RFC3552], assumes that the attacker
   controls the network. Such an attacker can completely control any insecure DNS
@@ -593,7 +594,7 @@ Initiative [@EDDI].
   As a matter of policy, some recursive resolvers use their position in the query
   path to selectively block access to certain DNS records. This is a form of
   Rendezvous-Based Blocking as described in Section 4.3 of [@RFC7754]. Such
-  blocklists often include servers know to be used for malware, bots or other
+  blocklists often include servers known to be used for malware, bots or other
   security risks. In order to prevent circumvention of their blocking policies,
   some networks also block access to resolvers with incompatible policies.
 
@@ -781,7 +782,7 @@ implementations that provide clear guidance on what identifiers they add.
    country. Interpreting general privacy laws like [@data-protection-directive]
    or [GDPR](https://www.eugdpr.org/the-regulation.html) applicable in the
    European Union in the context of DNS traffic data is not an easy task, and
-   we do not know a court precedent here. See an interesting analysis in
+   there is no known court precedent. See an interesting analysis in
    [@sidn-entrada].
 
 
