@@ -63,7 +63,7 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Scope . . . . . . . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Risks . . . . . . . . . . . . . . . . . . . . . . . . . . . .   5
-   4.  Risks in the DNS Data . . . . . . . . . . . . . . . . . . . .   5
+   4.  Risks in the DNS Data . . . . . . . . . . . . . . . . . . . .   6
      4.1.  The Public Nature of DNS Data . . . . . . . . . . . . . .   6
      4.2.  Data in the DNS Request . . . . . . . . . . . . . . . . .   6
        4.2.1.  Data in the DNS Payload . . . . . . . . . . . . . . .   8
@@ -87,12 +87,13 @@ Table of Contents
    11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  19
    12. Contributions . . . . . . . . . . . . . . . . . . . . . . . .  19
    13. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  19
-   14. Changelog . . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   15. References  . . . . . . . . . . . . . . . . . . . . . . . . .  22
-     15.1.  Normative References . . . . . . . . . . . . . . . . . .  22
-     15.2.  Informative References . . . . . . . . . . . . . . . . .  22
-     15.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  28
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  28
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
+     14.1.  Normative References . . . . . . . . . . . . . . . . . .  20
+     14.2.  Informative References . . . . . . . . . . . . . . . . .  20
+     14.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  26
+   Appendix A.  Updates since RFC7626  . . . . . . . . . . . . . . .  27
+   Appendix B.  Changelog  . . . . . . . . . . . . . . . . . . . . .  27
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  29
 
 1.  Introduction
 
@@ -104,8 +105,7 @@ Table of Contents
    of the most important infrastructure components of the Internet and
    often ignored or misunderstood by Internet users (and even by many
    professionals).  Almost every activity on the Internet starts with a
-   DNS query (and often several).  Its use has many privacy implications
-   and this document is an attempt at a comprehensive and accurate list.
+
 
 
 
@@ -113,6 +113,9 @@ Wicinski                 Expires April 10, 2021                 [Page 2]
 
 Internet-Draft         DNS Privacy Considerations           October 2020
 
+
+   DNS query (and often several).  Its use has many privacy implications
+   and this document is an attempt at a comprehensive and accurate list.
 
    Lets begin with a simplified reminder of how the DNS works (See also
    [RFC8499]).  A client, the stub resolver, issues a DNS query to a
@@ -159,9 +162,6 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    with a larger and more shared cache (and the query hierarchy can be
    even deeper, with more than two levels of recursive resolvers).  From
    the point of view of privacy, these forwarders are like resolvers,
-   except that they do not see all of the requests being made (due to
-   caching in the first resolver).
-
 
 
 
@@ -169,6 +169,9 @@ Wicinski                 Expires April 10, 2021                 [Page 3]
 
 Internet-Draft         DNS Privacy Considerations           October 2020
 
+
+   except that they do not see all of the requests being made (due to
+   caching in the first resolver).
 
    At the time of writing, almost all this DNS traffic is currently sent
    unencrypted.  However, there is increasing deployment of DNS-over-TLS
@@ -182,7 +185,7 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    This has practical consequences when considering encryption of the
    traffic as a possible privacy technique.  Some encryption solutions
    are only designed for TCP, not UDP, and new solutions are still
-   emerging [I-D.ietf-quic-transport] [I-D.huitema-quic-dnsoquic].
+   emerging [I-D.ietf-quic-transport] [I-D.ietf-dprive-dnsoquic].
 
    Another important point to keep in mind when analyzing the privacy
    issues of DNS is the fact that DNS requests received by a server are
@@ -215,9 +218,6 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    DNS requests than strictly necessary are sent, for instance, to
    prefetch resources that the user may query later or when
    autocompleting the URL in the address bar.  Both are a significant
-   privacy concern since they may leak information even about non-
-   explicit actions.  For instance, just reading a local HTML page, even
-   without selecting the hyperlinks, may trigger DNS requests.
 
 
 
@@ -225,6 +225,10 @@ Wicinski                 Expires April 10, 2021                 [Page 4]
 
 Internet-Draft         DNS Privacy Considerations           October 2020
 
+
+   privacy concern since they may leak information even about non-
+   explicit actions.  For instance, just reading a local HTML page, even
+   without selecting the hyperlinks, may trigger DNS requests.
 
    For privacy-related terms, the terminology is from [RFC6973].
 
@@ -265,13 +269,9 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    exhaustive analysis of the privacy considerations for an individual
    user would need to take into account the set of devices used and the
    multiple dynamic contexts of each device.  This document does not
-   attempt such a complex analysis, instead it presents an overview of
-   the various considerations that could form the basis of such an
+   attempt such a complex analysis, but instead it presents an overview
+   of the various considerations that could form the basis of such an
    analysis.
-
-4.  Risks in the DNS Data
-
-
 
 
 
@@ -281,6 +281,8 @@ Wicinski                 Expires April 10, 2021                 [Page 5]
 
 Internet-Draft         DNS Privacy Considerations           October 2020
 
+
+4.  Risks in the DNS Data
 
 4.1.  The Public Nature of DNS Data
 
@@ -297,10 +299,10 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    existence).  In other words: one needs to know what to ask for, in
    order to receive a response.  There are many ways in which supposed
    "private" resources currently leak.  A few examples are DNSSEC NSEC
-   zone walking[REF]; passive-DNS services[REF]; etc.  The zone transfer
-   QTYPE [RFC5936] is often blocked or restricted to authenticated/
-   authorized access to enforce this difference (and maybe for other
-   reasons).
+   zone walking[RFC4470]; passive-DNS services[passive-dns]; etc.  The
+   zone transfer QTYPE [RFC5936] is often blocked or restricted to
+   authenticated/authorized access to enforce this difference (and maybe
+   for other reasons).
 
    Another differentiation to be considered is between the DNS data
    itself and a particular transaction (i.e., a DNS name lookup).  DNS
@@ -328,8 +330,6 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    The QNAME is the full name sent by the user.  It gives information
    about what the user does ("What are the MX records of example.net?"
    means he probably wants to send email to someone at example.net,
-   which may be a domain used by only a few persons and is therefore
-   very revealing about communication relationships).  Some QNAMEs are
 
 
 
@@ -338,6 +338,8 @@ Wicinski                 Expires April 10, 2021                 [Page 6]
 Internet-Draft         DNS Privacy Considerations           October 2020
 
 
+   which may be a domain used by only a few persons and is therefore
+   very revealing about communication relationships).  Some QNAMEs are
    more sensitive than others.  For instance, querying the A record of a
    well-known web statistics domain reveals very little (everybody
    visits web sites that use this analytics service), but querying the A
@@ -384,8 +386,6 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    leakage associated with the collection of source addresses.  (For
    example, a specific IPv6 source address seen on the public Internet
    is less likely than an IPv4 address to originate behind an address
-   sharing scheme.)  However, for both IPv4 and IPv6 addresses, it is
-   important to note that source addresses are propagated with queries
 
 
 
@@ -394,6 +394,8 @@ Wicinski                 Expires April 10, 2021                 [Page 7]
 Internet-Draft         DNS Privacy Considerations           October 2020
 
 
+   sharing scheme.)  However, for both IPv4 and IPv6 addresses, it is
+   important to note that source addresses are propagated with queries
    and comprise metadata about the host, user, or application that
    originated them.
 
@@ -408,7 +410,7 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    increasingly common denial-of-service and amplification/forgery or
    cache poisoning attacks by off-path attackers.  It is noted, however,
    that they are designed to just verify IP addresses (and should change
-   once a client's IP address changes), they are not designed to
+   once a client's IP address changes), but they are not designed to
    actively track users (like HTTP cookies).
 
    There are anecdotal accounts of MAC addresses [1] and even user names
@@ -440,8 +442,6 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    and secured against surveillance (e.g., [RFC8446],
    [I-D.ietf-quic-transport]), the use of unencrypted transports for DNS
    may become "the weakest link" in privacy.  It is noted that at the
-   time of writing there is on-going work attempting to encrypt the SNI
-   in the TLS handshake [I-D.ietf-tls-sni-encryption].
 
 
 
@@ -449,6 +449,9 @@ Wicinski                 Expires April 10, 2021                 [Page 8]
 
 Internet-Draft         DNS Privacy Considerations           October 2020
 
+
+   time of writing there is on-going work attempting to encrypt the SNI
+   in the TLS handshake [RFC8744].
 
    An important specificity of the DNS traffic is that it may take a
    different path than the communication between the initiator and the
@@ -495,9 +498,6 @@ Internet-Draft         DNS Privacy Considerations           October 2020
 
    o  The recursive resolver can be a public DNS service (or a privately
       run DNS resolver hosted on the public internet).  Some machines
-      may be configured to use public DNS resolvers such as those
-      operated by Google Public DNS or OpenDNS.  The end user may have
-      configured their machine to use these DNS recursive resolvers
 
 
 
@@ -506,6 +506,9 @@ Wicinski                 Expires April 10, 2021                 [Page 9]
 Internet-Draft         DNS Privacy Considerations           October 2020
 
 
+      may be configured to use public DNS resolvers such as those
+      operated by Google Public DNS or OpenDNS.  The end user may have
+      configured their machine to use these DNS recursive resolvers
       themselves -- or their IAP may have chosen to use the public DNS
       resolvers rather than operating their own resolvers.  In this
       case, the attack surface is the entire public Internet between the
@@ -513,7 +516,7 @@ Internet-Draft         DNS Privacy Considerations           October 2020
       that if the user selects a single resolver with a small client
       population (even when using an encrypted transport) it can
       actually serve to aid tracking of that user as they move across
-      network environment.
+      network environments.
 
    It is also noted that typically a device connected _only_ to a modern
    cellular network is
@@ -550,9 +553,6 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    transport options to decrease latency can provide correlation of a
    users' connections, e.g. using TCP Fast Open [RFC7413].
 
-   Implementations that support encrypted transports also commonly re-
-   use connections for multiple DNS queries to optimize performance
-   (e.g. via DNS pipelining or HTTPS multiplexing).  Default
 
 
 
@@ -562,6 +562,9 @@ Wicinski                 Expires April 10, 2021                [Page 10]
 Internet-Draft         DNS Privacy Considerations           October 2020
 
 
+   Implementations that support encrypted transports also commonly re-
+   use connections for multiple DNS queries to optimize performance
+   (e.g. via DNS pipelining or HTTPS multiplexing).  Default
    configuration options for encrypted transports could in principle
    fingerprint a specific client application.  For example:
 
@@ -608,9 +611,6 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    data itself, or it can be part of a surveillance program like PRISM
    [prism] and pass data to an outside observer.
 
-   Sometimes, this data is kept for a long time and/or distributed to
-   third parties for research purposes [ditl] [day-at-root], security
-
 
 
 Wicinski                 Expires April 10, 2021                [Page 11]
@@ -618,6 +618,8 @@ Wicinski                 Expires April 10, 2021                [Page 11]
 Internet-Draft         DNS Privacy Considerations           October 2020
 
 
+   Sometimes, this data is kept for a long time and/or distributed to
+   third parties for research purposes [ditl] [day-at-root], security
    analysis, or surveillance tasks.  These uses are sometimes under some
    sort of contract, with various limitations, for instance, on
    redistribution, given the sensitive nature of the data.  Also, there
@@ -651,8 +653,8 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    settings and so implicitly accept the network settings for DNS.  The
    network resolvers have therefore historically been the sole
    destination for all of the DNS queries from a device.  These
-   resolvers may have strong, medium, or weak privacy policies depending
-   on the network.  Privacy policies for these servers may or may not be
+   resolvers may have may have varied privacy policies depending on the
+   network.  Privacy policies for these servers may or may not be
    available and users need to be aware that privacy guarantees will
    vary with network.
 
@@ -664,8 +666,6 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    [4], or Quad9 [5].  There can be many reasons: cost considerations
    for network operators, better reliability or anti-censorship
    considerations are just a few.  Such services typically do provide a
-   privacy policy and the end user can get an idea of the data collected
-
 
 
 
@@ -674,6 +674,7 @@ Wicinski                 Expires April 10, 2021                [Page 12]
 Internet-Draft         DNS Privacy Considerations           October 2020
 
 
+   privacy policy and the end user can get an idea of the data collected
    by such operators by reading one e.g., Google Public DNS - Your
    Privacy [6].
 
@@ -691,8 +692,8 @@ Internet-Draft         DNS Privacy Considerations           October 2020
 
    An increased proportion of the global DNS resolution traffic being
    served by only a few entities means that the privacy considerations
-   for end users are additionally highly dependent on the privacy
-   policies and practices of those entities.  Many of the issues around
+   for end users are highly dependent on the privacy policies and
+   practices of those entities.  Many of the issues around
    centralization are discussed in
    [centralisation-and-data-sovereignty].
 
@@ -721,7 +722,6 @@ Internet-Draft         DNS Privacy Considerations           October 2020
 
    Users will only be aware of and have the ability to control such
    settings if applications provide the following functions:
-
 
 
 
@@ -764,10 +764,9 @@ Internet-Draft         DNS Privacy Considerations           October 2020
 
 6.1.3.  Blocking of User Selected DNS Resolution Services
 
-   User privacy can also be at risk if there is blocking (by local
-   network operators or more general mechanisms) of access to remote
-   recursive servers that offer encrypted transports when the local
-   resolver does not offer encryption and/or has very poor privacy
+   User privacy can also be at risk if there is blocking of access to
+   remote recursive servers that offer encrypted transports when the
+   local resolver does not offer encryption and/or has very poor privacy
    policies.  For example, active blocking of port 853 for DoT or of
    specific IP addresses could restrict the resolvers available to the
    user.  The extent of the risk to end user privacy is highly dependent
@@ -778,6 +777,7 @@ Internet-Draft         DNS Privacy Considerations           October 2020
 
    As a matter of policy, some recursive resolvers use their position in
    the query path to selectively block access to certain DNS records.
+   This is a form of Rendezvous-Based Blocking as described in
 
 
 
@@ -786,14 +786,13 @@ Wicinski                 Expires April 10, 2021                [Page 14]
 Internet-Draft         DNS Privacy Considerations           October 2020
 
 
-   This is a form of Rendezvous-Based Blocking as described in
    Section 4.3 of [RFC7754].  Such blocklists often include servers
    known to be used for malware, bots or other security risks.  In order
    to prevent circumvention of their blocking policies, some networks
    also block access to resolvers with incompatible policies.
 
-   It is also noted that attacks on remote resolver services, e.g., DDoS
-   could force users to switch to other services that do not offer
+   It is also noted that attacks on remote resolver services, e.g.,
+   DDoS, could force users to switch to other services that do not offer
    encrypted transports for DNS.
 
 6.1.4.  Encrypted Transports and Recursive Resolvers
@@ -834,6 +833,7 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    privacy an implementation choice.  At the extremes, there may be
    implementations that attempt to achieve parity with DoT from a
    privacy perspective at the cost of using no identifiable HTTP
+   headers, there might be others that provide feature rich data flows
 
 
 
@@ -842,7 +842,6 @@ Wicinski                 Expires April 10, 2021                [Page 15]
 Internet-Draft         DNS Privacy Considerations           October 2020
 
 
-   headers, there might be others that provide feature rich data flows
    where the low-level origin of the DNS query is easily identifiable.
    Some implementations have, in fact, chosen to restrict the use of the
    'User-Agent' header so that resolver operators cannot identify the
@@ -889,7 +888,8 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    is "junk" (errors on the Top-Level Domain (TLD) name), it gives an
    idea of the amount of big data that pours into name servers.  (And
    even "junk" can leak information; for instance, if there is a typing
-
+   error in the TLD, the user will send data to a TLD that is not the
+   usual one.)
 
 
 
@@ -897,9 +897,6 @@ Wicinski                 Expires April 10, 2021                [Page 16]
 
 Internet-Draft         DNS Privacy Considerations           October 2020
 
-
-   error in the TLD, the user will send data to a TLD that is not the
-   usual one.)
 
    Many domains, including TLDs, are partially hosted by third-party
    servers, sometimes in a different country.  The contracts between the
@@ -946,6 +943,9 @@ Internet-Draft         DNS Privacy Considerations           October 2020
 
    For instance, one could imagine that an intelligence agency
    identifies people going to a site by putting in a very long DNS name
+   and looking for queries of a specific length.  Such traffic analysis
+   could weaken some privacy solutions.
+
 
 
 
@@ -953,9 +953,6 @@ Wicinski                 Expires April 10, 2021                [Page 17]
 
 Internet-Draft         DNS Privacy Considerations           October 2020
 
-
-   and looking for queries of a specific length.  Such traffic analysis
-   could weaken some privacy solutions.
 
    The IAB privacy and security program also have a work in progress
    [RFC7624] that considers such inference-based attacks in a more
@@ -986,14 +983,14 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    [dagon-malware], and [darkreading-dns].
 
    Passive DNS systems [passive-dns] allow reconstruction of the data of
-   sometimes an entire zone.  They are used for many reasons -- some
-   good, some bad.  Well-known passive DNS systems keep only the DNS
-   responses, and not the source IP address of the client, precisely for
-   privacy reasons.  Other passive DNS systems may not be so careful.
-   And there is still the potential problems with revealing QNAMEs.
+   sometimes an entire zone.  Well-known passive DNS systems keep only
+   the DNS responses, and not the source IP address of the client,
+   precisely for privacy reasons.  Other passive DNS systems may not be
+   so careful.  And there is still the potential problems with revealing
+   QNAMEs.
 
    The revelations from the Edward Snowden documents, which were leaked
-   from the National Security Agency (NSA) provide evidence of the use
+   from the National Security Agency (NSA), provide evidence of the use
    of the DNS in mass surveillance operations [morecowbell].  For
    example the MORECOWBELL surveillance program, which uses a dedicated
    covert monitoring infrastructure to actively query DNS servers and
@@ -1002,6 +999,9 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    which includes detecting lookups for certain addresses and injecting
    bogus replies is another good example showing that the lack of
    privacy protections in the DNS is actively exploited.
+
+
+
 
 
 
@@ -1037,7 +1037,7 @@ Internet-Draft         DNS Privacy Considerations           October 2020
 
    Sara Dickinson and Stephane Bortzmeyer were the original authors on
    the document, and their contribution on the initial version is
-   greatly apprecriated.
+   greatly appreciated.
 
 13.  Acknowledgments
 
@@ -1053,11 +1053,11 @@ Internet-Draft         DNS Privacy Considerations           October 2020
    Mohamed Boucadair for a detailed review of the -bis.  And thanks to
    the IESG members for the last remarks.
 
-14.  Changelog
+14.  References
 
-   draft-ietf-dprive-rfc7626-bis-06
 
-   o  Removed Sara and Stephane as editors, made chairs as Editor.
+
+
 
 
 
@@ -1066,125 +1066,7 @@ Wicinski                 Expires April 10, 2021                [Page 19]
 Internet-Draft         DNS Privacy Considerations           October 2020
 
 
-   o  Replaced the text in 6.1.1.2 with the text from the -04 version.
-
-   o  Clarified text about resolver selection in 6.1.1.
-
-   draft-ietf-dprive-rfc7626-bis-05
-
-   o  Editorial updates from second IESG last call
-
-   o  Section renumbering as suggested by Vittorio Bertola
-
-   draft-ietf-dprive-rfc7626-bis-04
-
-   o  Tsvart review: Add reference to DNS-over-QUIC, fix typo.
-
-   o  Secdir review: Add text in Section 3 on devices using many
-      networks.  Update bullet in 3.4.1 on cellular encryption.
-
-   o  Section 3.5.1.1 - re-work the section to try to address multiple
-      comments.
-
-   o  Section 3.5.1.4 - remove this section as now covered by 3.5.1.1.
-
-   o  Section 3.5.1.5.2 - Remove several paragraphs and more directly
-      reference RFC8484 by including bullet points quoting text from
-      Section 8.2 of RFC8484.  Retain the last 2 paragraphs as they are
-      information for users, not implementors.
-
-   o  Section 3.4.2 - some minor updates made based on specific
-      comments.
-
-   draft-ietf-dprive-rfc7626-bis-03
-
-   o  Address 2 minor nits (typo in section 3.4.1 and adding an IANA
-      section)
-
-   o  Minor updates from AD review
-
-   draft-ietf-dprive-rfc7626-bis-02
-
-   o  Numerous editorial corrections thanks to Mohamed Boucadair and
-
-      *  Minor additions to Scope section
-
-      *  New text on cellular network DNS
-
-   o  Additional text from Vittorio Bertola on blocking and security
-
-   draft-ietf-dprive-rfc7626-bis-01
-
-
-
-Wicinski                 Expires April 10, 2021                [Page 20]
-
-Internet-Draft         DNS Privacy Considerations           October 2020
-
-
-   o  Re-structure section 3.5 (was 2.5)
-
-      *  Collect considerations for recursive resolvers together
-
-      *  Re-work several sections here to clarify their context (e.g.,
-         'Rogue servers' becomes 'Active attacks on resolver
-         configuration')
-
-      *  Add discussion of resolver selection
-
-   o  Update text and old reference on Snowdon revelations.
-
-   o  Add text on and references to QNAME minimisation RFC and
-      deployment measurements
-
-   o  Correct outdated references
-
-   o  Clarify scope by adding a Scope section (was Risks overview)
-
-   o  Clarify what risks are considered in section 3.4.2
-
-   draft-ietf-dprive-rfc7626-bis-00
-
-   o  Rename after WG adoption
-
-   o  Use DoT acronym throughout
-
-   o  Minor updates to status of deployment and other drafts
-
-   draft-bortzmeyer-dprive-rfc7626-bis-02
-
-   o  Update various references and fix some nits.
-
-   draft-bortzmeyer-dprive-rfc7626-bis-01
-
-   o  Update reference for dickinson-bcp-op to draft-dickinson-dprive-
-      bcp-op
-
-   draft-borztmeyer-dprive-rfc7626-bis-00:
-
-   Initial commit.  Differences to RFC7626:
-
-   o  Update many references
-
-   o  Add discussions of encrypted transports including DoT and DoH
-
-   o  Add section on DNS payload
-
-
-
-
-Wicinski                 Expires April 10, 2021                [Page 21]
-
-Internet-Draft         DNS Privacy Considerations           October 2020
-
-
-   o  Add section on authentication of servers
-
-   o  Add section on blocking of services
-
-15.  References
-
-15.1.  Normative References
+14.1.  Normative References
 
    [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
               STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
@@ -1204,7 +1086,7 @@ Internet-Draft         DNS Privacy Considerations           October 2020
               Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May
               2014, <https://www.rfc-editor.org/info/rfc7258>.
 
-15.2.  Informative References
+14.2.  Informative References
 
    [aeris-dns]
               Vinot, N., "Vie privee: et le DNS alors?", (In French),
@@ -1227,18 +1109,18 @@ Internet-Draft         DNS Privacy Considerations           October 2020
               <https://papers.ssrn.com/sol3/
               papers.cfm?abstract_id=2167372>.
 
-
-
-Wicinski                 Expires April 10, 2021                [Page 22]
-
-Internet-Draft         DNS Privacy Considerations           October 2020
-
-
    [dagon-malware]
               Dagon, D., "Corrupted DNS Resolution Paths: The Rise of a
               Malicious Resolution Authority", ISC/OARC Workshop, 2007,
               <https://www.dns-oarc.net/files/workshop-2007/Dagon-
               Resolution-corruption.pdf>.
+
+
+
+Wicinski                 Expires April 10, 2021                [Page 20]
+
+Internet-Draft         DNS Privacy Considerations           October 2020
+
 
    [darkreading-dns]
               Lemos, R., "Got Malware? Three Signs Revealed In DNS
@@ -1281,17 +1163,20 @@ Internet-Draft         DNS Privacy Considerations           October 2020
               Bortzmeyer, S., "DNSmezzo", 2009,
               <http://www.dnsmezzo.net/>.
 
+   [EDDI]     EDDI, "Encrypted DNS Deployment Initiative", 2020,
+              <https://www.encrypted-dns.org>.
 
 
 
 
-Wicinski                 Expires April 10, 2021                [Page 23]
+
+
+
+
+Wicinski                 Expires April 10, 2021                [Page 21]
 
 Internet-Draft         DNS Privacy Considerations           October 2020
 
-
-   [EDDI]     EDDI, "Encrypted DNS Deployment Initiative", 2020,
-              <https://www.encrypted-dns.org>.
 
    [fangming-hori-sakurai]
               Fangming, Z., Hori, Y., and K. Sakurai, "Analysis of
@@ -1327,24 +1212,10 @@ Internet-Draft         DNS Privacy Considerations           October 2020
               DOI 10.1007/978-3-642-27937-9_10, 2012, <http://epub.uni-
               regensburg.de/21103/1/Paper_PUL_nordsec_published.pdf>.
 
-   [I-D.huitema-quic-dnsoquic]
-              Huitema, C., Shore, M., Mankin, A., Dickinson, S., and J.
-              Iyengar, "Specification of DNS over Dedicated QUIC
-              Connections", draft-huitema-quic-dnsoquic-07 (work in
-              progress), September 2019.
-
    [I-D.ietf-dnsop-resolver-information]
               Sood, P., Arends, R., and P. Hoffman, "DNS Resolver
               Information Self-publication", draft-ietf-dnsop-resolver-
               information-01 (work in progress), February 2020.
-
-
-
-
-Wicinski                 Expires April 10, 2021                [Page 24]
-
-Internet-Draft         DNS Privacy Considerations           October 2020
-
 
    [I-D.ietf-dprive-bcp-op]
               Dickinson, S., Overeinder, B., Rijswijk-Deij, R., and A.
@@ -1352,15 +1223,26 @@ Internet-Draft         DNS Privacy Considerations           October 2020
               Operators", draft-ietf-dprive-bcp-op-14 (work in
               progress), July 2020.
 
+
+
+
+
+
+
+Wicinski                 Expires April 10, 2021                [Page 22]
+
+Internet-Draft         DNS Privacy Considerations           October 2020
+
+
+   [I-D.ietf-dprive-dnsoquic]
+              Huitema, C., Mankin, A., and S. Dickinson, "Specification
+              of DNS over Dedicated QUIC Connections", draft-ietf-
+              dprive-dnsoquic-00 (work in progress), April 2020.
+
    [I-D.ietf-quic-transport]
               Iyengar, J. and M. Thomson, "QUIC: A UDP-Based Multiplexed
               and Secure Transport", draft-ietf-quic-transport-31 (work
               in progress), September 2020.
-
-   [I-D.ietf-tls-sni-encryption]
-              Huitema, C. and E. Rescorla, "Issues and Requirements for
-              SNI Encryption in TLS", draft-ietf-tls-sni-encryption-09
-              (work in progress), October 2019.
 
    [morecowbell]
               Grothoff, C., Wachs, M., Ermert, M., and J. Appelbaum,
@@ -1395,9 +1277,15 @@ Internet-Draft         DNS Privacy Considerations           October 2020
               RFC 4033, DOI 10.17487/RFC4033, March 2005,
               <https://www.rfc-editor.org/info/rfc4033>.
 
+   [RFC4470]  Weiler, S. and J. Ihren, "Minimally Covering NSEC Records
+              and DNSSEC On-line Signing", RFC 4470,
+              DOI 10.17487/RFC4470, April 2006,
+              <https://www.rfc-editor.org/info/rfc4470>.
 
 
-Wicinski                 Expires April 10, 2021                [Page 25]
+
+
+Wicinski                 Expires April 10, 2021                [Page 23]
 
 Internet-Draft         DNS Privacy Considerations           October 2020
 
@@ -1453,7 +1341,7 @@ Internet-Draft         DNS Privacy Considerations           October 2020
 
 
 
-Wicinski                 Expires April 10, 2021                [Page 26]
+Wicinski                 Expires April 10, 2021                [Page 24]
 
 Internet-Draft         DNS Privacy Considerations           October 2020
 
@@ -1493,11 +1381,26 @@ Internet-Draft         DNS Privacy Considerations           October 2020
               Terminology", BCP 219, RFC 8499, DOI 10.17487/RFC8499,
               January 2019, <https://www.rfc-editor.org/info/rfc8499>.
 
+   [RFC8744]  Huitema, C., "Issues and Requirements for Server Name
+              Identification (SNI) Encryption in TLS", RFC 8744,
+              DOI 10.17487/RFC8744, July 2020,
+              <https://www.rfc-editor.org/info/rfc8744>.
+
    [ripe-qname-measurements]
               Vries, W., "Making the DNS More Private with QNAME
               Minimisation", April 2019,
               <https://labs.ripe.net/Members/wouter_de_vries/make-dns-a-
               bit-more-private-with-qname-minimisation>.
+
+
+
+
+
+
+Wicinski                 Expires April 10, 2021                [Page 25]
+
+Internet-Draft         DNS Privacy Considerations           October 2020
+
 
    [sidn-entrada]
               Hesselman, C., Jansen, J., Wullink, M., Vink, K., and M.
@@ -1506,13 +1409,6 @@ Internet-Draft         DNS Privacy Considerations           October 2020
               <https://www.sidnlabs.nl/downloads/
               yBW6hBoaSZe4m6GJc_0b7w/2211058ab6330c7f3788141ea19d3db7/
               SIDN_Labs_Privacyraamwerk_Position_Paper_V1.4_ENG.pdf>.
-
-
-
-Wicinski                 Expires April 10, 2021                [Page 27]
-
-Internet-Draft         DNS Privacy Considerations           October 2020
-
 
    [thomas-ditl-tcp]
               Thomas, M. and D. Wessels, "An Analysis of TCP Traffic in
@@ -1531,7 +1427,7 @@ Internet-Draft         DNS Privacy Considerations           October 2020
               in the Domain Name System", October 2009,
               <http://arxiv.org/abs/0910.2472>.
 
-15.3.  URIs
+14.3.  URIs
 
    [1] https://lists.dns-oarc.net/pipermail/dns-
        operations/2016-January/014143.html
@@ -1553,6 +1449,160 @@ Internet-Draft         DNS Privacy Considerations           October 2020
 
    [9] https://www.eugdpr.org/the-regulation.html
 
+
+
+
+
+Wicinski                 Expires April 10, 2021                [Page 26]
+
+Internet-Draft         DNS Privacy Considerations           October 2020
+
+
+Appendix A.  Updates since RFC7626
+
+   Update many references; Add discussions of encrypted transports
+   including DoT and DoH; Added section on DNS payload; Add section on
+   authentication of servers; Add section on blocking of services.  With
+   the publishing of RFC7816 on QNAME minimisation, text, references,
+   and initial attempts to measure deployment were added to reflect
+   this.  The text and references on the Snowden revelations were
+   updated.
+
+   The "Risks overview" section was changed to "Scope" to help clarify
+   the risks being considered.  Text was adding on cellular network DNS,
+   blocking and security
+
+   o  Collect considerations for recursive resolvers together
+
+   o  Re-work several sections here to clarify their context (e.g.,
+      'Rogue servers' becomes 'Active attacks on resolver
+      configuration')
+
+   o  Add discussion of resolver selection
+
+Appendix B.  Changelog
+
+   draft-ietf-dprive-rfc7626-bis-06
+
+   o  Removed Sara and Stephane as editors, made chairs as Editor.
+
+   o  Replaced the text in 6.1.1.2 with the text from the -04 version.
+
+   o  Clarified text about resolver selection in 6.1.1.
+
+   draft-ietf-dprive-rfc7626-bis-05
+
+   o  Editorial updates from second IESG last call
+
+   o  Section renumbering as suggested by Vittorio Bertola
+
+   draft-ietf-dprive-rfc7626-bis-04
+
+   o  Tsvart review: Add reference to DNS-over-QUIC, fix typo.
+
+   o  Secdir review: Add text in Section 3 on devices using many
+      networks.  Update bullet in 3.4.1 on cellular encryption.
+
+   o  Section 3.5.1.1 - re-work the section to try to address multiple
+      comments.
+
+
+
+
+Wicinski                 Expires April 10, 2021                [Page 27]
+
+Internet-Draft         DNS Privacy Considerations           October 2020
+
+
+   o  Section 3.5.1.4 - remove this section as now covered by 3.5.1.1.
+
+   o  Section 3.5.1.5.2 - Remove several paragraphs and more directly
+      reference RFC8484 by including bullet points quoting text from
+      Section 8.2 of RFC8484.  Retain the last 2 paragraphs as they are
+      information for users, not implementors.
+
+   o  Section 3.4.2 - some minor updates made based on specific
+      comments.
+
+   draft-ietf-dprive-rfc7626-bis-03
+
+   o  Address 2 minor nits (typo in section 3.4.1 and adding an IANA
+      section)
+
+   o  Minor updates from AD review
+
+   draft-ietf-dprive-rfc7626-bis-02
+
+   o  Numerous editorial corrections thanks to Mohamed Boucadair and
+
+      *  Minor additions to Scope section
+
+      *  New text on cellular network DNS
+
+   o  Additional text from Vittorio Bertola on blocking and security
+
+   draft-ietf-dprive-rfc7626-bis-01
+
+   o  Re-structure section 3.5 (was 2.5)
+
+      *  Collect considerations for recursive resolvers together
+
+      *  Re-work several sections here to clarify their context (e.g.,
+         'Rogue servers' becomes 'Active attacks on resolver
+         configuration')
+
+      *  Add discussion of resolver selection
+
+   o  Update text and old reference on Snowdon revelations.
+
+   o  Add text on and references to QNAME minimisation RFC and
+      deployment measurements
+
+   o  Correct outdated references
+
+   o  Clarify scope by adding a Scope section (was Risks overview)
+
+
+
+
+Wicinski                 Expires April 10, 2021                [Page 28]
+
+Internet-Draft         DNS Privacy Considerations           October 2020
+
+
+   o  Clarify what risks are considered in section 3.4.2
+
+   draft-ietf-dprive-rfc7626-bis-00
+
+   o  Rename after WG adoption
+
+   o  Use DoT acronym throughout
+
+   o  Minor updates to status of deployment and other drafts
+
+   draft-bortzmeyer-dprive-rfc7626-bis-02
+
+   o  Update various references and fix some nits.
+
+   draft-bortzmeyer-dprive-rfc7626-bis-01
+
+   o  Update reference for dickinson-bcp-op to draft-dickinson-dprive-
+      bcp-op
+
+   draft-borztmeyer-dprive-rfc7626-bis-00:
+
+   Initial commit.  Differences to RFC7626:
+
+   o  Update many references
+
+   o  Add discussions of encrypted transports including DoT and DoH
+
+   o  Add section on DNS payload
+
+   o  Add section on authentication of servers
+
+   o  Add section on blocking of services
+
 Author's Address
 
    Tim Wicinski (editor)
@@ -1565,4 +1615,10 @@ Author's Address
 
 
 
-Wicinski                 Expires April 10, 2021                [Page 28]
+
+
+
+
+
+
+Wicinski                 Expires April 10, 2021                [Page 29]
