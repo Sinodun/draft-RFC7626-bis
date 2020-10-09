@@ -2,13 +2,13 @@
     Title = "DNS Privacy Considerations"
     abbrev = "DNS Privacy Considerations"
     category = "info"
-    docName= "draft-ietf-dprive-rfc7626-bis-06"
+    docName= "draft-ietf-dprive-rfc7626-bis-08"
     ipr = "trust200902"
     area = "Internet Area"
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2020-10-07T00:00:00Z
+    date = 2020-10-09T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -263,7 +263,7 @@ such an analysis.
    same status as the source address in an HTTP connection. It is typically the
    IP address of the recursive resolver that, in a way, "hides" the real user.
    However, hiding does not always work. Sometimes EDNS(0) Client subnet
-   [@RFC7871] is used (see its privacy analysis in [@denis-edns-client-subnet]).
+   [@RFC7871] is used (see one privacy analysis in [@denis-edns-client-subnet]).
    Sometimes the end user has a personal recursive resolver on her machine. In
    both cases, the IP address originating queries to the authoritative server is
    as sensitive as it is for HTTP [@sidn-entrada].
@@ -324,7 +324,8 @@ implemented at the resolver (e.g., parental filtering).
    [@I-D.ietf-quic-transport]), the use of unencrypted transports for DNS may
    become "the weakest link" in privacy. It is noted that at the time of writing
    there is on-going work attempting to encrypt the SNI in the TLS handshake
-   [@RFC8744].
+   [@RFC8744], which is one of the
+   last remaining non-DNS cleartext identifiers of a connection target.
 
    An important specificity of the DNS traffic is that it may take a
    different path than the communication between the initiator and the
@@ -548,7 +549,8 @@ Initiative [@EDDI].
   Users will only be aware of and have the ability to control such
   settings if applications provide the following functions:
 
-  o  communicate clearly the change in default to users
+  o  communicate clearly the change to users when the default application 
+     resolver changes away from the system resolver
 
   o  provide configuration options to change the default
 
@@ -582,7 +584,7 @@ Initiative [@EDDI].
 
   User privacy can also be at risk if there is blocking 
    of access to remote recursive servers
-  that offer encrypted transports when the local resolver does not offer
+  that offer encrypted transports e.g., when the local resolver does not offer
   encryption and/or has very poor privacy policies. For example, active blocking
   of port 853 for DoT or of specific IP addresses could restrict the resolvers
   available to the user. The extent of the risk to end user privacy is highly
@@ -686,7 +688,8 @@ implementations that provide clear guidance on what identifiers they add.
    servers, sometimes in a different country.  The contracts between the
    domain manager and these servers may or may not take privacy into
    account.  Whatever the contract, the third-party hoster may be honest
-   or not but, in any case, it will have to follow its local laws.  So,
+   or not but, in any case, it will have to follow its local laws.  For 
+   example,
    requests to a given ccTLD may go to servers managed by organizations
    outside of the ccTLD's country.  End users may not anticipate that,
    when doing a security analysis.
@@ -730,7 +733,7 @@ implementations that provide clear guidance on what identifiers they add.
    and looking for queries of a specific length.  Such traffic analysis
    could weaken some privacy solutions.
 
-   The IAB privacy and security program also have a work in progress
+   The IAB privacy and security program also have a document
    [@RFC7624] that considers such inference-based attacks in a more
    general framework.
 
@@ -1161,14 +1164,18 @@ big data analysis.</t></abstract>
 
 Update many references; Add discussions of encrypted transports including DoT and DoH; Added section on DNS payload; Add section on authentication of servers; Add section on blocking of services.  With the publishing of RFC7816 on QNAME minimisation, text, references, and initial attempts to measure deployment were added to reflect this.  The text and references on the Snowden revelations were updated. 
 
-The "Risks overview" section was changed to "Scope" to help clarify the risks being considered.  Text was adding on cellular network DNS, blocking and security
-
-* Collect considerations for recursive resolvers together
-* Re-work several sections here to clarify their context (e.g., ‘Rogue servers' becomes ‘Active attacks on resolver configuration’)
-* Add discussion of resolver selection
+The "Risks overview" section was changed to "Scope" to help clarify the risks being considered.  Text was adding on cellular network DNS, blocking and security.  Considerations for recursive resolvers were collected and placed together.  Addded a discussion on resolver selection. 
 
 
 # Changelog
+
+draft-ietf-dprive-rfc7626-bis-05
+
+* Second batch of Editorial updates from IESG last call
+
+draft-ietf-dprive-rfc7626-bis-07
+
+* First batch of Editorial updates from IESG last call
 
 draft-ietf-dprive-rfc7626-bis-06
 
