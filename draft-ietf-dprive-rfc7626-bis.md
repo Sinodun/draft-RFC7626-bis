@@ -8,7 +8,7 @@
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2020-09-22T00:00:00Z
+    date = 2020-10-07T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -51,7 +51,7 @@
    Its use has many privacy implications and this document is an attempt at a
    comprehensive and accurate list.
 
-   Let us begin with a simplified reminder of how the DNS works (See also
+   Lets begin with a simplified reminder of how the DNS works (See also
    [@?RFC8499]). A client, the stub resolver, issues a
    DNS query to a server, called the recursive resolver (also called caching
    resolver or full resolver or recursive name server). Let's use the query
@@ -76,7 +76,7 @@
    which will only send the relevant part of the question to the upstream name
    server.
 
-   DNS relies on caching heavily, so the algorithm described
+   DNS relies heavily on caching, so the algorithm described
    above is actually a bit more complicated, and not all questions are
    sent to the authoritative name servers.  If a few seconds later the
    stub resolver asks the recursive resolver, "What are the SRV records
@@ -98,7 +98,7 @@
    caching in the first resolver).
 
   At the time of writing, almost all this DNS traffic is currently
-  sent in clear (i.e., unencrypted). However there is increasing deployment
+  sent unencrypted. However, there is increasing deployment
   of DNS-over-TLS (DoT) [@RFC7858] and DNS-over-HTTPS (DoH)
   [@RFC8484], particularly in mobile devices, browsers, and by
   providers of anycast recursive DNS resolution services. There are a
@@ -109,7 +109,7 @@
    Today, almost all DNS queries are sent over UDP [@thomas-ditl-tcp]. This has
    practical consequences when considering encryption of the traffic as a
    possible privacy technique. Some encryption solutions are only designed for
-   TCP, not UDP and new solutions are still emerging [@I-D.ietf-quic-transport] [@I-D.huitema-quic-dnsoquic].
+   TCP, not UDP, and new solutions are still emerging [@I-D.ietf-quic-transport] [@I-D.ietf-dprive-dnsoquic].
 
    Another important point to keep in mind when analyzing the privacy
    issues of DNS is the fact that DNS requests received by a server are
@@ -138,22 +138,22 @@
   glue records are returned, a careful recursive server will do
   tertiary requests to verify the IP addresses of those records.
 
-   It can be noted also that, in the case of a typical web browser, more
+   It can also be noted that, in the case of a typical web browser, more
    DNS requests than strictly necessary are sent, for instance, to
    prefetch resources that the user may query later or when
-   autocompleting the URL in the address bar.  Both are a big privacy
+   autocompleting the URL in the address bar.  Both are a significant privacy
    concern since they may leak information even about non-explicit
    actions.  For instance, just reading a local HTML page, even without
    selecting the hyperlinks, may trigger DNS requests.
 
-   For privacy-related terms, we will use the terminology from
+   For privacy-related terms, the terminology is from
    [@!RFC6973].
 
 #   Scope
 
    This document focuses mostly on the study of privacy risks for the
-   end user (the one performing DNS requests).  We consider the risks of
-   pervasive surveillance [@!RFC7258] as well as risks coming from a more
+   end user (the one performing DNS requests).  The risks of
+   pervasive surveillance [@!RFC7258] are considered as well as risks coming from a more
    focused surveillance.
 
    This document does not attempt a comparison of specific privacy protections
@@ -184,16 +184,16 @@ device might utilize many different networks (e.g. home, work, public or
 cellular) over a period of time or even concurrently. An exhaustive analysis of
 the privacy considerations for an individual user would need to take into
 account the set of devices used and the multiple dynamic contexts of each
-device. This document does not attempt such a complex analysis, instead it
+device. This document does not attempt such a complex analysis, but instead it
 presents an overview of the various considerations that could form the basis of
 such an analysis.
 
 # Risks in the DNS Data
 
-##  The Alleged Public Nature of DNS Data
+##  The Public Nature of DNS Data
 
-   It has long been claimed that "the data in the DNS is public".  While
-   this sentence makes sense for an Internet-wide lookup system, there
+  It is often stated that "the data in the DNS is public".  This sentence
+   makes sense for an Internet-wide lookup system,  and there
    are multiple facets to the data and metadata involved that deserve a
    more detailed look.  First, access control lists (ACLs) and private
    namespaces notwithstanding, the DNS operates under the assumption
@@ -203,7 +203,8 @@ such an analysis.
    lack of search capabilities, only a given QNAME will reveal the
    resource records associated with that name (or that name's non-
    existence).  In other words: one needs to know what to ask for, in
-   order to receive a response.  The zone transfer QTYPE [@RFC5936] is
+   order to receive a response. There are many ways in which supposed "private"
+   resources currently leak. A few  examples are  DNSSEC NSEC zone walking[@RFC4470]; passive-DNS services[passive-dns]; etc. The zone transfer QTYPE [@RFC5936] is
    often blocked or restricted to authenticated/authorized access to
    enforce this difference (and maybe for other reasons).
 
@@ -212,7 +213,7 @@ such an analysis.
    data and the results of a DNS query are public, within the boundaries
    described above, and may not have any confidentiality requirements.
    However, the same is not true of a single transaction or a sequence of
-   transactions; those transaction are not / should not be public. A single 
+   transactions; those transactions are not / should not be public. A single 
    transactions reveals both the originator of the query and the query contents
    which potentially leaks sensitive information about a specific user. A
    typical example from outside the DNS world is: the web site of Alcoholics
@@ -290,7 +291,7 @@ DNS Cookies [@RFC7873] are a lightweight DNS transaction security mechanism that
 provides limited protection against a variety of increasingly common
 denial-of-service and amplification/forgery or cache poisoning attacks by
 off-path attackers. It is noted, however, that they are designed to just verify
-IP addresses (and should change once a client's IP address changes), they are
+IP addresses (and should change once a client's IP address changes), but they are
 not designed to actively track users (like HTTP cookies).
 
 There are anecdotal accounts of [MAC
@@ -323,7 +324,7 @@ implemented at the resolver (e.g., parental filtering).
    [@I-D.ietf-quic-transport]), the use of unencrypted transports for DNS may
    become "the weakest link" in privacy. It is noted that at the time of writing
    there is on-going work attempting to encrypt the SNI in the TLS handshake
-   [@I-D.ietf-tls-sni-encryption].
+   [@RFC8744].
 
    An important specificity of the DNS traffic is that it may take a
    different path than the communication between the initiator and the
@@ -361,7 +362,8 @@ implemented at the resolver (e.g., parental filtering).
   * The recursive resolver can be in the IAP network. For most residential
   users and potentially other networks, the typical case is for the end
   user's device to be configured (typically automatically through DHCP or
-  RA options) with the addresses of the DNS proxy in the CPE, which in turns
+  RA options) with the addresses of the DNS proxy in the Customer 
+  Premise Equipment (CPE), which in turns
   points to the DNS recursive resolvers at the IAP. The attack surface for
   on-the-wire attacks is therefore from the end user system across the
   local network and across the IAP network to the IAP's recursive resolvers.
@@ -377,7 +379,7 @@ implemented at the resolver (e.g., parental filtering).
   end user's connection and the public DNS service. It can be noted that if the
   user selects a single resolver with a small client population (even when using
   an encrypted transport) it can actually serve to aid tracking of that user as
-  they move across network environment.
+  they move across network environments.
 
   It is also noted that typically a device connected *only* to a modern cellular
   network is
@@ -406,11 +408,10 @@ There are some general examples, for example, certain studies have highlighted
 that IPv4 TTL, IPv6 Hop Limit, or TCP Window sizes [os-fingerprint](http://netres.ec/?b=11B99BD)
 values can be used to fingerprint client OS's or that various techniques can be
 used to de-NAT DNS queries
-[dns-de-nat](https://www.researchgate.net/publication/320322146_DNS-DNS_DNS-based_De-NAT_Scheme).
+[dns-de-nat].
 
-Note that even when using encrypted transports the use of clear text transport
-options to decrease latency can provide correlation of a users' connections e.g.
-using TCP Fast Open [@RFC7413].
+Note that even when using encrypted transports, the use of clear text transport
+options to decrease latency can provide correlation of a users' connections, e.g. using TCP Fast Open [@RFC7413].
 
 Implementations that support encrypted transports also commonly re-use
 connections for multiple DNS queries to optimize performance (e.g. via DNS
@@ -489,7 +490,7 @@ of a recursive resolver.
   The vast majority of users do not change their default system DNS settings
   and so implicitly accept the network settings for DNS. The network resolvers
   have therefore historically been the sole destination for all of the DNS
-  queries from a device. These resolvers may have strong, medium, or weak
+  queries from a device. These resolvers may have may have varied
   privacy policies depending on the network. Privacy policies for these servers
   may or may not be available and users need to be aware that privacy guarantees
   will vary with network.
@@ -514,11 +515,11 @@ of a recursive resolver.
    
    * ISP outsourcing, including to third party and public resolvers
    * regional market domination by one or only a few ISPs
-   * applications directing DNS traffic by default to limited subset of resolvers, see (#applicationspecific-resolver-selection)
+   * applications directing DNS traffic by default to a limited subset of resolvers, see (#applicationspecific-resolver-selection)
 
   An increased proportion of the global DNS resolution traffic being served by
   only a few entities means that the privacy considerations for end users are
-  additionally highly dependent on the privacy policies and practices of those
+  highly dependent on the privacy policies and practices of those
   entities. Many of the issues around centralization are discussed in
   [@centralisation-and-data-sovereignty].
 
@@ -564,7 +565,7 @@ Initiative [@EDDI].
   The previous section discussed DNS privacy, assuming that all the traffic
   was directed to the intended servers (i.e those that would be used in the
   absence of an active attack) and that the potential attacker was purely
-  passive. But, in reality, we can have active attackers in the network.
+  passive. But, in reality, there can be active attackers in the network.
 
   The Internet Threat model, as described in [@RFC3552], assumes that the attacker
   controls the network. Such an attacker can completely control any insecure DNS
@@ -579,8 +580,8 @@ Initiative [@EDDI].
 
 ### Blocking of User Selected DNS Resolution Services
 
-  User privacy can also be at risk if there is blocking (by local network
-  operators or more general mechanisms) of access to remote recursive servers
+  User privacy can also be at risk if there is blocking 
+   of access to remote recursive servers
   that offer encrypted transports when the local resolver does not offer
   encryption and/or has very poor privacy policies. For example, active blocking
   of port 853 for DoT or of specific IP addresses could restrict the resolvers
@@ -593,11 +594,11 @@ Initiative [@EDDI].
   As a matter of policy, some recursive resolvers use their position in the query
   path to selectively block access to certain DNS records. This is a form of
   Rendezvous-Based Blocking as described in Section 4.3 of [@RFC7754]. Such
-  blocklists often include servers know to be used for malware, bots or other
+  blocklists often include servers known to be used for malware, bots or other
   security risks. In order to prevent circumvention of their blocking policies,
   some networks also block access to resolvers with incompatible policies.
 
-  It is also noted that attacks on remote resolver services, e.g., DDoS could
+  It is also noted that attacks on remote resolver services, e.g., DDoS, could
   force users to switch to other services that do not offer encrypted transports
   for DNS.
 
@@ -757,14 +758,13 @@ implementations that provide clear guidance on what identifiers they add.
    [@dagon-malware], and [@darkreading-dns].
 
    Passive DNS systems [@passive-dns] allow reconstruction of the data of
-   sometimes an entire zone.  They are used for many reasons -- some
-   good, some bad.  Well-known passive DNS systems keep only the DNS
+   sometimes an entire zone. Well-known passive DNS systems keep only the DNS
    responses, and not the source IP address of the client, precisely for
    privacy reasons.  Other passive DNS systems may not be so careful.
    And there is still the potential problems with revealing QNAMEs.
 
    The revelations from the Edward Snowden documents, which were leaked from the
-   National Security Agency (NSA) provide evidence of the use of the DNS in mass
+   National Security Agency (NSA), provide evidence of the use of the DNS in mass
    surveillance operations [@morecowbell]. For example the MORECOWBELL
    surveillance program, which uses a dedicated covert monitoring infrastructure
    to actively query DNS servers and perform HTTP requests to obtain meta
@@ -781,7 +781,7 @@ implementations that provide clear guidance on what identifiers they add.
    country. Interpreting general privacy laws like [@data-protection-directive]
    or [GDPR](https://www.eugdpr.org/the-regulation.html) applicable in the
    European Union in the context of DNS traffic data is not an easy task, and
-   we do not know a court precedent here. See an interesting analysis in
+   there is no known court precedent. See an interesting analysis in
    [@sidn-entrada].
 
 
@@ -799,7 +799,7 @@ implementations that provide clear guidance on what identifiers they add.
 This document makes no requests of the IANA.
 
 # Contributions 
-   Sara Dickinson and Stephane Bortzmeyer were the original authors on the document, and their contribution on the initial version is greatly apprecriated. 
+   Sara Dickinson and Stephane Bortzmeyer were the original authors on the document, and their contribution on the initial version is greatly appreciated. 
 
 # Acknowledgments
    Thanks to Nathalie Boulvard and to the CENTR members for the original work
@@ -812,81 +812,6 @@ This document makes no requests of the IANA.
    Frank Denis for good written contributions. Thanks to Vittorio Bertola and
    Mohamed Boucadair for a detailed review of the -bis. And thanks to the IESG
    members for the last remarks.
-
-# Changelog
-
-draft-ietf-dprive-rfc7626-bis-06
-
-* Removed Sara and Stephane as editors, made chairs as Editor. 
-
-* Replaced the text in 6.1.1.2 with the text from the -04 version.
-
-* Clarified text about resolver selection in 6.1.1. 
-
-draft-ietf-dprive-rfc7626-bis-05
-
-* Editorial updates from second IESG last call
-* Section renumbering as suggested by Vittorio Bertola
-
-draft-ietf-dprive-rfc7626-bis-04
-
-* Tsvart review: Add reference to DNS-over-QUIC, fix typo.
-* Secdir review: Add text in Section 3 on devices using many networks. Update bullet in 3.4.1 on cellular encryption.
-* Section 3.5.1.1 - re-work the section to try to address multiple comments. 
-* Section 3.5.1.4 - remove this section as now covered by 3.5.1.1.
-* Section 3.5.1.5.2 - Remove several paragraphs and more directly reference
-  RFC8484 by including bullet points quoting text from Section 8.2 of RFC8484.
-  Retain the last 2 paragraphs as they are information for users, not
-  implementors.
-* Section 3.4.2 - some minor updates made based on specific comments.
-
-draft-ietf-dprive-rfc7626-bis-03
-
-* Address 2 minor nits (typo in section 3.4.1 and adding an IANA section)
-* Minor updates from AD review
-
-draft-ietf-dprive-rfc7626-bis-02
-
-* Numerous editorial corrections thanks to Mohamed Boucadair and
-  * Minor additions to Scope section
-  * New text on cellular network DNS
-* Additional text from Vittorio Bertola on blocking and security
-
-draft-ietf-dprive-rfc7626-bis-01
-
-* Re-structure section 3.5 (was 2.5) 
-  * Collect considerations for recursive resolvers together
-  * Re-work several sections here to clarify their context (e.g., ‘Rogue servers' becomes ‘Active attacks on resolver configuration’)
-  * Add discussion of resolver selection
-* Update text and old reference on Snowdon revelations.
-* Add text on and references to QNAME minimisation RFC and deployment measurements
-* Correct outdated references
-* Clarify scope by adding a Scope section (was Risks overview)
-* Clarify what risks are considered in section 3.4.2
-
-draft-ietf-dprive-rfc7626-bis-00
-
-* Rename after WG adoption
-* Use DoT acronym throughout
-* Minor updates to status of deployment and other drafts
-
-draft-bortzmeyer-dprive-rfc7626-bis-02
-
-* Update various references and fix some nits.
-
-draft-bortzmeyer-dprive-rfc7626-bis-01
-
-* Update reference for dickinson-bcp-op to draft-dickinson-dprive-bcp-op
-
-draft-borztmeyer-dprive-rfc7626-bis-00:
-
-Initial commit.  Differences to RFC7626:
-
-*  Update many references
-*  Add discussions of encrypted transports including DoT and DoH
-*  Add section on DNS payload
-*  Add section on authentication of servers
-*  Add section on blocking of services
 
 
 <reference anchor="os-fingerprint" target="http://www.netresec.com/?page=Blog&month=2011-11&post=Passive-OS-Fingerprinting">
@@ -1231,3 +1156,89 @@ big data analysis.</t></abstract>
 </reference>
 
 {backmatter}
+
+# Updates since RFC7626
+
+Update many references; Add discussions of encrypted transports including DoT and DoH; Added section on DNS payload; Add section on authentication of servers; Add section on blocking of services.  With the publishing of RFC7816 on QNAME minimisation, text, references, and initial attempts to measure deployment were added to reflect this.  The text and references on the Snowden revelations were updated. 
+
+The "Risks overview" section was changed to "Scope" to help clarify the risks being considered.  Text was adding on cellular network DNS, blocking and security
+
+* Collect considerations for recursive resolvers together
+* Re-work several sections here to clarify their context (e.g., ‘Rogue servers' becomes ‘Active attacks on resolver configuration’)
+* Add discussion of resolver selection
+
+
+# Changelog
+
+draft-ietf-dprive-rfc7626-bis-06
+
+* Removed Sara and Stephane as editors, made chairs as Editor. 
+
+* Replaced the text in 6.1.1.2 with the text from the -04 version.
+
+* Clarified text about resolver selection in 6.1.1. 
+
+draft-ietf-dprive-rfc7626-bis-05
+
+* Editorial updates from second IESG last call
+* Section renumbering as suggested by Vittorio Bertola
+
+draft-ietf-dprive-rfc7626-bis-04
+
+* Tsvart review: Add reference to DNS-over-QUIC, fix typo.
+* Secdir review: Add text in Section 3 on devices using many networks. Update bullet in 3.4.1 on cellular encryption.
+* Section 3.5.1.1 - re-work the section to try to address multiple comments. 
+* Section 3.5.1.4 - remove this section as now covered by 3.5.1.1.
+* Section 3.5.1.5.2 - Remove several paragraphs and more directly reference
+  RFC8484 by including bullet points quoting text from Section 8.2 of RFC8484.
+  Retain the last 2 paragraphs as they are information for users, not
+  implementors.
+* Section 3.4.2 - some minor updates made based on specific comments.
+
+draft-ietf-dprive-rfc7626-bis-03
+
+* Address 2 minor nits (typo in section 3.4.1 and adding an IANA section)
+* Minor updates from AD review
+
+draft-ietf-dprive-rfc7626-bis-02
+
+* Numerous editorial corrections thanks to Mohamed Boucadair and
+  * Minor additions to Scope section
+  * New text on cellular network DNS
+* Additional text from Vittorio Bertola on blocking and security
+
+draft-ietf-dprive-rfc7626-bis-01
+
+* Re-structure section 3.5 (was 2.5) 
+  * Collect considerations for recursive resolvers together
+  * Re-work several sections here to clarify their context (e.g., ‘Rogue servers' becomes ‘Active attacks on resolver configuration’)
+  * Add discussion of resolver selection
+* Update text and old reference on Snowdon revelations.
+* Add text on and references to QNAME minimisation RFC and deployment measurements
+* Correct outdated references
+* Clarify scope by adding a Scope section (was Risks overview)
+* Clarify what risks are considered in section 3.4.2
+
+draft-ietf-dprive-rfc7626-bis-00
+
+* Rename after WG adoption
+* Use DoT acronym throughout
+* Minor updates to status of deployment and other drafts
+
+draft-bortzmeyer-dprive-rfc7626-bis-02
+
+* Update various references and fix some nits.
+
+draft-bortzmeyer-dprive-rfc7626-bis-01
+
+* Update reference for dickinson-bcp-op to draft-dickinson-dprive-bcp-op
+
+draft-borztmeyer-dprive-rfc7626-bis-00:
+
+Initial commit.  Differences to RFC7626:
+
+*  Update many references
+*  Add discussions of encrypted transports including DoT and DoH
+*  Add section on DNS payload
+*  Add section on authentication of servers
+*  Add section on blocking of services
