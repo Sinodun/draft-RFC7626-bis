@@ -51,7 +51,7 @@
    Its use has many privacy implications and this document is an attempt at a
    comprehensive and accurate list.
 
-   Lets begin with a simplified reminder of how the DNS works (See also
+   Let us begin with a simplified reminder of how the DNS works (See also
    [@?RFC8499]). A client, the stub resolver, issues a
    DNS query to a server, called the recursive resolver (also called caching
    resolver or full resolver or recursive name server). Let's use the query
@@ -109,7 +109,7 @@
    Today, almost all DNS queries are sent over UDP [@thomas-ditl-tcp]. This has
    practical consequences when considering encryption of the traffic as a
    possible privacy technique. Some encryption solutions are only designed for
-   TCP, not UDP, and new solutions are still emerging [@I-D.ietf-quic-transport] [@I-D.ietf-dprive-dnsoquic].
+   TCP, not UDP, although new solutions are still emerging [@I-D.ietf-quic-transport] [@I-D.ietf-dprive-dnsoquic].
 
    Another important point to keep in mind when analyzing the privacy
    issues of DNS is the fact that DNS requests received by a server are
@@ -192,7 +192,7 @@ such an analysis.
 
 ##  The Public Nature of DNS Data
 
-  It is often stated that "the data in the DNS is public".  This sentence
+  It has been stated that "the data in the DNS is public".  This sentence
    makes sense for an Internet-wide lookup system,  and there
    are multiple facets to the data and metadata involved that deserve a
    more detailed look.  First, access control lists (ACLs) and private
@@ -203,13 +203,13 @@ such an analysis.
    lack of search capabilities, only a given QNAME will reveal the
    resource records associated with that name (or that name's non-
    existence).  In other words: one needs to know what to ask for, in
-   order to receive a response. There are many ways in which supposed "private"
+   order to receive a response. There are many ways in which supposedly "private"
    resources currently leak. A few  examples are  DNSSEC NSEC zone walking[@RFC4470]; passive-DNS services[passive-dns]; etc. The zone transfer QTYPE [@RFC5936] is
    often blocked or restricted to authenticated/authorized access to
    enforce this difference (and maybe for other reasons).
 
-   Another differentiation to be considered is between the DNS data
-   itself and a particular transaction (i.e., a DNS name lookup).  DNS
+   Another differencce between the DNS data and a particular DNS transaction
+   (i.e., a DNS name lookup).  DNS
    data and the results of a DNS query are public, within the boundaries
    described above, and may not have any confidentiality requirements.
    However, the same is not true of a single transaction or a sequence of
@@ -260,7 +260,7 @@ such an analysis.
    the issues and warnings about collection of IP addresses apply here. For the
    communication between the recursive resolver and the authoritative name
    servers, the source IP address has a different meaning; it does not have the
-   same status as the source address in an HTTP connection. It is typically the
+   same status as the source address in an HTTP connection. It can be typically the
    IP address of the recursive resolver that, in a way, "hides" the real user.
    However, hiding does not always work. Sometimes EDNS(0) Client subnet
    [@RFC7871] is used (see one privacy analysis in [@denis-edns-client-subnet]).
@@ -278,7 +278,8 @@ such an analysis.
    addresses. (For example, a specific IPv6 source address seen on the public
    Internet is less likely than an IPv4 address to originate behind an address
    sharing scheme.) However, for both IPv4 and IPv6 addresses, it is important
-   to note that source addresses are propagated with queries and comprise
+   to note that source addresses are propagated with queries via EDNS(0)
+   Client subnet and comprise
    metadata about the host, user, or application that originated them.
 
 ### Data in the DNS Payload
@@ -549,7 +550,7 @@ Initiative [@EDDI].
   Users will only be aware of and have the ability to control such
   settings if applications provide the following functions:
 
-  o  communicate clearly the change to users when the default application 
+  o  communicate clearly to users the change when the default application 
      resolver changes away from the system resolver
 
   o  provide configuration options to change the default
