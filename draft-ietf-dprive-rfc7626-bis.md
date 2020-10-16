@@ -8,7 +8,7 @@
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2020-10-09T00:00:00Z
+    date = 2020-10-15T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
