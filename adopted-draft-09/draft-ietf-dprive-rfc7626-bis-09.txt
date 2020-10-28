@@ -1485,7 +1485,7 @@ Appendix A.  Updates since RFC7626
 
 Appendix B.  Changelog
 
-   draft-ietf-dprive-rfc7626-bis-05
+   draft-ietf-dprive-rfc7626-bis-08
 
    o  Second batch of Editorial updates from IESG last call
 

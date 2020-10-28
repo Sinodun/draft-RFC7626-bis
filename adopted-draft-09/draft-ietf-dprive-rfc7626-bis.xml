@@ -1042,9 +1042,6 @@ years, we have come to refer to this project and related activities as
 <author fullname="Zaifeng Zhang" surname="Zhang" initials="Z."/>
 <author fullname="Jianping Wu" surname="Wu" initials="J."/>
 <date month="October" year="2019"/>
-<abstract>
-<t>Not available online.</t>
-</abstract>
 </front>
 <seriesInfo name="IMC '19" value="Amsterdam, Netherlands"/>
 <seriesInfo name="DOI" value="10.1145/3355369.3355580"/>
@@ -1248,7 +1245,7 @@ together.  Addded a discussion on resolver selection.
 </section>
 
 <section anchor="changelog" title="Changelog">
-<t>draft-ietf-dprive-rfc7626-bis-05
+<t>draft-ietf-dprive-rfc7626-bis-08
 </t>
 <t>
 <list style="symbols">
