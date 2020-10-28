@@ -2,13 +2,13 @@
     Title = "DNS Privacy Considerations"
     abbrev = "DNS Privacy Considerations"
     category = "info"
-    docName= "draft-ietf-dprive-rfc7626-bis-08"
+    docName= "draft-ietf-dprive-rfc7626-bis-09"
     ipr = "trust200902"
     area = "Internet Area"
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2020-10-15T00:00:00Z
+    date = 2020-10-26T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -33,7 +33,8 @@
 .# Abstract
 
   This document describes the privacy issues associated with the use of the DNS
-  by Internet users. It is intended to be an analysis of the present situation
+  by Internet users. It provides general observations about typical current
+  privacy practices. It is intended to be an analysis of the present situation
   and does not prescribe solutions. This document obsoletes RFC 7626.
    
 {mainmatter}
@@ -104,7 +105,8 @@
   providers of anycast recursive DNS resolution services. There are a
   few cases where there is some alternative channel encryption, for
   instance, in an IPsec VPN tunnel, at least between the stub resolver and
-  the resolver.
+  the resolver.   Some recent analysis on service quality of encrypted DNS
+  traffic can be found in [@dns-over-encryption].
 
    Today, almost all DNS queries are sent over UDP [@thomas-ditl-tcp]. This has
    practical consequences when considering encryption of the traffic as a
@@ -1159,18 +1161,46 @@ big data analysis.</t></abstract>
 </front>
 </reference>
 
+<reference anchor="dns-over-encryption"
+       target="http://dl.acm.org/citation.cfm?id=3355369.3355580">
+<front>
+<title>An End-to-End, Large-Scale Measurement of DNS-over-Encryption: How Far Have We Come?</title>
+<author fullname="Chaoyi Lu" surname="Lu" initials="C."/>
+<author fullname="Baojun Liu" surname="Liu" initials="B."/>
+<author fullname="Zhou Li" surname="Li" initials="Z."/>
+<author fullname="Shuang Hao" surname="Hao" initials="S."/>
+<author fullname="Haixin Duan" surname="Duan" initials="H."/>
+<author fullname="Mingming Zhang" surname="Zhang" initials="M."/>
+<author fullname="Chunying Leng" surname="Leng" initials="C."/>
+<author fullname="Ying Liu" surname="Liu" initials="Y."/>
+<author fullname="Zaifeng Zhang" surname="Zhang" initials="Z."/>
+<author fullname="Jianping Wu" surname="Wu" initials="J."/>
+<date month="October" year="2019"/>
+</front>
+<seriesInfo name="IMC '19" value="Amsterdam, Netherlands"/>
+<seriesInfo name="DOI" value="10.1145/3355369.3355580"/>
+</reference>
+
 {backmatter}
 
 # Updates since RFC7626
 
-Update many references; Add discussions of encrypted transports including DoT and DoH; Added section on DNS payload; Add section on authentication of servers; Add section on blocking of services.  With the publishing of RFC7816 on QNAME minimisation, text, references, and initial attempts to measure deployment were added to reflect this.  The text and references on the Snowden revelations were updated. 
+Update many references; Added discussions of encrypted transports including
+DoT and DoH; Added section on DNS payload; Added section on authentication of
+servers; Added section on blocking of services.  With the publishing of
+RFC7816 on QNAME minimisation, text, references, and initial attempts to
+measure deployment were added to reflect this.  The text and references on the
+Snowden revelations were updated.
 
-The "Risks overview" section was changed to "Scope" to help clarify the risks being considered.  Text was adding on cellular network DNS, blocking and security.  Considerations for recursive resolvers were collected and placed together.  Addded a discussion on resolver selection. 
+The "Risks overview" section was changed to "Scope" to help clarify the risks
+being considered.  Text was adding on cellular network DNS, blocking and
+security.  Considerations for recursive resolvers were collected and placed
+together.  Addded a discussion on resolver selection.
 
 
 # Changelog
 
-draft-ietf-dprive-rfc7626-bis-05
+draft-ietf-dprive-rfc7626-bis-08
 
 * Second batch of Editorial updates from IESG last call
 
