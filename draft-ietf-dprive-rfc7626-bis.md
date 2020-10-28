@@ -556,6 +556,7 @@ Initiative [@EDDI].
      resolver changes away from the system resolver
 
   o  provide configuration options to change the default
+  application resolver
 
   o  provide configuration options to always use the system resolver
 
@@ -1164,7 +1165,7 @@ big data analysis.</t></abstract>
 <reference anchor="dns-over-encryption"
        target="http://dl.acm.org/citation.cfm?id=3355369.3355580">
 <front>
-<title>An End-to-End, Large-Scale Measurement of DNS-over-Encryption: How Far Have We Come?</title>
+<title>An End-to-End, Large-Scale Measurement of DNS-over-Encryption</title>
 <author fullname="Chaoyi Lu" surname="Lu" initials="C."/>
 <author fullname="Baojun Liu" surname="Liu" initials="B."/>
 <author fullname="Zhou Li" surname="Li" initials="Z."/>
