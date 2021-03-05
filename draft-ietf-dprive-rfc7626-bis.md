@@ -111,7 +111,8 @@
    Today, almost all DNS queries are sent over UDP [@thomas-ditl-tcp]. This has
    practical consequences when considering encryption of the traffic as a
    possible privacy technique. Some encryption solutions are only designed for
-   TCP, not UDP, although new solutions are still emerging [@I-D.ietf-quic-transport] [@I-D.ietf-dprive-dnsoquic].
+   TCP, not UDP, although new solutions are still emerging [@I-D.ietf-quic-transport]
+    [@I-D.ietf-dprive-dnsoquic].
 
    Another important point to keep in mind when analyzing the privacy
    issues of DNS is the fact that DNS requests received by a server are
@@ -156,7 +157,8 @@
    This document focuses mostly on the study of privacy risks for the
    end user (the one performing DNS requests).  The risks of
    pervasive surveillance [@!RFC7258] are considered as well as risks coming from a more
-   focused surveillance.
+   focused surveillance.  In this document, the term end user comes 
+   from [@RFC8890].
 
    This document does not attempt a comparison of specific privacy protections
    provided by individual networks or organizations, it makes only general
@@ -206,7 +208,8 @@ such an analysis.
    resource records associated with that name (or that name's non-
    existence).  In other words: one needs to know what to ask for, in
    order to receive a response. There are many ways in which supposedly "private"
-   resources currently leak. A few  examples are  DNSSEC NSEC zone walking[@RFC4470]; passive-DNS services[passive-dns]; etc. The zone transfer QTYPE [@RFC5936] is
+   resources currently leak. A few  examples are  DNSSEC NSEC zone walking[@RFC4470];
+   passive-DNS services[passive-dns]; etc. The zone transfer QTYPE [@RFC5936] is
    often blocked or restricted to authenticated/authorized access to
    enforce this difference (and maybe for other reasons).
 
@@ -215,7 +218,7 @@ such an analysis.
    data and the results of a DNS query are public, within the boundaries
    described above, and may not have any confidentiality requirements.
    However, the same is not true of a single transaction or a sequence of
-   transactions; those transactions are not / should not be public. A single 
+   transactions; those transactions are not / should not be public. A single
    transaction reveals both the originator of the query and the query contents
    which potentially leaks sensitive information about a specific user. A
    typical example from outside the DNS world is: the web site of Alcoholics
@@ -267,9 +270,9 @@ such an analysis.
    IP address of the recursive resolver that, in a way, "hides" the real user.
    However, hiding does not always work. Sometimes EDNS(0) Client subnet
    [@RFC7871] is used (see one privacy analysis in [@denis-edns-client-subnet]).
-   Sometimes the end user has a personal recursive resolver on her machine. In
-   both cases, the IP address originating queries to the authoritative server is
-   as sensitive as it is for HTTP [@sidn-entrada].
+   Sometimes the end user has a personal recursive resolver on their machine.
+   In both cases, the IP address originating queries to the authoritative server
+   isas sensitive as it is for HTTP [@sidn-entrada].
 
    A note about IP addresses: there is currently no IETF document that describes
    in detail all the privacy issues around IP addressing in general, although
@@ -410,13 +413,15 @@ features. These issues are not specific to DNS, but DNS traffic is susceptible
 to these attacks when using specific transports.
 
 There are some general examples, for example, certain studies have highlighted
-that IPv4 TTL, IPv6 Hop Limit, or TCP Window sizes [os-fingerprint](http://netres.ec/?b=11B99BD)
+that IPv4 TTL, IPv6 Hop Limit, or TCP Window sizes
+[os-fingerprint](http://netres.ec/?b=11B99BD)
 values can be used to fingerprint client OS's or that various techniques can be
 used to de-NAT DNS queries
 [dns-de-nat].
 
 Note that even when using encrypted transports, the use of clear text transport
-options to decrease latency can provide correlation of a users' connections, e.g. using TCP Fast Open [@RFC7413].
+options to decrease latency can provide correlation of a users' connections,
+e.g. using TCP Fast Open [@RFC7413].
 
 Implementations that support encrypted transports also commonly re-use
 connections for multiple DNS queries to optimize performance (e.g. via DNS
@@ -559,9 +564,8 @@ Initiative [@EDDI].
      resolver changes away from the system resolver
 
   o  provide configuration options to change the default
-  application resolver
+  application resolver, including a choice to always use the system resolver
 
-  o  provide configuration options to always use the system resolver
 
   Application-specific changes to default destinations for users' DNS
   queries might increase or decrease user privacy - it is highly
@@ -587,7 +591,7 @@ Initiative [@EDDI].
   the client is compromised, the attacker can replace the DNS configuration with
   one of its own choosing.
 
-### Blocking of User Selected DNS Resolution Services
+### Blocking of DNS Resolution Services
 
   User privacy can also be at risk if there is blocking 
    of access to remote recursive servers
@@ -809,7 +813,8 @@ implementations that provide clear guidance on what identifiers they add.
 This document makes no requests of the IANA.
 
 # Contributions 
-   Sara Dickinson and Stephane Bortzmeyer were the original authors on the document, and their contribution on the initial version is greatly appreciated. 
+   Sara Dickinson and Stephane Bortzmeyer were the original authors on the
+   document, and their contribution on the initial version is greatly appreciated.
 
 # Acknowledgments
    Thanks to Nathalie Boulvard and to the CENTR members for the original work
@@ -931,7 +936,10 @@ webserver with JSON-api and a nice looking AJAX GUI.</t></abstract>
 <title>DNSmezzo</title>
 <author fullname="Stephane Bortzmeyer" surname="Bortzmeyer" initials="S."/>
 <date year="2009"/>
-<abstract><t>DNSmezzo is a framework for the capture and analysis of DNS packets. It allows the manager of a DNS name server to get information such as the top N domains requests, the percentage of IPv6 queries, the most talkative clients, etc. It is part of the broader program DNSwitness.</t></abstract>
+<abstract><t>DNSmezzo is a framework for the capture and analysis of DNS packets.
+ It allows the manager of a DNS name server to get information such as the top
+N domains requests, the percentage of IPv6 queries, the most talkative clients,
+etc. It is part of the broader program DNSwitness.</t></abstract>
 </front>
 </reference>
 
@@ -1044,8 +1052,10 @@ international conference on, IEEE, Piscataway, NJ, USA, 25 August 2010
 <author initials="J." surname="Garcia-Alfaro" fullname="J.Garcia-Alfaro"/>
 <date year="2008"/>
 <abstract>
-<t>OTM 2008 Confederated International Conferences, CoopIS, DOA, GADA, IS, and ODBASE 2008, Monterrey, Mexico, November 9-14, 2008, Proceedings</t>
-<t>Focus on ENUM privacy risks. A suggested solution is to add gratuitous queries, in order to hide the real ones.</t>
+<t>OTM 2008 Confederated International Conferences, CoopIS, DOA, GADA, IS, and
+ODBASE 2008, Monterrey, Mexico, November 9-14, 2008, Proceedings</t>
+<t>Focus on ENUM privacy risks. A suggested solution is to add gratuitous
+queries, in order to hide the real ones.</t>
 </abstract>
 </front>
 </reference>
@@ -1115,7 +1125,7 @@ harvest of Alexa Top N's authoritative name servers.
   <front>
     <title>Analyzing Characteristic Host Access Patterns for Re-Identification of
     Web User Sessions</title>
-    <author fullname="Dominik Herrmann" surname="Herrmann" initials="D."/>
+  7  <author fullname="Dominik Herrmann" surname="Herrmann" initials="D."/>
     <author fullname="Christoph Gerber" surname="Gerber" initials="C."/>
     <author fullname="Christian Banse" surname="Banse" initials="C."/>
     <author fullname="Hannes Federrath" surname="Federrath" initials="H."/>
@@ -1228,7 +1238,8 @@ draft-ietf-dprive-rfc7626-bis-05
 draft-ietf-dprive-rfc7626-bis-04
 
 * Tsvart review: Add reference to DNS-over-QUIC, fix typo.
-* Secdir review: Add text in Section 3 on devices using many networks. Update bullet in 3.4.1 on cellular encryption.
+* Secdir review: Add text in Section 3 on devices using many networks.
+* Update bullet in 3.4.1 on cellular encryption.
 * Section 3.5.1.1 - re-work the section to try to address multiple comments. 
 * Section 3.5.1.4 - remove this section as now covered by 3.5.1.1.
 * Section 3.5.1.5.2 - Remove several paragraphs and more directly reference
