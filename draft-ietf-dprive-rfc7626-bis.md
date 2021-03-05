@@ -8,7 +8,7 @@
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2020-10-26T00:00:00Z
+    date = 2021-03-05T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -1125,7 +1125,7 @@ harvest of Alexa Top N's authoritative name servers.
   <front>
     <title>Analyzing Characteristic Host Access Patterns for Re-Identification of
     Web User Sessions</title>
-  7  <author fullname="Dominik Herrmann" surname="Herrmann" initials="D."/>
+    <author fullname="Dominik Herrmann" surname="Herrmann" initials="D."/>
     <author fullname="Christoph Gerber" surname="Gerber" initials="C."/>
     <author fullname="Christian Banse" surname="Banse" initials="C."/>
     <author fullname="Hannes Federrath" surname="Federrath" initials="H."/>
