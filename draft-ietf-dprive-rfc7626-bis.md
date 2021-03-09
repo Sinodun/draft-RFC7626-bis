@@ -157,8 +157,8 @@
    This document focuses mostly on the study of privacy risks for the
    end user (the one performing DNS requests).  The risks of
    pervasive surveillance [@!RFC7258] are considered as well as risks coming from a more
-   focused surveillance.  In this document, the term end user comes 
-   from [@RFC8890].
+   focused surveillance.  In this document, the term 'end user' is used
+   as defined in [@RFC8890].
 
    This document does not attempt a comparison of specific privacy protections
    provided by individual networks or organizations, it makes only general
@@ -272,7 +272,7 @@ such an analysis.
    [@RFC7871] is used (see one privacy analysis in [@denis-edns-client-subnet]).
    Sometimes the end user has a personal recursive resolver on their machine.
    In both cases, the IP address originating queries to the authoritative server
-   isas sensitive as it is for HTTP [@sidn-entrada].
+   is as sensitive as it is for HTTP [@sidn-entrada].
 
    A note about IP addresses: there is currently no IETF document that describes
    in detail all the privacy issues around IP addressing in general, although
@@ -566,6 +566,9 @@ Initiative [@EDDI].
   o  provide configuration options to change the default
   application resolver, including a choice to always use the system resolver
 
+  o provide mechanisms for users to locally inspect, selectively forward,
+    and filter queries (either via the application itself or use of the
+    system resolver)
 
   Application-specific changes to default destinations for users' DNS
   queries might increase or decrease user privacy - it is highly
