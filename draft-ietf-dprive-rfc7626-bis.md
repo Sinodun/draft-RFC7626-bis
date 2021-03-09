@@ -2,13 +2,13 @@
     Title = "DNS Privacy Considerations"
     abbrev = "DNS Privacy Considerations"
     category = "info"
-    docName= "draft-ietf-dprive-rfc7626-bis-08"
+    docName= "draft-ietf-dprive-rfc7626-bis-09"
     ipr = "trust200902"
     area = "Internet Area"
     workgroup = "dprive"
     keyword = ["DNS"]
     obsoletes = [7626]
-    date = 2020-10-09T00:00:00Z
+    date = 2021-03-05T00:00:00Z
     [pi]
     toc = "yes"
     tocdepth = "6"
@@ -33,7 +33,8 @@
 .# Abstract
 
   This document describes the privacy issues associated with the use of the DNS
-  by Internet users. It is intended to be an analysis of the present situation
+  by Internet users. It provides general observations about typical current
+  privacy practices. It is intended to be an analysis of the present situation
   and does not prescribe solutions. This document obsoletes RFC 7626.
    
 {mainmatter}
@@ -104,12 +105,14 @@
   providers of anycast recursive DNS resolution services. There are a
   few cases where there is some alternative channel encryption, for
   instance, in an IPsec VPN tunnel, at least between the stub resolver and
-  the resolver.
+  the resolver.   Some recent analysis on service quality of encrypted DNS
+  traffic can be found in [@dns-over-encryption].
 
    Today, almost all DNS queries are sent over UDP [@thomas-ditl-tcp]. This has
    practical consequences when considering encryption of the traffic as a
    possible privacy technique. Some encryption solutions are only designed for
-   TCP, not UDP, although new solutions are still emerging [@I-D.ietf-quic-transport] [@I-D.ietf-dprive-dnsoquic].
+   TCP, not UDP, although new solutions are still emerging [@I-D.ietf-quic-transport]
+    [@I-D.ietf-dprive-dnsoquic].
 
    Another important point to keep in mind when analyzing the privacy
    issues of DNS is the fact that DNS requests received by a server are
@@ -154,7 +157,8 @@
    This document focuses mostly on the study of privacy risks for the
    end user (the one performing DNS requests).  The risks of
    pervasive surveillance [@!RFC7258] are considered as well as risks coming from a more
-   focused surveillance.
+   focused surveillance.  In this document, the term 'end user' is used
+   as defined in [@RFC8890].
 
    This document does not attempt a comparison of specific privacy protections
    provided by individual networks or organizations, it makes only general
@@ -204,17 +208,18 @@ such an analysis.
    resource records associated with that name (or that name's non-
    existence).  In other words: one needs to know what to ask for, in
    order to receive a response. There are many ways in which supposedly "private"
-   resources currently leak. A few  examples are  DNSSEC NSEC zone walking[@RFC4470]; passive-DNS services[passive-dns]; etc. The zone transfer QTYPE [@RFC5936] is
+   resources currently leak. A few  examples are  DNSSEC NSEC zone walking[@RFC4470];
+   passive-DNS services[passive-dns]; etc. The zone transfer QTYPE [@RFC5936] is
    often blocked or restricted to authenticated/authorized access to
    enforce this difference (and maybe for other reasons).
 
-   Another differencce between the DNS data and a particular DNS transaction
+   Another difference between the DNS data and a particular DNS transaction
    (i.e., a DNS name lookup).  DNS
    data and the results of a DNS query are public, within the boundaries
    described above, and may not have any confidentiality requirements.
    However, the same is not true of a single transaction or a sequence of
-   transactions; those transactions are not / should not be public. A single 
-   transactions reveals both the originator of the query and the query contents
+   transactions; those transactions are not / should not be public. A single
+   transaction reveals both the originator of the query and the query contents
    which potentially leaks sensitive information about a specific user. A
    typical example from outside the DNS world is: the web site of Alcoholics
    Anonymous is public; the fact that you visit it should not be. Furthermore,
@@ -224,8 +229,9 @@ such an analysis.
 ##  Data in the DNS Request
 
    The DNS request includes many fields, but two of them seem particularly
-   relevant for the privacy issues: the QNAME and the source IP address. "source
-   IP address" is used in a loose sense of "source IP address + maybe source
+   relevant for the privacy issues: the QNAME and the source IP address.
+   "source IP address" is used in a loose sense of "source IP address + maybe
+   source
    port number", because the port number is also in the request and can be used to
    differentiate between several users sharing an IP address (behind a
    Carrier-Grade NAT (CGN), for instance [@RFC6269]).
@@ -264,9 +270,9 @@ such an analysis.
    IP address of the recursive resolver that, in a way, "hides" the real user.
    However, hiding does not always work. Sometimes EDNS(0) Client subnet
    [@RFC7871] is used (see one privacy analysis in [@denis-edns-client-subnet]).
-   Sometimes the end user has a personal recursive resolver on her machine. In
-   both cases, the IP address originating queries to the authoritative server is
-   as sensitive as it is for HTTP [@sidn-entrada].
+   Sometimes the end user has a personal recursive resolver on their machine.
+   In both cases, the IP address originating queries to the authoritative server
+   is as sensitive as it is for HTTP [@sidn-entrada].
 
    A note about IP addresses: there is currently no IETF document that describes
    in detail all the privacy issues around IP addressing in general, although
@@ -352,7 +358,7 @@ implemented at the resolver (e.g., parental filtering).
   resolvers as discussed in (#in-the-authoritative-name-servers).
 
   * The recursive resolver may be at the local network edge.  For
-  many/most enterprise networks and for some residential users, the
+  many/most enterprise networks and for some residential networks, the
   caching resolver may exist on a server at the edge of the local
   network.  In this case, the attack surface is the local network.
   Note that in large enterprise networks, the DNS resolver may not
@@ -362,7 +368,7 @@ implemented at the resolver (e.g., parental filtering).
   Provider (IAP) network referenced below.
 
   * The recursive resolver can be in the IAP network. For most residential
-  users and potentially other networks, the typical case is for the end
+  networks and potentially other networks, the typical case is for the 
   user's device to be configured (typically automatically through DHCP or
   RA options) with the addresses of the DNS proxy in the Customer 
   Premise Equipment (CPE), which in turns
@@ -373,12 +379,12 @@ implemented at the resolver (e.g., parental filtering).
   * The recursive resolver can be a public DNS service (or a privately run DNS
   resolver hosted on the public internet).  Some machines
   may be configured to use public DNS resolvers such as those
-  operated by Google Public DNS or OpenDNS.  The end user may
+  operated by Google Public DNS or OpenDNS.  The user may
   have configured their machine to use these DNS recursive resolvers
   themselves -- or their IAP may have chosen to use the public DNS
   resolvers rather than operating their own resolvers.  In this
   case, the attack surface is the entire public Internet between the
-  end user's connection and the public DNS service. It can be noted that if the
+  user's connection and the public DNS service. It can be noted that if the
   user selects a single resolver with a small client population (even when using
   an encrypted transport) it can actually serve to aid tracking of that user as
   they move across network environments.
@@ -407,13 +413,15 @@ features. These issues are not specific to DNS, but DNS traffic is susceptible
 to these attacks when using specific transports.
 
 There are some general examples, for example, certain studies have highlighted
-that IPv4 TTL, IPv6 Hop Limit, or TCP Window sizes [os-fingerprint](http://netres.ec/?b=11B99BD)
+that IPv4 TTL, IPv6 Hop Limit, or TCP Window sizes
+[os-fingerprint](http://netres.ec/?b=11B99BD)
 values can be used to fingerprint client OS's or that various techniques can be
 used to de-NAT DNS queries
 [dns-de-nat].
 
 Note that even when using encrypted transports, the use of clear text transport
-options to decrease latency can provide correlation of a users' connections, e.g. using TCP Fast Open [@RFC7413].
+options to decrease latency can provide correlation of a users' connections,
+e.g. using TCP Fast Open [@RFC7413].
 
 Implementations that support encrypted transports also commonly re-use
 connections for multiple DNS queries to optimize performance (e.g. via DNS
@@ -430,7 +438,7 @@ If libraries or applications offer user configuration of such options (e.g.
 [@getdns]) then they could in principle help to identify a specific user. Users
 may want to use only the defaults to avoid this issue.
 
-Whilst there are known attacks on older versions of TLS the most recent
+Whilst there are known attacks on older versions of TLS, the most recent
 recommendations [@RFC7525] and the development of TLS 1.3 [@RFC8446] largely
 mitigate those.
 
@@ -492,22 +500,22 @@ of a recursive resolver.
   The vast majority of users do not change their default system DNS settings
   and so implicitly accept the network settings for DNS. The network resolvers
   have therefore historically been the sole destination for all of the DNS
-  queries from a device. These resolvers may have may have varied
+  queries from a device. These resolvers may have varied
   privacy policies depending on the network. Privacy policies for these servers
-  may or may not be available and users need to be aware that privacy guarantees
-  will vary with network.
+  may or may not be available and users need to be aware that privacy 
+  guarantees will vary with the network.
   
   All major OS’s expose the system DNS settings and allow users to manually
   override them if desired.
 
-   More recently, some networks and end users have actively chosen
+   More recently, some networks and users have actively chosen
    to use a large public resolver, e.g., [Google Public
    DNS](https://developers.google.com/speed/public-dns),
    [Cloudflare](https://developers.cloudflare.com/1.1.1.1/setting-up-1.1.1.1/),
    or [Quad9](https://www.quad9.net). There can be many reasons: cost
    considerations for network operators, better reliability or anti-censorship
    considerations are just a few. Such services typically do provide a privacy
-   policy and the end user can get an idea of the data collected by such
+   policy and the user can get an idea of the data collected by such
    operators by reading one e.g., [Google Public DNS - Your
    Privacy](https://developers.google.com/speed/public-dns/privacy).
 
@@ -520,7 +528,7 @@ of a recursive resolver.
    * applications directing DNS traffic by default to a limited subset of resolvers, see (#applicationspecific-resolver-selection)
 
   An increased proportion of the global DNS resolution traffic being served by
-  only a few entities means that the privacy considerations for end users are
+  only a few entities means that the privacy considerations for users are
   highly dependent on the privacy policies and practices of those
   entities. Many of the issues around centralization are discussed in
   [@centralisation-and-data-sovereignty].
@@ -547,15 +555,20 @@ Initiative [@EDDI].
   resolvers are available in different applications including hard-
   coded lists of recognized DoH/DoT servers.
 
-  Users will only be aware of and have the ability to control such
-  settings if applications provide the following functions:
+  Generally, users are not aware of application specific DNS settings, and may
+  not have control over those settings. To address these limitations, users 
+  will only be aware of and have the ability to control such settings if 
+  applications provide the following functions:
 
   o  communicate clearly to users the change when the default application 
      resolver changes away from the system resolver
 
   o  provide configuration options to change the default
+  application resolver, including a choice to always use the system resolver
 
-  o  provide configuration options to always use the system resolver
+  o provide mechanisms for users to locally inspect, selectively forward,
+    and filter queries (either via the application itself or use of the
+    system resolver)
 
   Application-specific changes to default destinations for users' DNS
   queries might increase or decrease user privacy - it is highly
@@ -581,14 +594,14 @@ Initiative [@EDDI].
   the client is compromised, the attacker can replace the DNS configuration with
   one of its own choosing.
 
-### Blocking of User Selected DNS Resolution Services
+### Blocking of DNS Resolution Services
 
   User privacy can also be at risk if there is blocking 
    of access to remote recursive servers
   that offer encrypted transports e.g., when the local resolver does not offer
   encryption and/or has very poor privacy policies. For example, active blocking
   of port 853 for DoT or of specific IP addresses could restrict the resolvers
-  available to the user. The extent of the risk to end user privacy is highly
+  available to the user. The extent of the risk to user privacy is highly
   dependent on the specific network and user context; a user on a network that
   is known to perform surveillance would be compromised if they could not access
   such services, whereas a user on a trusted network might have no privacy
@@ -659,7 +672,7 @@ implementations that provide clear guidance on what identifiers they add.
    of the traffic, and this subset may be sufficient to violate some privacy
    expectations.
 
-   Also, the end user often has some legal/contractual link with the
+   Also, the user often has some legal/contractual link with the
    recursive resolver (he has chosen the IAP, or he has chosen to use a
    given public resolver), while having no control and perhaps no
    awareness of the role of the authoritative name servers and their
@@ -692,7 +705,7 @@ implementations that provide clear guidance on what identifiers they add.
    or not but, in any case, it will have to follow its local laws.  For 
    example,
    requests to a given ccTLD may go to servers managed by organizations
-   outside of the ccTLD's country.  End users may not anticipate that,
+   outside of the ccTLD's country.  Users may not anticipate that,
    when doing a security analysis.
 
    Also, it seems (see the survey described in [@aeris-dns]) that there is a
@@ -803,7 +816,8 @@ implementations that provide clear guidance on what identifiers they add.
 This document makes no requests of the IANA.
 
 # Contributions 
-   Sara Dickinson and Stephane Bortzmeyer were the original authors on the document, and their contribution on the initial version is greatly appreciated. 
+   Sara Dickinson and Stephane Bortzmeyer were the original authors on the
+   document, and their contribution on the initial version is greatly appreciated.
 
 # Acknowledgments
    Thanks to Nathalie Boulvard and to the CENTR members for the original work
@@ -925,7 +939,10 @@ webserver with JSON-api and a nice looking AJAX GUI.</t></abstract>
 <title>DNSmezzo</title>
 <author fullname="Stephane Bortzmeyer" surname="Bortzmeyer" initials="S."/>
 <date year="2009"/>
-<abstract><t>DNSmezzo is a framework for the capture and analysis of DNS packets. It allows the manager of a DNS name server to get information such as the top N domains requests, the percentage of IPv6 queries, the most talkative clients, etc. It is part of the broader program DNSwitness.</t></abstract>
+<abstract><t>DNSmezzo is a framework for the capture and analysis of DNS packets.
+ It allows the manager of a DNS name server to get information such as the top
+N domains requests, the percentage of IPv6 queries, the most talkative clients,
+etc. It is part of the broader program DNSwitness.</t></abstract>
 </front>
 </reference>
 
@@ -1038,8 +1055,10 @@ international conference on, IEEE, Piscataway, NJ, USA, 25 August 2010
 <author initials="J." surname="Garcia-Alfaro" fullname="J.Garcia-Alfaro"/>
 <date year="2008"/>
 <abstract>
-<t>OTM 2008 Confederated International Conferences, CoopIS, DOA, GADA, IS, and ODBASE 2008, Monterrey, Mexico, November 9-14, 2008, Proceedings</t>
-<t>Focus on ENUM privacy risks. A suggested solution is to add gratuitous queries, in order to hide the real ones.</t>
+<t>OTM 2008 Confederated International Conferences, CoopIS, DOA, GADA, IS, and
+ODBASE 2008, Monterrey, Mexico, November 9-14, 2008, Proceedings</t>
+<t>Focus on ENUM privacy risks. A suggested solution is to add gratuitous
+queries, in order to hide the real ones.</t>
 </abstract>
 </front>
 </reference>
@@ -1159,18 +1178,46 @@ big data analysis.</t></abstract>
 </front>
 </reference>
 
+<reference anchor="dns-over-encryption"
+       target="http://dl.acm.org/citation.cfm?id=3355369.3355580">
+<front>
+<title>An End-to-End, Large-Scale Measurement of DNS-over-Encryption</title>
+<author fullname="Chaoyi Lu" surname="Lu" initials="C."/>
+<author fullname="Baojun Liu" surname="Liu" initials="B."/>
+<author fullname="Zhou Li" surname="Li" initials="Z."/>
+<author fullname="Shuang Hao" surname="Hao" initials="S."/>
+<author fullname="Haixin Duan" surname="Duan" initials="H."/>
+<author fullname="Mingming Zhang" surname="Zhang" initials="M."/>
+<author fullname="Chunying Leng" surname="Leng" initials="C."/>
+<author fullname="Ying Liu" surname="Liu" initials="Y."/>
+<author fullname="Zaifeng Zhang" surname="Zhang" initials="Z."/>
+<author fullname="Jianping Wu" surname="Wu" initials="J."/>
+<date month="October" year="2019"/>
+</front>
+<seriesInfo name="IMC '19" value="Amsterdam, Netherlands"/>
+<seriesInfo name="DOI" value="10.1145/3355369.3355580"/>
+</reference>
+
 {backmatter}
 
 # Updates since RFC7626
 
-Update many references; Add discussions of encrypted transports including DoT and DoH; Added section on DNS payload; Add section on authentication of servers; Add section on blocking of services.  With the publishing of RFC7816 on QNAME minimisation, text, references, and initial attempts to measure deployment were added to reflect this.  The text and references on the Snowden revelations were updated. 
+Update many references; Added discussions of encrypted transports including
+DoT and DoH; Added section on DNS payload; Added section on authentication of
+servers; Added section on blocking of services.  With the publishing of
+RFC7816 on QNAME minimisation, text, references, and initial attempts to
+measure deployment were added to reflect this.  The text and references on the
+Snowden revelations were updated.
 
-The "Risks overview" section was changed to "Scope" to help clarify the risks being considered.  Text was adding on cellular network DNS, blocking and security.  Considerations for recursive resolvers were collected and placed together.  Addded a discussion on resolver selection. 
+The "Risks overview" section was changed to "Scope" to help clarify the risks
+being considered.  Text was adding on cellular network DNS, blocking and
+security.  Considerations for recursive resolvers were collected and placed
+together.  Addded a discussion on resolver selection.
 
 
 # Changelog
 
-draft-ietf-dprive-rfc7626-bis-05
+draft-ietf-dprive-rfc7626-bis-08
 
 * Second batch of Editorial updates from IESG last call
 
@@ -1194,7 +1241,8 @@ draft-ietf-dprive-rfc7626-bis-05
 draft-ietf-dprive-rfc7626-bis-04
 
 * Tsvart review: Add reference to DNS-over-QUIC, fix typo.
-* Secdir review: Add text in Section 3 on devices using many networks. Update bullet in 3.4.1 on cellular encryption.
+* Secdir review: Add text in Section 3 on devices using many networks.
+* Update bullet in 3.4.1 on cellular encryption.
 * Section 3.5.1.1 - re-work the section to try to address multiple comments. 
 * Section 3.5.1.4 - remove this section as now covered by 3.5.1.1.
 * Section 3.5.1.5.2 - Remove several paragraphs and more directly reference
